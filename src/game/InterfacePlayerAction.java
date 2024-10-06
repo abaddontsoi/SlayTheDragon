@@ -1,5 +1,5 @@
 package game;
 
-public interface InterfacePlayerAction {
+public interface InterfacePlayerAction extends InterfaceAction {
 
 }
