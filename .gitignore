@@ -62,3 +62,5 @@ local.properties
 
 # VPP
 *.bak_*
+
+.DS_Store
