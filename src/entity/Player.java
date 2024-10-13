@@ -35,8 +35,9 @@ public class Player extends Entity {
 		// Display the chosen card
 		gameIO.displayMessage("The player used " + chosenCard.getName());
 	}
-
 	
-	
+	public String getName() {
+		return "Player";
+	}
 
 }
