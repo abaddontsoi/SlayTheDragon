@@ -23,7 +23,7 @@ public class BasicPoisonCard extends SkillCard {
 
 	@Override
 	public String getDescription() {
-		return "Inflic a poison effect on the target.";
+		return "Inflict a poison effect on the target.";
 	}
 
 
