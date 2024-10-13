@@ -84,7 +84,7 @@ public class GameIO {
 	
 	public void displayEntityStats(Entity entity) {
 		// Display the entity's health/max health, defense, and strength
-		String entityName = entity instanceof Player ? "Player" : "Enemy";
+		String entityName = entity.getName();
 		String message = entityName + " Stats: Health - " + entity.getHealth() + "/" + entity.getMaxHealth()
 				+ ", Defense - " + entity.getDefense()
 				+ ", Strength - " + entity.getStrength();
@@ -96,7 +96,7 @@ public class GameIO {
 	public void displayEntityEffects(Entity entity) {
 	    // Format the effects, showing the name and remaining duration
 	    // of each effect
-		String entityName = entity instanceof Player ? "Player" : "Enemy";
+		String entityName = entity.getName();
 	    StringBuilder effects = new StringBuilder(entityName + " Effects: ");
 	    List<IEffect> entityEffects = entity.getEffects();
 	
@@ -114,8 +114,19 @@ public class GameIO {
 	
 	    ioHandler.displayMessage(effects.toString());
 	}
-
-
+	
+	public void displayExpireEffectMessage(Entity entity, IEffect effect) {
+		ioHandler.displayMessage(entity.getName() + " effect expired: " + effect.getName());
+	}
+	
+	public void displayEffectStackMessage(IEffect effect) {
+		ioHandler.displayMessage("Effect stacked: " + effect.getName());
+	}
+	
+	public void displayEffectApplyMessage(Entity entity, IEffect effect) {
+		ioHandler.displayMessage(entity.getName() + " effect applied: " + effect.getName());
+	}
+	
     
 	public void displayMessage(String message) {
 		ioHandler.displayMessage(message);

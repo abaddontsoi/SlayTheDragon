@@ -91,6 +91,15 @@ public abstract class Entity {
 		return strength;
 	}
 	
+	public abstract String getName();
+	
+	/**
+	 * Add an effect to the entity. If an effect of the same type already exists,
+	 * stack the effect.
+	 * Note that we do not apply the effect here, we only add it to the entity.
+	 * 
+	 * @param effect The effect to add
+	 */
 	public void addEffect(IEffect effect) {
 		for (IEffect existingEffect : effects) {
             if (existingEffect.getClass().equals(effect.getClass())) {
@@ -99,7 +108,6 @@ public abstract class Entity {
             }
         }
         effects.add(effect);
-        effect.apply(this);
 	}
 	
 	public void applyEffects() {
@@ -107,13 +115,14 @@ public abstract class Entity {
         while (iterator.hasNext()) {
             IEffect effect = iterator.next();
             if (effect.isExpired()) {
-            	gameIO.displayMessage(effect.getFormattedEffectInfo() + " has expired.");
+            	this.gameIO.displayExpireEffectMessage(this, effect);
             	// Clean up the effect, the implementation is up to the effect
                 effect.remove(this);
                 // Remove the effect from the list
                 iterator.remove();
             }
             else {
+            	this.gameIO.displayEffectApplyMessage(this, effect);
                 effect.apply(this);
                 effect.decrementDuration();
             }
