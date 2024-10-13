@@ -3,6 +3,7 @@ package entity;
 import java.util.*;
 
 import card.ICard;
+import effect.EffectInTurns;
 
 public class Player extends Entity {
 	

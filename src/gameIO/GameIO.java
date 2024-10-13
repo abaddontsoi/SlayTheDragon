@@ -3,6 +3,7 @@ package gameIO;
 import java.util.List;
 
 import card.ICard;
+import effect.EffectInTurns;
 import effect.IEffect;
 import entity.Entity;
 import entity.Foe;
@@ -98,7 +99,7 @@ public class GameIO {
 	    // of each effect
 		String entityName = entity.getName();
 	    StringBuilder effects = new StringBuilder(entityName + " Effects: ");
-	    List<IEffect> entityEffects = entity.getEffects();
+	    List<EffectInTurns> entityEffects = entity.getEffects();
 	
 	    for (int i = 0; i < entityEffects.size(); i++) {
 	        IEffect effect = entityEffects.get(i);

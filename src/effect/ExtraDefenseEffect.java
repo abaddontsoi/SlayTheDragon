@@ -2,11 +2,11 @@ package effect;
 
 import entity.Entity;
 
-public class ExtraDefenseEffect extends AbstractEffect {
+public class ExtraDefenseEffect extends EffectInTurns {
 	private double extraDefense;
 
 	public ExtraDefenseEffect(double extraDefense, int duration) {
-		super("Extra Max Health", duration, false);
+		super("Extra Max Health", duration);
 		this.extraDefense = extraDefense;
 	}
 	
@@ -20,16 +20,19 @@ public class ExtraDefenseEffect extends AbstractEffect {
 		target.decreaseDefense(extraDefense);
 	}
 	
-	@Override
-	public void stack(IEffect other) {
-		if (this.equals(other)) {
-			this.roundsLeft += other.getRoundsLeft();
-		}
-	}
 
 	@Override
 	public String getFormattedEffectInfo() {
 		return String.format("%s (%d rounds, %.2f defense)", name, roundsLeft, extraDefense);
 	}
 
+	@Override
+	public void stack(EffectInTurns other) {
+		if (this.equals(other)) {
+	        int otherRoundsLeft = other.getRoundsLeft();
+			if (otherRoundsLeft > roundsLeft) {
+				roundsLeft = otherRoundsLeft;
+			}
+	    }
+	}
 }

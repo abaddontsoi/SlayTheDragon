@@ -11,7 +11,8 @@ public abstract class Entity {
 	protected double health;
 	protected double defense;
 	protected double strength;
-	protected List<IEffect> effects;
+	protected List<EffectInTurns> effectsInRounds;
+	protected List<EffectInTurns> permanentEffectsInRounds;
 	protected CardManager cardManager;
 	protected GameIO gameIO;
 	
@@ -20,7 +21,8 @@ public abstract class Entity {
 		this.health = maxHealth;
 		this.defense = defense;
 		this.strength = strength;
-		this.effects = new ArrayList<IEffect>();
+		this.effectsInRounds = new ArrayList<EffectInTurns>();
+		this.permanentEffectsInRounds = new ArrayList<EffectInTurns>();
 		this.cardManager = new CardManager(deck);
 		this.gameIO = GameIO.getInstance();
 	}
@@ -100,20 +102,30 @@ public abstract class Entity {
 	 * 
 	 * @param effect The effect to add
 	 */
-	public void addEffect(IEffect effect) {
-		for (IEffect existingEffect : effects) {
+	public void addEffect(EffectInTurns effect) {
+		for (EffectInTurns existingEffect : effectsInRounds) {
             if (existingEffect.getClass().equals(effect.getClass())) {
                 existingEffect.stack(effect);
                 return;
             }
         }
-        effects.add(effect);
+		effectsInRounds.add(effect);
+	}
+	
+	public void addPermanentEffectInRounds(EffectInTurns effect) {
+		for (EffectInTurns existingEffect : permanentEffectsInRounds) {
+			if (existingEffect.getClass().equals(effect.getClass())) {
+				return;
+			}
+		}
+		effect.apply(this);
+		permanentEffectsInRounds.add(effect);
 	}
 	
 	public void applyEffects() {
-		Iterator<IEffect> iterator = effects.iterator();
+		Iterator<EffectInTurns> iterator = effectsInRounds.iterator();
         while (iterator.hasNext()) {
-            IEffect effect = iterator.next();
+        	EffectInTurns effect = iterator.next();
             if (effect.isExpired()) {
             	this.gameIO.displayExpireEffectMessage(this, effect);
             	// Clean up the effect, the implementation is up to the effect
@@ -130,17 +142,12 @@ public abstract class Entity {
         }
 	}
 
-	public List<IEffect> getEffects() {
-        return effects;
+	public List<EffectInTurns> getEffects() {
+        return effectsInRounds;
 	}
 
-	public boolean hasEffect(IEffect effect) {
-        for (IEffect existingEffect : effects) {
-            if (existingEffect.getClass().equals(effect.getClass())) {
-                return true;
-            }
-        }
-        return false;
-    }
+	public boolean hasPermanentEffect(EffectInTurns effect) {
+		return permanentEffectsInRounds.contains(effect);
+	}
 
 }

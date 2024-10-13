@@ -2,21 +2,18 @@ package effect;
 
 import entity.Entity;
 
-public class PermanentExtraMaxHealthEffect extends AbstractEffect {
+public class PermanentExtraMaxHealthEffect extends EffectInTurns {
 	private double extraMaxHealth;
 
 	public PermanentExtraMaxHealthEffect(double extraMaxHealth) {
-		super("Extra Max Health (Permanent)", -1, true);
+		super("Extra Max Health (Permanent)", -1);
 		this.extraMaxHealth = extraMaxHealth;
 	}
 
 	@Override
 	public void apply(Entity target) {
-		// If the target already has the effect, we should not apply it again
-		if (!target.hasEffect(this)) {
-            target.increaseMaxHealth(extraMaxHealth);
-            target.heal(extraMaxHealth);
-		}
+		target.increaseMaxHealth(extraMaxHealth);
+        target.heal(extraMaxHealth);
 	}
 
 	@Override
@@ -25,7 +22,7 @@ public class PermanentExtraMaxHealthEffect extends AbstractEffect {
 	}
 	
 	@Override
-	public void stack(IEffect other) {
+	public void stack(EffectInTurns other) {
 		// We cannot stack permanent effects
 	}
 	

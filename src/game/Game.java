@@ -37,22 +37,22 @@ public class Game {
 //		Currently this function has some bugs
 //		- But I am lazy to fix it now
 //		- I will fix it later
-//		initializePlayerEffect();
+		initializePlayerEffect();
 	}
 
 	private void initializePlayerEffect() {
 		// Create a map of effects and their corresponding implementations
 		Map<String, Runnable> effects = new LinkedHashMap<>();
 		effects.put("Extra Max Health (Permanent)",
-				() -> player.addEffect(permanentEffectFactory.createEffect("PermanentExtraMaxHealthEffect")));
+				() -> player.addPermanentEffectInRounds(permanentEffectFactory.createEffect("PermanentExtraMaxHealthEffect")));
 		effects.put("Extra Defense (Permanent)",
-				() -> player.addEffect(permanentEffectFactory.createEffect("PermanentExtraDefenseEffect")));
+				() -> player.addPermanentEffectInRounds(permanentEffectFactory.createEffect("PermanentExtraDefenseEffect")));
 
 		// Prompt the user to choose an effect
 		String choice = gameIO.promptPermanentEffectSelection(new ArrayList<>(effects.keySet()));
 
 		// Execute the chosen effect
-		effects.get(choice);
+		effects.get(choice).run();
 	}
 
 	private void initializeFoes() {

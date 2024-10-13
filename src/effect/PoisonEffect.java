@@ -2,12 +2,12 @@ package effect;
 
 import entity.Entity;
 
-public class PoisonEffect extends AbstractEffect {
+public class PoisonEffect extends EffectInTurns {
 	private double poisonDamage;
 	
 
 	public PoisonEffect(double poisonDamage, int duration) {
-		super("Poison", duration, false);
+		super("Poison", duration);
 		this.poisonDamage = poisonDamage;
 	}
 	
@@ -23,9 +23,16 @@ public class PoisonEffect extends AbstractEffect {
 	}
 	
 	@Override
-	public void stack(IEffect other) {
+	public void stack(EffectInTurns other) {
 		if (this.equals(other)) {
-			this.roundsLeft += other.getRoundsLeft();
+			// If the other effect is also a poison effect
+			// and it has more rounds left than this effect
+			// then we should set the rounds left of this effect
+			// to be the same as the other effect
+			int otherRoundsLeft = other.getRoundsLeft();
+			if (otherRoundsLeft > roundsLeft) {
+				roundsLeft = otherRoundsLeft;
+			}
 		}
 	}
 

@@ -2,20 +2,17 @@ package effect;
 
 import entity.Entity;
 
-public class PermanentExtraDefenseEffect extends AbstractEffect {
+public class PermanentExtraDefenseEffect extends EffectInTurns {
 	private double extraDefense;
 
 	public PermanentExtraDefenseEffect(double extraDefense) {
-		super("Extra Defense (Permanent)", -1, true);
+		super("Extra Defense (Permanent)", -1);
 		this.extraDefense = extraDefense;
 	}
 	
 	@Override
 	public void apply(Entity target) {
-		// If the target already has the effect, we should not apply it again
-		if (!target.hasEffect(this)) {
-			target.increaseDefense(extraDefense);
-		}
+		target.increaseDefense(extraDefense);
 	}
 
 	@Override
@@ -24,7 +21,7 @@ public class PermanentExtraDefenseEffect extends AbstractEffect {
 	}
 	
 	@Override
-	public void stack(IEffect other) {
+	public void stack(EffectInTurns other) {
 		// We cannot stack permanent effects
 	}
 	
