@@ -33,6 +33,7 @@ public class Battle {
 
 
 	private void playerTurn() {
+		applyEffects(player);
 		// Display player's turn message
 		gameIO.displayPlayerTurn();
     	gameIO.displayEntityStats(player);
@@ -43,12 +44,12 @@ public class Battle {
 		player.initializeTurn();
         // Display player's available cards and prompt the player to choose a card
         player.chooseCard(enemy);
-        // Apply any effects to the user when the turn ends
-        applyEffects(player);
+        
         gameIO.displayMessage("=====================================================");
     }
 
     private void enemyTurn() {
+    	applyEffects(enemy);
     	// Display enemy's turn message
     	gameIO.displayEnemyTurn();
     	gameIO.displayEntityStats(player);
@@ -59,7 +60,6 @@ public class Battle {
         enemy.initializeTurn();
         // Enemy AI logic to choose and perform an action
         enemy.chooseCard(player);
-        applyEffects(enemy);
         gameIO.displayMessage("=====================================================");
     }
 
