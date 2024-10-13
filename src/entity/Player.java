@@ -1,37 +1,39 @@
 package entity;
 
-import gameIO.GameIO;
-
 import java.util.*;
 
-import action.*;
 import card.ICard;
 
 public class Player extends Entity {
-	private GameIO gameIO;
+	
+	
 
-	public Player(double maxHealth, double defense, double strength, GameIO gameIO) {
-		super(maxHealth, defense, strength);
-		this.gameIO = gameIO;
+	public Player(double maxHealth, double defense, double strength, List<ICard> deck) {
+		super(maxHealth, defense, strength, deck);
+	}
+	
+	public void initializeTurn() {
+		// Draw a card from the deck until the hand is full
+		while (cardManager.getHand().size() < cardManager.getMaxHandSize()) {
+            cardManager.drawCard();
+		}
 	}
 
-
 	@Override
-	public void chooseAction(Entity opponent) {
-	    // Create a map of actions and their corresponding implementations
-	    Map<String, Runnable> actions = new LinkedHashMap<>();
-	    actions.put("Attack", () -> new AttackAction(strength).execute(opponent));
-	    actions.put("Defend", () -> new DefendAction(defense).execute(this));
-	    actions.put("Use Card", () -> {
-	        ICard card = gameIO.promptCardSelection(hand);
-	        card.use(this, opponent);
-	    });
-	
-	    // Prompt the user to choose an action
-	    String choice = gameIO.promptActionSelection(new ArrayList<>(actions.keySet()));
-	
-	    // Execute the chosen action
-	    actions.get(choice).run();
+	public void chooseCard(Entity opponent) {
+		// Check if the hand is empty
+	    if (cardManager.getHand().isEmpty()) {
+	        System.out.println("No cards in hand.");
+	        return;
+	    }
+	    
+		// Prompt the player to choose a card
+		ICard chosenCard = gameIO.promptCardSelection(getHand());
+		// Use the chosen card
+		chosenCard.use(this, opponent);
+		cardManager.discardCard(chosenCard);
+		// Display the chosen card
+		gameIO.displayMessage("The player used " + chosenCard.getName());
 	}
 
 	

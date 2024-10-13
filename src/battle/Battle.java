@@ -33,23 +33,38 @@ public class Battle {
 
 
 	private void playerTurn() {
+		// Display player's turn message
 		gameIO.displayPlayerTurn();
-        // Display player's options, e.g., available cards
-        // Let the player choose an action and perform it
-        player.chooseAction(enemy);
+    	gameIO.displayEntityStats(player);
+    	gameIO.displayEntityStats(enemy);
+    	gameIO.displayEntityEffects(player);
+    	gameIO.displayEntityEffects(enemy);
+		// Initialise the player's turn
+		player.initializeTurn();
+        // Display player's available cards and prompt the player to choose a card
+        player.chooseCard(enemy);
+        // Apply any effects to the user when the turn ends
         applyEffects(player);
+        gameIO.displayMessage("=====================================================");
     }
 
     private void enemyTurn() {
+    	// Display enemy's turn message
     	gameIO.displayEnemyTurn();
+    	gameIO.displayEntityStats(player);
+    	gameIO.displayEntityStats(enemy);
+    	gameIO.displayEntityEffects(player);
+    	gameIO.displayEntityEffects(enemy);
+    	// Initialise the enemy's turn
+        enemy.initializeTurn();
         // Enemy AI logic to choose and perform an action
-        enemy.chooseAction(player);
+        enemy.chooseCard(player);
         applyEffects(enemy);
+        gameIO.displayMessage("=====================================================");
     }
 
     private void applyEffects(Entity entity) {
         entity.applyEffects();
-        // Handle any additional effect logic, like poison damage or regeneration
     }
 
     private void endBattle() {

@@ -2,9 +2,9 @@ package entity;
 
 import java.util.*;
 
-import action.IAction;
 import card.*;
 import effect.*;
+import gameIO.GameIO;
 
 public abstract class Entity {
 	protected double maxHealth;
@@ -12,20 +12,29 @@ public abstract class Entity {
 	protected double defense;
 	protected double strength;
 	protected List<IEffect> effects;
-	protected List<ICard> hand;
+	protected CardManager cardManager;
+	protected GameIO gameIO;
 	
-	public Entity(double maxHealth, double defense, double strength) {
+	public Entity(double maxHealth, double defense, double strength, List<ICard> deck) {
 		this.maxHealth = maxHealth;
 		this.health = maxHealth;
 		this.defense = defense;
 		this.strength = strength;
 		this.effects = new ArrayList<IEffect>();
-		this.hand = new ArrayList<ICard>();
+		this.cardManager = new CardManager(deck);
+		this.gameIO = GameIO.getInstance();
 	}
 	
 	public void takeDamage(double damage) {
-		double actualDamage = Math.max(0, damage - defense);
-		this.health -= actualDamage;
+		// Consume defence first
+		// If damage is greater than defense, the remaining damage is subtracted from health
+		if (defense >= damage) {
+			defense -= damage;
+		} else {
+			damage -= defense;
+			defense = 0;
+			health -= damage;
+		}
     }
 	
 	public void heal(double healAmount) {
@@ -40,21 +49,22 @@ public abstract class Entity {
 		this.defense -= defenseAmount;
 	}
 	
-	public void drawCard() {
-		// Not implemented yet
-	}
-	
+
 	// Maybe we can return the chosen action and let the Battle class to execute it
 	// The opponent is not necessary to be the action's target
 	// The target is determined in the action's execute method
-	abstract void chooseAction(Entity opponent);
+	abstract void chooseCard (Entity opponent);
 	
 	public void increaseMaxHealth(double healthAmount) {
+		// not necessary to increase the current health
 		this.maxHealth += healthAmount;
 	}
 	
 	public void decreaseMaxHealth(double healthAmount) {
 		this.maxHealth -= healthAmount;
+		if (health > maxHealth) {
+			health = maxHealth;
+		}
 	}
 	
 	public boolean isAlive() {
@@ -62,8 +72,24 @@ public abstract class Entity {
 	}
 	
 	public List<ICard> getHand() {
-        return hand;
+        return cardManager.getHand();
     }
+	
+	public double getHealth() {
+		return health;
+	}
+	
+	public double getMaxHealth() {
+		return maxHealth;
+	}
+	
+	public double getDefense() {
+		return defense;
+	}
+	
+	public double getStrength() {
+		return strength;
+	}
 	
 	public void addEffect(IEffect effect) {
 		for (IEffect existingEffect : effects) {
@@ -80,14 +106,32 @@ public abstract class Entity {
 		Iterator<IEffect> iterator = effects.iterator();
         while (iterator.hasNext()) {
             IEffect effect = iterator.next();
-            effect.apply(this);
-            effect.decrementDuration();
             if (effect.isExpired()) {
+            	gameIO.displayMessage(effect.getFormattedEffectInfo() + " has expired.");
             	// Clean up the effect, the implementation is up to the effect
                 effect.remove(this);
                 // Remove the effect from the list
                 iterator.remove();
             }
+            else {
+                effect.apply(this);
+                effect.decrementDuration();
+            }
+            
         }
 	}
+
+	public List<IEffect> getEffects() {
+        return effects;
+	}
+
+	public boolean hasEffect(IEffect effect) {
+        for (IEffect existingEffect : effects) {
+            if (existingEffect.getClass().equals(effect.getClass())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
 }

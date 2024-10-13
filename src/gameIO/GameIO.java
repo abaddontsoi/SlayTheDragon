@@ -3,6 +3,8 @@ package gameIO;
 import java.util.List;
 
 import card.ICard;
+import effect.IEffect;
+import entity.Entity;
 import entity.Foe;
 import entity.Player;
 
@@ -10,17 +12,17 @@ public class GameIO {
     private IIOHandler ioHandler;
     private static GameIO instance;
 
-    private GameIO(IIOHandler ioHandler) {
-        this.ioHandler = ioHandler;
-    }
-    
+	private GameIO() {
+		ioHandler = new ConsoleIOHandler();
+	}
+	
 	public static GameIO getInstance() {
 		if (instance == null) {
-			instance = new GameIO(new ConsoleIOHandler());
+			instance = new GameIO();
 		}
 		return instance;
 	}
-
+    
     public void displayBattleStart(Player player, Foe foe) {
         ioHandler.displayMessage("Battle begins between player and " + foe.getName());
     }
@@ -60,34 +62,6 @@ public class GameIO {
 	    return effectName;  // Return the chosen effect name
 	}
 
-
-
-
-
-	public String promptActionSelection(List<String> actions) {
-	    ioHandler.displayMessage("Choose an action:");
-	
-	    for (int i = 0; i < actions.size(); i++) {
-	        ioHandler.displayMessage((i + 1) + ". " + actions.get(i));
-	    }
-	
-	    int choice = -1;
-	    while (choice < 1 || choice > actions.size()) {
-	        ioHandler.displayMessage("Enter the number of your choice:");
-	        try {
-	            choice = Integer.parseInt(ioHandler.getInput());
-	        } catch (NumberFormatException e) {
-	            ioHandler.displayMessage("Invalid input. Please enter a number.");
-	        }
-	    }
-	
-	    String actionName = actions.get(choice - 1);
-	    ioHandler.displayMessage("You have chosen: " + actionName);
-	    
-	    return actionName;  // Return the chosen action name
-	}
-
-
 	public ICard promptCardSelection(List<ICard> hand) {
 	    ioHandler.displayMessage("Choose a card:");
 	
@@ -106,6 +80,39 @@ public class GameIO {
 	    }
 	
 	    return hand.get(choice - 1);  // Return the chosen card
+	}
+	
+	public void displayEntityStats(Entity entity) {
+		// Display the entity's health/max health, defense, and strength
+		String entityName = entity instanceof Player ? "Player" : "Enemy";
+		String message = entityName + " Stats: Health - " + entity.getHealth() + "/" + entity.getMaxHealth()
+				+ ", Defense - " + entity.getDefense()
+				+ ", Strength - " + entity.getStrength();
+		
+		ioHandler.displayMessage(message);
+	}
+	
+
+	public void displayEntityEffects(Entity entity) {
+	    // Format the effects, showing the name and remaining duration
+	    // of each effect
+		String entityName = entity instanceof Player ? "Player" : "Enemy";
+	    StringBuilder effects = new StringBuilder(entityName + " Effects: ");
+	    List<IEffect> entityEffects = entity.getEffects();
+	
+	    for (int i = 0; i < entityEffects.size(); i++) {
+	        IEffect effect = entityEffects.get(i);
+	        String formattedEffectInfo = effect.getFormattedEffectInfo();
+	
+	        effects.append(formattedEffectInfo);
+	
+	        // Only append the delimiter if this is not the last effect
+	        if (i < entityEffects.size() - 1) {
+	            effects.append(" | ");
+	        }
+	    }
+	
+	    ioHandler.displayMessage(effects.toString());
 	}
 
 

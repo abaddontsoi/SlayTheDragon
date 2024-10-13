@@ -10,4 +10,5 @@ public interface IEffect {
 	void decrementDuration();
 	int getRoundsLeft();
 	String getName();
+	String getFormattedEffectInfo();
 }

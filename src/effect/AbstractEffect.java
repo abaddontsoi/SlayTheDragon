@@ -15,7 +15,10 @@ public abstract class AbstractEffect implements IEffect{
 	
 	@Override
 	public boolean isExpired() {
-		return !isPermanent && roundsLeft <= 0;
+		if (isPermanent) {
+			return false;
+		}
+		return roundsLeft <= 0;
 	}
 	
 	@Override
@@ -33,6 +36,9 @@ public abstract class AbstractEffect implements IEffect{
 	
 	@Override
 	public abstract void stack(IEffect other);
+	
+	@Override
+	public abstract String getFormattedEffectInfo();
 	
 	@Override
 	public int getRoundsLeft() {

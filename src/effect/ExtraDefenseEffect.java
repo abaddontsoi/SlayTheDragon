@@ -26,5 +26,10 @@ public class ExtraDefenseEffect extends AbstractEffect {
 			this.roundsLeft += other.getRoundsLeft();
 		}
 	}
+	
+	@Override
+	public String getFormattedEffectInfo() {
+		return String.format("%s (%d rounds, %.2f defense)", name, roundsLeft, extraDefense);
+	}
 
 }

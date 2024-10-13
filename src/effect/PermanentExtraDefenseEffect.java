@@ -6,13 +6,16 @@ public class PermanentExtraDefenseEffect extends AbstractEffect {
 	private double extraDefense;
 
 	public PermanentExtraDefenseEffect(double extraDefense) {
-		super("Extra Defense (Permanent)", -1, false);
+		super("Extra Defense (Permanent)", -1, true);
 		this.extraDefense = extraDefense;
 	}
 	
 	@Override
 	public void apply(Entity target) {
-		target.increaseDefense(extraDefense);
+		// If the target already has the effect, we should not apply it again
+		if (!target.hasEffect(this)) {
+			target.increaseDefense(extraDefense);
+		}
 	}
 
 	@Override
@@ -23,5 +26,10 @@ public class PermanentExtraDefenseEffect extends AbstractEffect {
 	@Override
 	public void stack(IEffect other) {
 		// We cannot stack permanent effects
+	}
+	
+	@Override
+	public String getFormattedEffectInfo() {
+		return String.format("%s (%.2f defense)", name, extraDefense);
 	}
 }
