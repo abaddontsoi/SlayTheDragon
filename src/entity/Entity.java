@@ -40,8 +40,8 @@ public abstract class Entity {
 		this.defense -= defenseAmount;
 	}
 	
-	public void drawCard() {
-		// Not implemented yet
+	public void drawCard(ICard card) {
+		this.hand.add(card);
 	}
 	
 	// Maybe we can return the chosen action and let the Battle class to execute it
