@@ -6,6 +6,7 @@ import battle.Battle;
 import effect.*;
 import entity.*;
 import gameIO.GameIO;
+import card.*;
 
 public class Game {
 	private static Game instance = null;
