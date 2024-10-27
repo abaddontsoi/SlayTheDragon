@@ -2,11 +2,11 @@ package effect;
 
 import entity.Entity;
 
-public class ExtraMaxHealthEffect extends AbstractEffect {
+public class ExtraMaxHealthEffect extends EffectInTurns {
 	private double extraMaxHealth;
 
 	public ExtraMaxHealthEffect(double extraMaxHealth, int duration) {
-		super("Extra Max Health", duration, false);
+		super("Extra Max Health", duration);
 		this.extraMaxHealth = extraMaxHealth;
 	}
 	
@@ -21,10 +21,18 @@ public class ExtraMaxHealthEffect extends AbstractEffect {
 	}
 	
 	@Override
-	public void stack(IEffect other) {
-        if (this.equals(other)) {
-            this.roundsLeft += other.getRoundsLeft();
-        }
-    }
+	public void stack(EffectInTurns other) {
+		if (this.equals(other)) {
+			int otherRoundsLeft = other.getRoundsLeft();
+			if (otherRoundsLeft > roundsLeft) {
+				roundsLeft = otherRoundsLeft;
+			}
+		}
+	}
+	
+	@Override
+	public String getFormattedEffectInfo() {
+		return String.format("%s (%d rounds, %.2f max health)", name, roundsLeft, extraMaxHealth);
+	}
 
 }

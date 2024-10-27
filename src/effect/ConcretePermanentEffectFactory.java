@@ -3,10 +3,10 @@ package effect;
 public class ConcretePermanentEffectFactory implements IEffectFactory {
 
 	@Override
-	public IEffect createEffect(String effectType) {
+	public EffectInTurns createEffect(String effectType) {
 		 switch (effectType) {
          case "PermanentExtraMaxHealthEffect":
-             return new PermanentExtraMaxHealthEffect(500);
+             return new PermanentExtraMaxHealthEffect(60);
          case "PermanentExtraDefenseEffect":
              return new PermanentExtraDefenseEffect(20);
          // Add more cases for different effects
