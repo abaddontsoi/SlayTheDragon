@@ -1,11 +1,12 @@
 package record;
 
 import entity.Player;
+import entity.EntityStatus;
 import entity.Foe;
 
 public class BattleRecord extends Record {
 
-	public BattleRecord(Player p, Foe f) {
+	public BattleRecord(EntityStatus p, EntityStatus f) {
 		super(p, f);
 	}
 	
@@ -18,7 +19,7 @@ public class BattleRecord extends Record {
 	}
 
 	@Override
-	public IDataItem get() {
+	public Record get() {
 		// TODO Auto-generated method stub
 		return this;
 	}

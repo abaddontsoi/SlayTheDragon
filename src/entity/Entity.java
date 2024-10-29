@@ -130,4 +130,7 @@ public abstract class Entity {
 		return this.status.getPermanentEffectsInRounds().contains(effect);
 	}
 
+	public EntityStatus getEntityStatus() {
+		return this.status.getStatusCopy();
+	}
 }

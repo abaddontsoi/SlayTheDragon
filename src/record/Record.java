@@ -1,25 +1,43 @@
 package record;
 
 import java.util.ArrayList;
-import entity.Player;
-import entity.Foe;
+import java.util.List;
+import entity.*;
 
-public abstract class Record implements IDataItem {
+public abstract class Record {
 
-	private static ArrayList<Record> records = new ArrayList<Record>();
+	private static List<Record> records = new ArrayList<Record>();
 	
-	private Player player;
-	private Foe foe;
-	private ArrayList<IDataItem> turnData;
 	
-	public Record(Player p, Foe f) {
-		this.player = p;
-		this.foe = f;
-		this.turnData = new ArrayList<IDataItem>() ;
+	private EntityStatus playerStatus;
+	private EntityStatus foeStatus;
+	
+	private List<IDataItem> turnData = new ArrayList<IDataItem>();
+	
+	public Record(EntityStatus p, EntityStatus f) {
+		this.playerStatus = p;
+		this.foeStatus = f;
+		
+		Record.records.add(this);
 	}
 	
-	public ArrayList<IDataItem> getDataItems() {
+	public List<IDataItem> getDataItems() {
 		return turnData;
+	}
+	
+	public abstract Record get();
+	public abstract void set();
+	
+	public void print() {
+		
+	}
+	
+	public EntityStatus getPlayerStatus() {
+		return this.playerStatus.getStatusCopy();
+	}
+	
+	public EntityStatus getFoeStatus() {
+		return this.foeStatus.getStatusCopy();
 	}
 	
 	// static methods

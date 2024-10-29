@@ -10,6 +10,7 @@ public class Battle {
     private Foe enemy;
     private boolean isPlayerTurn;
     private GameIO gameIO;
+    private BattleRecord battleRecord;
 
 	public Battle(Player player, Foe enemy) {
 		this.player = player;
@@ -17,6 +18,7 @@ public class Battle {
 		// Player goes first
 		this.isPlayerTurn = true;
 		this.gameIO = GameIO.getInstance();
+		this.battleRecord = new BattleRecord(player.getEntityStatus(), enemy.getEntityStatus());
 	}
 	
 	public void startBattle() {
@@ -30,9 +32,6 @@ public class Battle {
             }
             isPlayerTurn = !isPlayerTurn;
         }
-        
-        // Create BattleRecord
-        Record.createRecord(new BattleRecord(player, enemy));
         
         endBattle();
     }

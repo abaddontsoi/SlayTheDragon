@@ -11,7 +11,7 @@ public class TurnData implements IDataItem {
 	@Override
 	public IDataItem get() {
 		// TODO Auto-generated method stub
-		return null;
+		return this;
 	}
 
 	@Override

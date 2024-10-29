@@ -187,8 +187,8 @@ public class EntityStatus implements IEntityStatus {
         }
 	}
 	
-	public IEntityStatus getStatusCopy() {
-		IEntityStatus copy = new EntityStatus(this.maxHealth, this.defense, this.strength);
+	public EntityStatus getStatusCopy() {
+		EntityStatus copy = new EntityStatus(this.maxHealth, this.defense, this.strength);
 		copy.setPermanentEffectsInRounds(permanentEffectsInRounds);
 		copy.setEffectsInRounds(effectsInRounds);
 		return copy;
