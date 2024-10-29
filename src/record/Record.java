@@ -6,20 +6,20 @@ import entity.Foe;
 
 public abstract class Record implements IDataItem {
 
-	private static ArrayList<Record> records;
+	private static ArrayList<Record> records = new ArrayList<Record>();
 	
 	private Player player;
 	private Foe foe;
-	private ArrayList<IDataItem> dataItems;
+	private ArrayList<IDataItem> turnData;
 	
 	public Record(Player p, Foe f) {
 		this.player = p;
 		this.foe = f;
-		this.dataItems = new ArrayList<IDataItem>() ;
+		this.turnData = new ArrayList<IDataItem>() ;
 	}
 	
 	public ArrayList<IDataItem> getDataItems() {
-		return dataItems;
+		return turnData;
 	}
 	
 	// static methods

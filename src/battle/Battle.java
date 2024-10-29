@@ -1,6 +1,8 @@
 package battle;
 
 import entity.*;
+import record.BattleRecord;
+import record.Record;
 import gameIO.GameIO;
 
 public class Battle {
@@ -28,6 +30,10 @@ public class Battle {
             }
             isPlayerTurn = !isPlayerTurn;
         }
+        
+        // Create BattleRecord
+        Record.createRecord(new BattleRecord(player, enemy));
+        
         endBattle();
     }
 

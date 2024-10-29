@@ -1,6 +1,6 @@
 package card;
 
-import action.AttackAction;
+//import action.AttackAction;
 import entity.Entity;
 
 public class AttackCard implements ICard {
@@ -12,7 +12,7 @@ public class AttackCard implements ICard {
 
 	@Override
 	public void use(Entity user, Entity target) {
-		new AttackAction(damage).execute(target);
+//		new AttackAction(damage).execute(target);
 	}
 
 	@Override
@@ -20,4 +20,8 @@ public class AttackCard implements ICard {
 		return "Attack Card";
 	}
 
+	@Override
+	public String getDescription() {
+		return "";
+	}
 }

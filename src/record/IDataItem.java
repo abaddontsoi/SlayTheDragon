@@ -2,6 +2,6 @@ package record;
 
 public interface IDataItem {
 	void print();
-	void get();
+	IDataItem get();
 	void set();
 }
