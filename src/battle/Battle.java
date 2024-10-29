@@ -45,10 +45,13 @@ public class Battle {
     	gameIO.displayEntityStats(enemy);
     	gameIO.displayEntityEffects(player);
     	gameIO.displayEntityEffects(enemy);
-		// Initialise the player's turn
+		
+    	// Initialise the player's turn
 		player.initializeTurn();
+		
         // Display player's available cards and prompt the player to choose a card
         player.chooseCard(enemy);
+        // After choosing and execute card, create a new turn data and push to battle record;
         
         gameIO.displayMessage("=====================================================");
     }
@@ -61,10 +64,14 @@ public class Battle {
     	gameIO.displayEntityStats(enemy);
     	gameIO.displayEntityEffects(player);
     	gameIO.displayEntityEffects(enemy);
+    	
     	// Initialise the enemy's turn
         enemy.initializeTurn();
+        
         // Enemy AI logic to choose and perform an action
         enemy.chooseCard(player);
+        // After choosing and execute card, create a new turn data and push to battle record;
+        
         gameIO.displayMessage("=====================================================");
     }
 
