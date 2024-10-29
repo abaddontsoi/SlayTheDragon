@@ -185,6 +185,12 @@ public class EntityStatus implements IEntityStatus {
                 effect.decrementDuration();
             }
         }
-
+	}
+	
+	public IEntityStatus getStatusCopy() {
+		IEntityStatus copy = new EntityStatus(this.maxHealth, this.defense, this.strength);
+		copy.setPermanentEffectsInRounds(permanentEffectsInRounds);
+		copy.setEffectsInRounds(effectsInRounds);
+		return copy;
 	}
 }
