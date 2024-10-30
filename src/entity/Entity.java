@@ -7,22 +7,28 @@ import effect.*;
 import gameIO.GameIO;
 
 public abstract class Entity {
-	protected double maxHealth;
-	protected double health;
-	protected double defense;
-	protected double strength;
-	protected List<EffectInTurns> effectsInRounds;
-	protected List<EffectInTurns> permanentEffectsInRounds;
+//	protected double maxHealth;
+//	protected double health;
+//	protected double defense;
+//	protected double strength;
+//	protected List<EffectInTurns> effectsInRounds;
+//	protected List<EffectInTurns> permanentEffectsInRounds;
+	
+	protected EntityStatus status;
+	
 	protected CardManager cardManager;
 	protected GameIO gameIO;
 	
 	public Entity(double maxHealth, double defense, double strength, List<ICard> deck) {
-		this.maxHealth = maxHealth;
-		this.health = maxHealth;
-		this.defense = defense;
-		this.strength = strength;
-		this.effectsInRounds = new ArrayList<EffectInTurns>();
-		this.permanentEffectsInRounds = new ArrayList<EffectInTurns>();
+//		this.maxHealth = maxHealth;
+//		this.health = maxHealth;
+//		this.defense = defense;
+//		this.strength = strength;
+//		this.effectsInRounds = new ArrayList<EffectInTurns>();
+//		this.permanentEffectsInRounds = new ArrayList<EffectInTurns>();
+
+		this.status = new EntityStatus(maxHealth, defense, strength);
+		
 		this.cardManager = new CardManager(deck);
 		this.gameIO = GameIO.getInstance();
 	}
@@ -30,25 +36,29 @@ public abstract class Entity {
 	public void takeDamage(double damage) {
 		// Consume defence first
 		// If damage is greater than defense, the remaining damage is subtracted from health
-		if (defense >= damage) {
-			defense -= damage;
-		} else {
-			damage -= defense;
-			defense = 0;
-			health -= damage;
-		}
-    }
+//		if (defense >= damage) {
+//			defense -= damage;
+//		} else {
+//			damage -= defense;
+//			defense = 0;
+//			health -= damage;
+//		}
+
+		this.status.takeDamage(damage);
+	}
 	
 	public void heal(double healAmount) {
-		this.health += healAmount;
+//		this.health += healAmount;
+		this.status.heal(healAmount);
 	}
 	
 	public void increaseDefense(double defenseAmount) {
-		this.defense += defenseAmount;
+//		this.defense += defenseAmount;
+		this.status.increaseDefense(defenseAmount);
 	}
 	
 	public void decreaseDefense(double defenseAmount) {
-		this.defense -= defenseAmount;
+		this.status.increaseDefense(-defenseAmount);
 	}
 	
 
@@ -58,19 +68,15 @@ public abstract class Entity {
 	abstract void chooseCard (Entity opponent);
 	
 	public void increaseMaxHealth(double healthAmount) {
-		// not necessary to increase the current health
-		this.maxHealth += healthAmount;
+		this.status.increaseMaxHealth(healthAmount);
 	}
 	
 	public void decreaseMaxHealth(double healthAmount) {
-		this.maxHealth -= healthAmount;
-		if (health > maxHealth) {
-			health = maxHealth;
-		}
+		this.increaseMaxHealth(-healthAmount);
 	}
 	
 	public boolean isAlive() {
-		return health > 0;
+		return this.status.isAlive();
 	}
 	
 	public List<ICard> getHand() {
@@ -78,19 +84,19 @@ public abstract class Entity {
     }
 	
 	public double getHealth() {
-		return health;
+		return this.status.getHealth();
 	}
 	
 	public double getMaxHealth() {
-		return maxHealth;
+		return this.status.getMaxHealth();
 	}
 	
 	public double getDefense() {
-		return defense;
+		return this.status.getDefense();
 	}
 	
 	public double getStrength() {
-		return strength;
+		return this.status.getStrength();
 	}
 	
 	public abstract String getName();
@@ -103,51 +109,28 @@ public abstract class Entity {
 	 * @param effect The effect to add
 	 */
 	public void addEffect(EffectInTurns effect) {
-		for (EffectInTurns existingEffect : effectsInRounds) {
-            if (existingEffect.getClass().equals(effect.getClass())) {
-                existingEffect.stack(effect);
-                return;
-            }
-        }
-		effectsInRounds.add(effect);
+		this.status.addEffect(effect);
 	}
 	
 	public void addPermanentEffectInRounds(EffectInTurns effect) {
-		for (EffectInTurns existingEffect : permanentEffectsInRounds) {
-			if (existingEffect.getClass().equals(effect.getClass())) {
-				return;
-			}
-		}
-		effect.apply(this);
-		permanentEffectsInRounds.add(effect);
+		this.status.addPermanentEffectInRounds(effect, this);
 	}
 	
+	
 	public void applyEffects() {
-		Iterator<EffectInTurns> iterator = effectsInRounds.iterator();
-        while (iterator.hasNext()) {
-        	EffectInTurns effect = iterator.next();
-            if (effect.isExpired()) {
-            	this.gameIO.displayExpireEffectMessage(this, effect);
-            	// Clean up the effect, the implementation is up to the effect
-                effect.remove(this);
-                // Remove the effect from the list
-                iterator.remove();
-            }
-            else {
-            	this.gameIO.displayEffectApplyMessage(this, effect);
-                effect.apply(this);
-                effect.decrementDuration();
-            }
-            
-        }
+		this.status.applyEffects(gameIO, this);
 	}
 
 	public List<EffectInTurns> getEffects() {
-        return effectsInRounds;
+		return this.status.getEffectsInRounds();
 	}
 
 	public boolean hasPermanentEffect(EffectInTurns effect) {
-		return permanentEffectsInRounds.contains(effect);
+		// return permanentEffectsInRounds.contains(effect);
+		return this.status.getPermanentEffectsInRounds().contains(effect);
 	}
 
+	public EntityStatus getEntityStatus() {
+		return this.status.getStatusCopy();
+	}
 }
