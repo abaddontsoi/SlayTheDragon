@@ -4,6 +4,7 @@ import entity.*;
 import record.BattleRecord;
 import record.Record;
 import gameIO.GameIO;
+import card.*;
 
 public class Battle {
 	private Player player;
@@ -23,6 +24,7 @@ public class Battle {
 	
 	public void startBattle() {
 		// Display battle start message
+        CardFactory cardFactory = CardFactory.getInstance();
 		gameIO.displayBattleStart(player, enemy);
         while (player.isAlive() && enemy.isAlive()) {
             if (isPlayerTurn) {

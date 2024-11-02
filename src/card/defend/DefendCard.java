@@ -3,22 +3,26 @@ package card.defend;
 import card.ICard;
 import entity.Entity;
 
-public abstract class DefendCard implements ICard {
-	private double block;
+public class DefendCard implements ICard {
+	private double defense;
 
-	public DefendCard(double block) {
-        this.block = block;
+	public DefendCard(double defense) {
+        this.defense = defense;
     }
 
 	@Override
 	public void use(Entity user, Entity target) {
-		user.increaseDefense(block);
+		user.increaseDefense(defense);
 	}
 
 	@Override
-	public abstract String getName();
+	public String getName(){
+		return null;
+	}
 
     @Override
-	public abstract String getDescription();
+	public String getDescription(){
+		return null;
+	}
 
 }

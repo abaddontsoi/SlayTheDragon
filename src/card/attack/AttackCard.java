@@ -3,7 +3,7 @@ package card.attack;
 import card.ICard;
 import entity.Entity;
 
-public abstract class AttackCard implements ICard {
+public class AttackCard implements ICard {
 	private double damage;
 
 	public AttackCard(double damage) {
@@ -16,9 +16,13 @@ public abstract class AttackCard implements ICard {
 	}
 
 	@Override
-	public abstract String getName();
+	public String getName(){
+		return null;
+	}
 
     @Override
-	public abstract String getDescription();
+	public String getDescription(){
+		return null;
+	}
 
 }
