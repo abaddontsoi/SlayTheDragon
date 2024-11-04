@@ -1,11 +1,13 @@
-package card.skill;
+package card.effect;
 
 import card.ICard;
+import effect.IEffect;
 import entity.Entity;
 
-public abstract class SkillCard implements ICard {
-	
-	public SkillCard() {
+public abstract class EffectCard implements ICard {
+	IEffect effectCard;
+	public EffectCard(IEffect IEffect) {
+		this.effectCard = IEffect;
 	}
 
 	@Override

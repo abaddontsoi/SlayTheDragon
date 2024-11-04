@@ -33,7 +33,8 @@ public class Game {
 	}
 
 	private void initializePlayer() {
-		this.player = new Player(300, 0, 0, CardFactory.createRandomDeck());
+
+		this.player = new Player(300, 0, 0, CardFactory.initialBasicCard());
 		// Add effects to the player
 //		Currently this function has some bugs
 //		- But I am lazy to fix it now
@@ -57,17 +58,18 @@ public class Game {
 	}
 
 	private void initializeFoes() {
+		
 		this.foes = new ArrayList<>();
-		this.foes.add(new Foe("Goblin", 100, 5, 5, CardFactory.createRandomDeck()));
-		this.foes.add(new Foe("Orc", 200, 10, 10, CardFactory.createRandomDeck()));
-		this.foes.add(new Foe("Troll", 300, 15, 15, CardFactory.createRandomDeck()));
-		this.foes.add(new Foe("Dragon", 400, 20, 20, CardFactory.createRandomDeck()));
-		this.foes.add(new Foe("Demon", 500, 25, 25, CardFactory.createRandomDeck()));
-		this.foes.add(new Foe("Death Knight", 600, 30, 30, CardFactory.createRandomDeck()));
-		this.foes.add(new Foe("Lich", 700, 35, 35, CardFactory.createRandomDeck()));
-		this.foes.add(new Foe("Beholder", 800, 40, 40, CardFactory.createRandomDeck()));
-		this.foes.add(new Foe("Mind Flayer", 900, 45, 45, CardFactory.createRandomDeck()));
-		this.foes.add(new Foe("Ancient Red Dragon", 1000, 50, 50, CardFactory.createRandomDeck()));
+		this.foes.add(new Foe("Goblin", 100, 5, 5));
+		this.foes.add(new Foe("Orc", 200, 10, 10));
+		this.foes.add(new Foe("Troll", 300, 15, 15));
+		this.foes.add(new Foe("Dragon", 400, 20, 20));
+		this.foes.add(new Foe("Demon", 500, 25, 25));
+		this.foes.add(new Foe("Death Knight", 600, 30, 30));
+		this.foes.add(new Foe("Lich", 700, 35, 35));
+		this.foes.add(new Foe("Beholder", 800, 40, 40));
+		this.foes.add(new Foe("Mind Flayer", 900, 45, 45));
+		this.foes.add(new Foe("Ancient Red Dragon", 1000, 50, 50));
 	}
 
 	public void startGame() {
