@@ -1,67 +1,47 @@
 
 package card;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
+
+import entity.Entity;
 
 public class CardManager {
-    private List<ICard> deck;
-    private List<ICard> hand;
-    private List<ICard> discardedCards;
-    private Random random = new Random();
-    private int maxHandSize;
+    private Deque <ICard> deck;
+    private List<ICard> discardPile;
+    private Random random;
+    private static final int INITIAL_HAND_SIZE = 5;
+
+    public CardManager(List<ICard> initialDeck) {
+        this.deck = new ArrayDeque<>(initialDeck);
+        this.discardPile = new ArrayList<>();
+        this.random = new Random();
+    }
+
+    public void drawCards(Entity entity) {
+         while (entity.getHand().size() < INITIAL_HAND_SIZE) {
+            entity.addCardToHand(drawCard());
+         }
+    }
     
-	public CardManager(List<ICard> deck) {
-        this.deck = deck;
-        this.hand = new ArrayList<>();
-        this.discardedCards = new ArrayList<>();
-        this.maxHandSize = 5;
-    }
-	
-	public void drawCard() {
+	public ICard drawCard() {
 		if (deck.isEmpty()) {
-			shuffleDiscardedCards();
+			replenishDeck();
 		}
-
-		ICard card = deck.remove(0);
-		hand.add(card);
+		return deck.pop();
 	}
-	
+			
 	public void discardCard(ICard card) {
-        hand.remove(card);
-        discardedCards.add(card);
-    }
-	
-	public void shuffleDiscardedCards() {
-		deck.addAll(discardedCards);
-		discardedCards.clear();
-		shuffleDeck();
+		discardPile.add(card);
 	}
-	
-	public void shuffleDeck() {
-        for (int i = deck.size() - 1; i > 0; i--) {
-            int j = random.nextInt(i + 1);
-            ICard temp = deck.get(i);
-            deck.set(i, deck.get(j));
-            deck.set(j, temp);
-        }
-    }
-	
-	public List<ICard> getHand() {
-		return hand;
-	}
-	
-	public List<ICard> getDeck() {
-        return deck;
-    }
-	
-	public List<ICard> getDiscardedCards() {
-        return discardedCards;
+
+
+    private void replenishDeck() {
+		Collections.shuffle(discardPile, random);
+		deck.addAll(discardPile);
+		discardPile.clear();
     }
 
-	public int getMaxHandSize() {
-		return maxHandSize;
+	public void addCardToDeck(ICard card) {
+		deck.add(card);	
 	}
-	
 }

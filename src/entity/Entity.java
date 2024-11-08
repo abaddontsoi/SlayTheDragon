@@ -15,9 +15,10 @@ public abstract class Entity {
 //	protected List<EffectInTurns> permanentEffectsInRounds;
 	
 	protected EntityStatus status;
-	
+	protected Hand hand;
 	protected CardManager cardManager;
 	protected GameIO gameIO;
+	protected static final int CHOSEN_CARDS_SIZE = 3;
 	
 	public Entity(double maxHealth, double defense, double strength, List<ICard> deck) {
 //		this.maxHealth = maxHealth;
@@ -28,7 +29,7 @@ public abstract class Entity {
 //		this.permanentEffectsInRounds = new ArrayList<EffectInTurns>();
 
 		this.status = new EntityStatus(maxHealth, defense, strength);
-		
+		this.hand = new Hand();
 		this.cardManager = new CardManager(deck);
 		this.gameIO = GameIO.getInstance();
 	}
@@ -61,11 +62,7 @@ public abstract class Entity {
 		this.status.increaseDefense(-defenseAmount);
 	}
 	
-
-	// Maybe we can return the chosen action and let the Battle class to execute it
-	// The opponent is not necessary to be the action's target
-	// The target is determined in the action's execute method
-	abstract void chooseCard (Entity opponent);
+	abstract List<ICard> chooseCards();
 	
 	public void increaseMaxHealth(double healthAmount) {
 		this.status.increaseMaxHealth(healthAmount);
@@ -132,5 +129,9 @@ public abstract class Entity {
 
 	public EntityStatus getEntityStatus() {
 		return this.status.getStatusCopy();
+	}
+
+	public void addCardToHand(ICard card) {
+		this.hand.addCardToHand(card);
 	}
 }

@@ -1,5 +1,6 @@
 package entity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import card.ICard;
@@ -14,31 +15,36 @@ public class Foe extends Entity {
 	}
 	
 	public void initializeTurn() {
-		// Draw a card from the deck until the hand is full
-		while (cardManager.getHand().size() < cardManager.getMaxHandSize()) {
-			cardManager.drawCard();
-		}
+		cardManager.drawCards(this);
 	}
 
 
 	@Override
-	public void chooseCard(Entity opponent) {
-	    // Check if the hand is empty
-	    if (cardManager.getHand().isEmpty()) {
-	        System.out.println("No cards in hand.");
-	        return;
-	    }
-	
-	    // Choose a card randomly
-	    int randomIndex = (int) (Math.random() * cardManager.getHand().size());
-	    ICard chosenCard = cardManager.getHand().get(randomIndex);
-	
-	    // Use the chosen card
-	    chosenCard.use(this, opponent);
-	    cardManager.discardCard(chosenCard);
-	
-	    // Display the chosen card
-	    System.out.println(name + " used " + chosenCard.getName());
+	public List<ICard> chooseCards() {
+		List<ICard> chosenCards = new ArrayList<>();
+		// Check if the hand is empty
+		if (chosenCards.isEmpty()) {
+			cardManager.drawCards(this);
+		}
+		
+		// Choose the first CHOSEN_CARDS_SIZE cards
+		// put them in the chosen cards and discard them
+		for (int i = 0; i < CHOSEN_CARDS_SIZE; i++) {
+            ICard chosenCard = hand.getCard(i);
+            chosenCards.add(chosenCard);
+            hand.removeCardFromHand(chosenCard);
+            cardManager.discardCard(chosenCard);
+        }
+		
+		// Put rest of the hand back to the discarded cards
+		for (ICard card : hand.getCards()) {
+			cardManager.discardCard(card);
+		}
+		
+		// Clear the hand
+		hand.clear();
+		
+		return chosenCards;
 	}
 
 
