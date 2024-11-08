@@ -76,8 +76,8 @@ public abstract class Entity {
 		return this.status.isAlive();
 	}
 	
-	public List<ICard> getHand() {
-        return cardManager.getHand();
+	public List<ICard> getHandCards() {
+        return this.hand.getCards();
     }
 	
 	public double getHealth() {

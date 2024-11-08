@@ -18,7 +18,7 @@ public class CardManager {
     }
 
     public void drawCards(Entity entity) {
-         while (entity.getHand().size() < INITIAL_HAND_SIZE) {
+         while (entity.getHandCards().size() < INITIAL_HAND_SIZE) {
             entity.addCardToHand(drawCard());
          }
     }
