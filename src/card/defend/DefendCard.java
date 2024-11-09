@@ -1,24 +1,28 @@
 package card.defend;
 
 import card.ICard;
+import entity.Entity;
 
-abstract class DefendCard implements ICard {
-	private int block;
+public class DefendCard implements ICard {
+	private double defense;
 
-	public DefendCard(int defense) {
-        this.block = defense;
+	public DefendCard(double defense) {
+        this.defense = defense;
     }
-	
-	public int getBlock() {
-        return  block;
-    }
-	
+
 	@Override
-	public DefendCard clone() {
-		try {
-			return (DefendCard) super.clone();
-		} catch (CloneNotSupportedException e) {
-			return null;
-		}
+	public void use(Entity user, Entity target) {
+		user.increaseDefense(defense);
 	}
+
+	@Override
+	public String getName(){
+		return null;
+	}
+
+    @Override
+	public String getDescription(){
+		return null;
+	}
+
 }

@@ -4,9 +4,6 @@ import entity.*;
 import record.BattleRecord;
 import record.Record;
 import gameIO.GameIO;
-
-import java.util.List;
-
 import card.*;
 
 public class Battle {
@@ -54,8 +51,8 @@ public class Battle {
     	// Initialise the player's turn
 		player.initializeTurn();
 		
-        // Display player's available cards and prompt the player to choose 3 cards
-        List<ICard> chosenCards = player.chooseCards();
+        // Display player's available cards and prompt the player to choose a card
+        player.chooseCard(enemy);
         // After choosing and execute card, create a new turn data and push to battle record;
         
         gameIO.displayMessage("=====================================================");
@@ -73,9 +70,8 @@ public class Battle {
     	// Initialise the enemy's turn
         enemy.initializeTurn();
         
-        // Enemy AI logic to choose cards
-       List<ICard> chosenCards = enemy.chooseCards();
-        
+        // Enemy AI logic to choose and perform an action
+        enemy.chooseCard(player);
         // After choosing and execute card, create a new turn data and push to battle record;
         
         gameIO.displayMessage("=====================================================");
@@ -84,19 +80,11 @@ public class Battle {
     private void applyEffects(Entity entity) {
         entity.applyEffects();
     }
-    
-	private void rewardPlayer() {
-		// Reward player, add a card from to pool to the player's deck
-		CardPool cardPool = CardPool.getInstance();
-		ICard card = cardPool.getRandomCard();
-		player.addCardToDeck(card);
-	}
 
     private void endBattle() {
         if (player.isAlive()) {
         	gameIO.displayMessage("Player wins!");
-            rewardPlayer();
-        	
+            // Reward player or progress to next level
         } else {
         	gameIO.displayMessage("Enemy wins!");
             // Handle game over logic

@@ -33,7 +33,12 @@ public class Game {
 	}
 
 	private void initializePlayer() {
-		this.player = new Player(300, 0, 0, createPlayerInitialDeck());
+
+		this.player = new Player(300, 0, 0, CardFactory.initialBasicCard());
+		// Add effects to the player
+//		Currently this function has some bugs
+//		- But I am lazy to fix it now
+//		- I will fix it later
 		initializePlayerEffect();
 	}
 
@@ -50,20 +55,6 @@ public class Game {
 
 		// Execute the chosen effect
 		effects.get(choice).run();
-	}
-	
-	private List<ICard> createPlayerInitialDeck() {
-		List<ICard> deck = new ArrayList<>();
-		CardFactory cardFactory = CardFactory.getInstance();
-		deck.add(cardFactory.createCard(CardName.ATTACK_BASIC));
-		deck.add(cardFactory.createCard(CardName.ATTACK_BASIC));
-		deck.add(cardFactory.createCard(CardName.ATTACK_BASIC));
-		deck.add(cardFactory.createCard(CardName.DEFEND_BASIC));
-		deck.add(cardFactory.createCard(CardName.DEFEND_BASIC));
-		deck.add(cardFactory.createCard(CardName.DEFEND_BASIC));
-		deck.add(cardFactory.createCard(CardName.SKILL_BASIC_HEAL));
-		deck.add(cardFactory.createCard(CardName.SKILL_BASIC_HEAL));
-		return deck;
 	}
 
 	private void initializeFoes() {

@@ -1,7 +1,9 @@
 package card;
 
-public interface ICard extends Cloneable {
+import entity.Entity;
+
+public interface ICard {
+    void use(Entity user, Entity target);
     String getName();
     String getDescription();
-    ICard clone();
 }

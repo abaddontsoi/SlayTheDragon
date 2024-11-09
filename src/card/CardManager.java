@@ -1,47 +1,67 @@
 
 package card;
 
-import java.util.*;
-
-import entity.Entity;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 
 public class CardManager {
-    private Deque <ICard> deck;
-    private List<ICard> discardPile;
-    private Random random;
-    private static final int INITIAL_HAND_SIZE = 5;
-
-    public CardManager(List<ICard> initialDeck) {
-        this.deck = new ArrayDeque<>(initialDeck);
-        this.discardPile = new ArrayList<>();
-        this.random = new Random();
-    }
-
-    public void drawCards(Entity entity) {
-         while (entity.getHandCards().size() < INITIAL_HAND_SIZE) {
-            entity.addCardToHand(drawCard());
-         }
-    }
+    private List<ICard> deck;
+    private List<ICard> hand;
+    private List<ICard> discardedCards;
+    private Random random = new Random();
+    private int maxHandSize;
     
-	public ICard drawCard() {
+	public CardManager(List<ICard> deck) {
+        this.deck = deck;
+        this.hand = new ArrayList<>();
+        this.discardedCards = new ArrayList<>();
+        this.maxHandSize = 5;
+    }
+	
+	public void drawCard() {
 		if (deck.isEmpty()) {
-			replenishDeck();
+			shuffleDiscardedCards();
 		}
-		return deck.pop();
+
+		ICard card = deck.remove(0);
+		hand.add(card);
 	}
-			
+	
 	public void discardCard(ICard card) {
-		discardPile.add(card);
+        hand.remove(card);
+        discardedCards.add(card);
+    }
+	
+	public void shuffleDiscardedCards() {
+		deck.addAll(discardedCards);
+		discardedCards.clear();
+		shuffleDeck();
 	}
-
-
-    private void replenishDeck() {
-		Collections.shuffle(discardPile, random);
-		deck.addAll(discardPile);
-		discardPile.clear();
+	
+	public void shuffleDeck() {
+        for (int i = deck.size() - 1; i > 0; i--) {
+            int j = random.nextInt(i + 1);
+            ICard temp = deck.get(i);
+            deck.set(i, deck.get(j));
+            deck.set(j, temp);
+        }
+    }
+	
+	public List<ICard> getHand() {
+		return hand;
+	}
+	
+	public List<ICard> getDeck() {
+        return deck;
+    }
+	
+	public List<ICard> getDiscardedCards() {
+        return discardedCards;
     }
 
-	public void addCardToDeck(ICard card) {
-		deck.add(card);	
+	public int getMaxHandSize() {
+		return maxHandSize;
 	}
+	
 }
