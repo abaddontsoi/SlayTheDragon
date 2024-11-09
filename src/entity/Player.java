@@ -3,42 +3,53 @@ package entity;
 import java.util.*;
 
 import card.ICard;
-import effect.EffectInTurns;
 
 public class Player extends Entity {
-	
-	
 
 	public Player(double maxHealth, double defense, double strength, List<ICard> deck) {
 		super(maxHealth, defense, strength, deck);
 	}
 	
 	public void initializeTurn() {
-		// Draw a card from the deck until the hand is full
-		while (cardManager.getHand().size() < cardManager.getMaxHandSize()) {
-            cardManager.drawCard();
-		}
+		cardManager.drawCards(this);
 	}
 
 	@Override
-	public void chooseCard(Entity opponent) {
+	public List<ICard> chooseCards() {
+		List<ICard> chosenCards = new ArrayList<>();
 		// Check if the hand is empty
-	    if (cardManager.getHand().isEmpty()) {
-	        System.out.println("No cards in hand.");
-	        return;
-	    }
-	    
-		// Prompt the player to choose a card
-		ICard chosenCard = gameIO.promptCardSelection(getHand());
-		// Use the chosen card
-		chosenCard.use(this, opponent);
-		cardManager.discardCard(chosenCard);
-		// Display the chosen card
-		gameIO.displayMessage("The player used " + chosenCard.getName());
+		if (hand.isEmpty()) {
+			cardManager.drawCards(this);
+		}
+  
+		// Prompt the player to choose CHOSEN_CARDS_SIZE cards
+		for (int i = 0; i < CHOSEN_CARDS_SIZE; i++) {
+			ICard chosenCard = gameIO.promptCardSelection(hand.getCards());
+			// add the chosen card to the chosen cards
+			chosenCards.add(chosenCard);
+			// remove the chosen card from the hand
+			// and put it in the discard pile
+			hand.removeCardFromHand(chosenCard);
+			cardManager.discardCard(chosenCard);
+		}
+		
+		// Put rest of the hand back to the discarded cards
+		for (ICard card : hand.getCards()) {
+			cardManager.discardCard(card);
+		}
+		
+		// Clear the hand
+		hand.clear();
+		
+		return chosenCards;
 	}
 	
 	public String getName() {
 		return "Player";
+	}
+
+	public void addCardToDeck(ICard card) {
+		cardManager.addCardToDeck(card);
 	}
 
 }

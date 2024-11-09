@@ -1,28 +1,24 @@
 package card.attack;
 
 import card.ICard;
-import entity.Entity;
 
-public class AttackCard implements ICard {
-	private double damage;
+abstract class AttackCard implements ICard {
+	private int damage;
 
-	public AttackCard(double damage) {
+	public AttackCard(int damage) {
 		this.damage = damage;
 	}
 
-	@Override
-	public void use(Entity user, Entity target) {
-		target.takeDamage(damage);
+	public int getDamage() {
+		return damage;
 	}
 
 	@Override
-	public String getName(){
-		return null;
+	public AttackCard clone() {
+		try {
+			return (AttackCard) super.clone();
+		} catch (CloneNotSupportedException e) {
+			return null;
+		}
 	}
-
-    @Override
-	public String getDescription(){
-		return null;
-	}
-
 }
