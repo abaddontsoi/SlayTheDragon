@@ -13,9 +13,12 @@ public class CardPool {
     	// Iterate through the CardName enum
 		for (CardName cardName : CardName.values()) {
 			// Create a card object based on the cardName
-			ICard card = cardFactory.createCard(cardName);
-			// Add the card to the cardPrototypes map
-			cardPrototypes.put(cardName, card);
+			//Advance Card Only
+			if(cardName.getLevel() == CardName.Level.ADVANCED){
+				ICard card = cardFactory.createCard(cardName);
+				// Add the card to the cardPrototypes map
+				cardPrototypes.put(cardName, card);
+			}
 		}
     }
     

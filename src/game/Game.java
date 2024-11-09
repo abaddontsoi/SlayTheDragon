@@ -3,7 +3,6 @@ package game;
 import java.util.*;
 
 import battle.Battle;
-import card.CardFactory;
 import effect.*;
 import entity.*;
 import gameIO.GameIO;
@@ -41,9 +40,11 @@ public class Game {
 		// Create a map of effects and their corresponding implementations
 		Map<String, Runnable> effects = new LinkedHashMap<>();
 		effects.put("Extra Max Health (Permanent)",
-				() -> player.addPermanentEffectInRounds(permanentEffectFactory.createEffect("PermanentExtraMaxHealthEffect")));
+				() -> player.addPermanentEffectInRounds(
+						permanentEffectFactory.createEffect("PermanentExtraMaxHealthEffect")));
 		effects.put("Extra Defense (Permanent)",
-				() -> player.addPermanentEffectInRounds(permanentEffectFactory.createEffect("PermanentExtraDefenseEffect")));
+				() -> player.addPermanentEffectInRounds(
+						permanentEffectFactory.createEffect("PermanentExtraDefenseEffect")));
 
 		// Prompt the user to choose an effect
 		String choice = gameIO.promptPermanentEffectSelection(new ArrayList<>(effects.keySet()));
@@ -51,34 +52,43 @@ public class Game {
 		// Execute the chosen effect
 		effects.get(choice).run();
 	}
-	
+
 	private List<ICard> createPlayerInitialDeck() {
 		List<ICard> deck = new ArrayList<>();
 		CardFactory cardFactory = CardFactory.getInstance();
-		deck.add(cardFactory.createCard(CardName.ATTACK_BASIC));
-		deck.add(cardFactory.createCard(CardName.ATTACK_BASIC));
-		deck.add(cardFactory.createCard(CardName.ATTACK_BASIC));
-		deck.add(cardFactory.createCard(CardName.DEFEND_BASIC));
-		deck.add(cardFactory.createCard(CardName.DEFEND_BASIC));
-		deck.add(cardFactory.createCard(CardName.DEFEND_BASIC));
+		for (int i = 0; i < 3; i++) {
+			deck.add(cardFactory.createCard(CardName.ATTACK_BASIC));
+			deck.add(cardFactory.createCard(CardName.DEFEND_BASIC));
+		}
 		deck.add(cardFactory.createCard(CardName.SKILL_BASIC_HEAL));
 		deck.add(cardFactory.createCard(CardName.SKILL_BASIC_HEAL));
 		return deck;
 	}
 
 	private void initializeFoes() {
-		
+		CardFactory cardFactory = CardFactory.getInstance();
+		List<ICard> normalFoeDeck = new ArrayList<>();
+		for (int i = 0; i < 3; i++) {
+			normalFoeDeck.add(cardFactory.createCard(CardName.ATTACK_BASIC));
+			normalFoeDeck.add(cardFactory.createCard(CardName.DEFEND_BASIC));
+		}
+		List<ICard> EliteFoeDeck = new ArrayList<>();
+		for (int i = 0; i < 3; i++) {
+			EliteFoeDeck.add(cardFactory.createCard(CardName.ATTACK_ADVANCED));
+			EliteFoeDeck.add(cardFactory.createCard(CardName.DEFEND_ADVANCED));
+		}
+		List<ICard> BossDeck = new ArrayList<>();
 		this.foes = new ArrayList<>();
-		this.foes.add(new Foe("Goblin", 100, 5, 5));
-		this.foes.add(new Foe("Orc", 200, 10, 10));
-		this.foes.add(new Foe("Troll", 300, 15, 15));
-		this.foes.add(new Foe("Dragon", 400, 20, 20));
-		this.foes.add(new Foe("Demon", 500, 25, 25));
-		this.foes.add(new Foe("Death Knight", 600, 30, 30));
-		this.foes.add(new Foe("Lich", 700, 35, 35));
-		this.foes.add(new Foe("Beholder", 800, 40, 40));
-		this.foes.add(new Foe("Mind Flayer", 900, 45, 45));
-		this.foes.add(new Foe("Ancient Red Dragon", 1000, 50, 50));
+		this.foes.add(new Foe("Orc", "Normal", 100, 5, 5, normalFoeDeck));
+		this.foes.add(new Foe("Goblin", "Normal", 200, 10, 10, normalFoeDeck));
+		this.foes.add(new Foe("idk1", "Elite", 300, 15, 15, EliteFoeDeck));
+		this.foes.add(new Foe("idk2", "Normal", 400, 20, 20, normalFoeDeck));
+		this.foes.add(new Foe("idk3", "Normal", 500, 25, 25, normalFoeDeck));
+		this.foes.add(new Foe("Death Knight", "Elite", 600, 30, 30, EliteFoeDeck));
+		this.foes.add(new Foe("Lich", "Normal", 700, 35, 35, normalFoeDeck));
+		this.foes.add(new Foe("Beholder", "Normal", 800, 40, 40, normalFoeDeck));
+		this.foes.add(new Foe("Mind Flayer", "Elite", 900, 45, 45, EliteFoeDeck));
+		this.foes.add(new Foe("Ancient Red Dragon", "Boss", 1000, 50, 50, BossDeck));
 	}
 
 	public void startGame() {
