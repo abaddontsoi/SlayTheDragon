@@ -2,7 +2,7 @@ package card.attack;
 
 import card.ICard;
 
-abstract class AttackCard implements ICard {
+public abstract class AttackCard implements ICard {
 	private int damage;
 
 	public AttackCard(int damage) {

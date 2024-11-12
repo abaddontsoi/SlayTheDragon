@@ -70,6 +70,7 @@ public class Battle {
 		eCards.forEach((card) -> {
 			gameIO.displayMessage(card.getName());
 		});
+		
         gameIO.displayMessage("\n=========================== Your Action: ===========================");
 		gameIO.displayEntityStats(player);
 		gameIO.displayEntityEffects(player);

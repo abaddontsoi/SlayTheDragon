@@ -138,7 +138,11 @@ public abstract class Entity {
 	// }
 
 	public List<ICard> getDeck() {
-		return deck;
+		List<ICard> cloneDeck = new ArrayList<>();
+		deck.forEach((card) -> {
+			cloneDeck.add(card);
+		});
+		return cloneDeck;
 	}
 
 	public void addCardToDeck(ICard card) {

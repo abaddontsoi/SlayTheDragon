@@ -94,7 +94,9 @@ public class CardManager {
 
             return chosenCards;
             
-        }else if (entity instanceof Foe){
+        }
+        
+        if (entity instanceof Foe){
             if (chosenCards.isEmpty()) {
                 drawCards();
             }
@@ -118,6 +120,6 @@ public class CardManager {
     
             return chosenCards;
         }
-        return chosenCards;
+        return null;
     }
 }
