@@ -3,7 +3,7 @@ package card.skill;
 import card.ICard;
 import entity.Entity;
 
-abstract class SkillCard implements ICard {
+public abstract class SkillCard implements ICard {
 
 	public SkillCard() {
 	}

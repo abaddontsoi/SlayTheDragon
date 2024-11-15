@@ -25,7 +25,7 @@ public class GameIO {
 	}
     
     public void displayBattleStart(Player player, Foe foe) {
-        ioHandler.displayMessage("Battle begins between player and " + foe.getName());
+        ioHandler.displayMessage("\n======== " +foe.getType() + " Battle begins between player and " + foe.getName()+ " ========");
     }
 
     public void displayPlayerTurn() {

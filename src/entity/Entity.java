@@ -15,10 +15,11 @@ public abstract class Entity {
 //	protected List<EffectInTurns> permanentEffectsInRounds;
 	
 	protected EntityStatus status;
-	protected Hand hand;
-	protected CardManager cardManager;
+	// protected Hand hand;
+	// protected CardManager cardManager;
+	protected List<ICard> deck;
 	protected GameIO gameIO;
-	protected static final int CHOSEN_CARDS_SIZE = 3;
+	public static final int CHOSEN_CARDS_SIZE = 3;
 	
 	public Entity(double maxHealth, double defense, double strength, List<ICard> deck) {
 //		this.maxHealth = maxHealth;
@@ -29,8 +30,9 @@ public abstract class Entity {
 //		this.permanentEffectsInRounds = new ArrayList<EffectInTurns>();
 
 		this.status = new EntityStatus(maxHealth, defense, strength);
-		this.hand = new Hand();
-		this.cardManager = new CardManager(deck);
+		// this.hand = new Hand();
+		// this.cardManager = new CardManager(deck);
+		this.deck = deck;
 		this.gameIO = GameIO.getInstance();
 	}
 	
@@ -62,7 +64,7 @@ public abstract class Entity {
 		this.status.increaseDefense(-defenseAmount);
 	}
 	
-	abstract List<ICard> chooseCards();
+	// abstract List<ICard> chooseCards();
 	
 	public void increaseMaxHealth(double healthAmount) {
 		this.status.increaseMaxHealth(healthAmount);
@@ -76,9 +78,9 @@ public abstract class Entity {
 		return this.status.isAlive();
 	}
 	
-	public List<ICard> getHandCards() {
-        return this.hand.getCards();
-    }
+	// public List<ICard> getHandCards() {
+    //     return this.hand.getCards();
+    // }
 	
 	public double getHealth() {
 		return this.status.getHealth();
@@ -131,7 +133,19 @@ public abstract class Entity {
 		return this.status.getStatusCopy();
 	}
 
-	public void addCardToHand(ICard card) {
-		this.hand.addCardToHand(card);
+	// public void addCardToHand(ICard card) {
+	// 	this.hand.addCardToHand(card);
+	// }
+
+	public List<ICard> getDeck() {
+		List<ICard> cloneDeck = new ArrayList<>();
+		deck.forEach((card) -> {
+			cloneDeck.add(card);
+		});
+		return cloneDeck;
+	}
+
+	public void addCardToDeck(ICard card) {
+		deck.add(card);	
 	}
 }

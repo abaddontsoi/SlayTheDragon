@@ -2,7 +2,7 @@ package card.defend;
 
 import card.ICard;
 
-abstract class DefendCard implements ICard {
+public abstract class DefendCard implements ICard {
 	private int block;
 
 	public DefendCard(int defense) {
