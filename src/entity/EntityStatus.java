@@ -12,6 +12,8 @@ public class EntityStatus implements IEntityStatus {
 	private double health;
 	private double defense;
 	private double strength;
+	private double attack_multiple;
+	private double defense_multiple;
 	private List<EffectInTurns> effectsInRounds;
 	private List<EffectInTurns> permanentEffectsInRounds;
 
@@ -133,6 +135,14 @@ public class EntityStatus implements IEntityStatus {
 		}
 	}
 	
+	public void attackbuff(double attack_multiple){
+		this.attack_multiple = attack_multiple;
+	}
+	
+	public void defensebuff(double defense_multiple){
+		this.defense_multiple = defense_multiple;
+	}
+
 	@Override 
 	public boolean isAlive() {
 		return this.health > 0;
