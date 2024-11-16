@@ -1,10 +1,9 @@
 package entity;
 
-import java.util.*;
-
 import card.*;
 import effect.*;
 import gameIO.GameIO;
+import java.util.*;
 
 public abstract class Entity {
 //	protected double maxHealth;
@@ -75,11 +74,11 @@ public abstract class Entity {
 	}
 	
 	public void attackbuff(double attack_multiple){
-		this.status(attack_multiple);
+		this.status.attackbuff(attack_multiple);
 	}
 
 	public void defensebuff(double defense_multiple){
-		this.status(defense_multiple);
+		this.status.defensebuff(defense_multiple);
 	}
 	
 	public boolean isAlive() {

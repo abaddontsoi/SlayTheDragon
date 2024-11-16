@@ -2,7 +2,7 @@ package card.skill;
 
 import entity.Entity;
 
-public class Defensebuff implements ICard {
+abstract public class Defensebuff extends SkillCard {
 	private double mag_defense;
 
 	public Defensebuff(double mag_defense) {

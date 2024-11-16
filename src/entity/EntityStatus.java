@@ -134,11 +134,11 @@ public class EntityStatus implements IEntityStatus {
 			this.maxHealth = this.health;
 		}
 	}
-	@Override
+	
 	public void attackbuff(double attack_multiple){
 		this.attack_multiple = attack_multiple;
 	}
-	@Override
+	
 	public void defensebuff(double defense_multiple){
 		this.defense_multiple = defense_multiple;
 	}
