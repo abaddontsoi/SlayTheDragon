@@ -85,7 +85,14 @@ public class CardManager {
                 chosenCards.add(chosenCard);
                 // remove the chosen card from the hand
                 // and put it in the discard pile
-                cal.calculatePlayerAction(chosenCard);
+
+                
+                // if(card instanceof draw){
+                //     i --;
+                // }else{
+                    cal.calculatePlayerAction(chosenCard);
+                // }
+
                 hand.removeCardFromHand(chosenCard);
                 discardCard(chosenCard);
 
