@@ -1,23 +1,22 @@
 package record;
 
-public class TurnData implements IDataItem {
+public class TurnData {
 
-	@Override
-	public void print() {
-		// TODO Auto-generated method stub
-
+//	data type, damage, heal or defense
+	private TurnDataType type;
+	private double value;
+	
+	public TurnData(TurnDataType type, double value) {
+		this.type = type;
+		this.value = value;
 	}
 
-	@Override
-	public IDataItem get() {
-		// TODO Auto-generated method stub
+	public TurnData get() {
 		return this;
 	}
 
 	@Override
-	public void set() {
-		// TODO Auto-generated method stub
-
+	public String toString() {
+		return type.getTypeName() +": "+ this.value;
 	}
-
 }
