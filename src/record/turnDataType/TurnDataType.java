@@ -1,6 +1,6 @@
-package record;
+package record.turnDataType;
 
-public class TurnDataType {
+public abstract class TurnDataType {
 	private String typeName;
 	
 	public TurnDataType(String name) {

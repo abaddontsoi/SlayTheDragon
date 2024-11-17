@@ -1,5 +1,7 @@
 package record;
 
+import record.turnDataType.TurnDataType;
+
 public class TurnData {
 
 //	data type, damage, heal or defense
