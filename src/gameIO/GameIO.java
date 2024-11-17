@@ -67,7 +67,7 @@ public class GameIO {
 	    ioHandler.displayMessage("Choose a card:");
 	
 	    for (int i = 0; i < hand.size(); i++) {
-	        ioHandler.displayMessage((i + 1) + ". " + hand.get(i).getName());
+	        ioHandler.displayMessage((i + 1) + ". " + hand.get(i).getName() + " - " + hand.get(i).getDescription());
 	    }
 	
 	    int choice = -1;
