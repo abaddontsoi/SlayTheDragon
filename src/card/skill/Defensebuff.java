@@ -1,5 +1,6 @@
 package card.skill;
 
+import battle.Calculator;
 import entity.Entity;
 
 abstract public class Defensebuff extends SkillCard {
@@ -10,8 +11,17 @@ abstract public class Defensebuff extends SkillCard {
 	}
 
 	@Override
-	public void play(Entity caster, Entity target) {
+	public void play(Entity caster, Entity target, Calculator cal) {
 		caster.defensebuff(1.5);
 	}
 
+	@Override
+	public String getName() {
+		return "DefenseBuff Card";
+	}
+
+	@Override
+	public String getDescription() {
+		return "Defense buffed" + this.mag_defense + " times.";
+	}
 }

@@ -155,4 +155,5 @@ public abstract class Entity {
 	public void addCardToDeck(ICard card) {
 		deck.add(card);	
 	}
+
 }

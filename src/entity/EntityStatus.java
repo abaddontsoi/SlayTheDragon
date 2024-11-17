@@ -14,6 +14,7 @@ public class EntityStatus implements IEntityStatus {
 	private double strength;
 	private double attack_multiple;
 	private double defense_multiple;
+	private int poisonDamage;
 	private List<EffectInTurns> effectsInRounds;
 	private List<EffectInTurns> permanentEffectsInRounds;
 
@@ -203,4 +204,6 @@ public class EntityStatus implements IEntityStatus {
 		copy.setEffectsInRounds(effectsInRounds);
 		return copy;
 	}
+
+
 }
