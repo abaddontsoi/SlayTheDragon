@@ -3,6 +3,7 @@ package card;
 
 import java.util.*;
 
+import battle.Calculator;
 import entity.Entity;
 import entity.Foe;
 import entity.Hand;
@@ -69,7 +70,7 @@ public class CardManager {
         drawCards();
     }
 
-    public List<ICard> chooseCards() {
+    public List<ICard> chooseCards(Calculator cal) {
         List<ICard> chosenCards = new ArrayList<>();
         // Check if the hand is empty
         if (this.hand.isEmpty()) {
@@ -84,8 +85,13 @@ public class CardManager {
                 chosenCards.add(chosenCard);
                 // remove the chosen card from the hand
                 // and put it in the discard pile
+                cal.calculatePlayerAction(chosenCard);
                 hand.removeCardFromHand(chosenCard);
                 discardCard(chosenCard);
+
+                if(i == Entity.CHOSEN_CARDS_SIZE - 1){
+                    cal.calculateRound();
+                }
             }
 
             // Put rest of the hand back to the discarded cards

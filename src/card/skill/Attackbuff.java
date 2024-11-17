@@ -11,8 +11,8 @@ public class Attackbuff extends SkillCard {
 	}
 
 	@Override
-	public void play(Entity caster, Entity target, Calculator cal) {
-		caster.attackbuff(1.5);
+	public void play(Entity target, Calculator cal) {
+		cal.setAttackBuff(target, mag_damage);
 	}
 
 	@Override

@@ -11,8 +11,8 @@ public abstract class HealCard extends SkillCard {
 	}
 
 	@Override
-	public void play(Entity caster, Entity target, Calculator cal) {
-		caster.heal(healAmount);
+	public void play(Entity target, Calculator cal) {
+		target.heal(healAmount);
 	}
 
 	@Override

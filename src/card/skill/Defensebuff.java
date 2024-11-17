@@ -11,8 +11,8 @@ abstract public class Defensebuff extends SkillCard {
 	}
 
 	@Override
-	public void play(Entity caster, Entity target, Calculator cal) {
-		caster.defensebuff(1.5);
+	public void play(Entity target, Calculator cal) {
+		cal.setDefenseBuff(target, mag_defense);
 	}
 
 	@Override

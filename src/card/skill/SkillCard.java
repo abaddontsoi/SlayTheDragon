@@ -9,7 +9,7 @@ public abstract class SkillCard implements ICard {
 	public SkillCard() {
 	}
 	
-	public abstract void play(Entity user, Entity target, Calculator cal);
+	public abstract void play(Entity target, Calculator cal);
 	
 	@Override
 	public SkillCard clone() {
