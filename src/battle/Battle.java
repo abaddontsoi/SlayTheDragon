@@ -17,11 +17,11 @@ public class Battle {
     private boolean isPlayerTurn;
     private GameIO gameIO;
     private BattleRecord battleRecord;
-	// private HashMap<Integer, String> record = new HashMap<Integer, String>();
 	private Calculator calculator;
 	private CardManager playerCardManager;
 	private CardManager foeCardManager;
 	private int round;
+    // private List<RoundRecord> roundRecords;
 
 	public Battle(Player player, Foe enemy) {
 		this.player = player;
@@ -34,7 +34,7 @@ public class Battle {
 		this.playerCardManager = new CardManager(player.getDeck(), player);
 		this.foeCardManager = new CardManager(enemy.getDeck(), enemy);
 		this.round = 1;
-		
+		// this.roundRecords = new ArrayList<>();
 	}
 	
 	public void startBattle() {
@@ -43,6 +43,9 @@ public class Battle {
 		gameIO.displayBattleStart(player, enemy);
         while (player.isAlive() && enemy.isAlive()) {
 			round();
+            //RoundRecord roundRecord = round();
+            //roundRecords.add(RoundRecord);
+
             // if (isPlayerTurn) {
             //     playerTurn();
             // } else {
@@ -68,7 +71,7 @@ public class Battle {
         gameIO.displayMessage(enemy.getName() + " played cards:");
 
 		eCards.forEach((card) -> {
-			gameIO.displayMessage(card.getName());
+			gameIO.displayMessage(card.getName() + " - " + card.getDescription());
 		});
 		
         gameIO.displayMessage("\n=========================== Your Action: ===========================");
@@ -133,6 +136,7 @@ public class Battle {
 	}
 
     private void endBattle() {
+        // BattleRecord battleRecord = new BattleRecord()
         if (player.isAlive()) {
         	gameIO.displayMessage("Player wins!");
             rewardPlayer();

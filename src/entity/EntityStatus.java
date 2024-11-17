@@ -101,13 +101,14 @@ public class EntityStatus implements IEntityStatus {
 
 	@Override
 	public void takeDamage(double damage) {
-		if (defense >= damage) {
-			defense -= damage;
-		} else {
-			damage -= defense;
-			defense = 0;
-			health -= damage;
-		}
+		// if (defense >= damage) {
+		// 	defense -= damage;
+		// } else {
+		// 	damage -= defense;
+		// 	defense = 0;
+		// 	health -= damage;
+		// }
+		health -= damage;
 	}
 
 	@Override

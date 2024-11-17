@@ -20,10 +20,14 @@ public class CardManager {
 
 
     public CardManager(List<ICard> initialDeck, Entity entity) {
+        this.random = new Random();
         this.entity = entity;
+        Collections.shuffle(initialDeck, random);
+        // for (ICard iCard : initialDeck) {
+        //     System.err.println(iCard.getName() + "---" + iCard.getDescription());
+        // }
         this.deck = new ArrayDeque<>(initialDeck);
         this.discardPile = new ArrayList<>();
-        this.random = new Random();
         this.hand = new Hand();
         gameIO = GameIO.getInstance();
     }
