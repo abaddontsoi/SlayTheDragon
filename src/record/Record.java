@@ -14,7 +14,7 @@ public abstract class Record {
 	private EntityStatus playerStatus;
 	private EntityStatus foeStatus;
 	
-	private List<IDataItem> turnData = new ArrayList<IDataItem>();
+	private List<TurnData> turnData = new ArrayList<TurnData>();
 	
 	public Record(EntityStatus p, EntityStatus f) {
 		this.playerStatus = p;
@@ -23,18 +23,10 @@ public abstract class Record {
 		records.add(this);
 	}
 	
-	public List<IDataItem> getDataItems() {
+	public List<TurnData> getDataItems() {
 		return turnData;
 	}
 	
-	public abstract Record get();
-	public abstract void set();
-	
-	public void print() {
-		for (IDataItem data: turnData) {
-			data.print();
-		}
-	}
 	
 	public EntityStatus getPlayerStatus() {
 		return this.playerStatus.getStatusCopy();
@@ -102,7 +94,6 @@ public abstract class Record {
 	// static methods
 	public static void printBattle() {
 		for (Record r: records) {
-			r.print();
 		}
 	}
 
