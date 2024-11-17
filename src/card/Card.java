@@ -1,28 +1,22 @@
 package card;
+import card.skill.*;
 
-public class Card {
-    // package card.attack;
-
-    // import card.ICard;
-    import entity.Entity;
+public abstract class Card {
     
         private double damage = 0;
         private double defense = 0;
         private Skill skill = null;
     
-        public Card(double damage, double defence, Skill skill ) {
+        public Card(double damage, double defense, Skill skill ) {
             this.damage = damage; 
-            this.defence = defence;
+            this.defense = defense;
             this.skill = skill;
         }
     
-    
-        @Override
+   
         public abstract String getName();
     
         // @Override
         // public abstract String getDescription();
     
-    }
-    
-
+    }	
