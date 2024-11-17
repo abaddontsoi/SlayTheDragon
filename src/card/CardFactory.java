@@ -1,6 +1,5 @@
 package card;
 
-
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Supplier;
@@ -13,7 +12,6 @@ public class CardFactory {
 	private static CardFactory instance;
 	private static Map<CardName, Supplier<ICard>> cardCreators;
 
-
 	private CardFactory() {
 		initializeCardCreators();
 	}
@@ -25,20 +23,20 @@ public class CardFactory {
 		return instance;
 	}
 
-//	public ICard playerDrawCard(){
-//        int randomIndex = (int) (Math.random() * playerCardPool.size());
-//        return playerCardPool.get(randomIndex);
-//    }
+	// public ICard playerDrawCard(){
+	// int randomIndex = (int) (Math.random() * playerCardPool.size());
+	// return playerCardPool.get(randomIndex);
+	// }
 
-//	public ICard createCard(String cardName) {
-//		switch (cardName) {
-//			case "AttackCard":
-//				return new AttackCard(5);
-//			case "DefendCard":
-//				return new DefendCard(5);
-//			case "PoisonCard":
-//				// Effect: The enemy loses 5 health for 2 turns
-//				return new PoisonCard(5);
+	// public ICard createCard(String cardName) {
+	// switch (cardName) {
+	// case "AttackCard":
+	// return new AttackCard(5);
+	// case "DefendCard":
+	// return new DefendCard(5);
+	// case "PoisonCard":
+	// // Effect: The enemy loses 5 health for 2 turns
+	// return new PoisonCard(5);
 	// case "HealCard":
 	// // Effect: Heal the player for 5 health
 	// return new HealCard(5);
@@ -68,48 +66,49 @@ public class CardFactory {
 	// // Effect: The player loses 5 health but gains 1 energy
 	// // and 1 strength for 2 turns
 	// return new SacrificeCard(5);
-//			default:
-//				return null;
-//		}
-//	}
-//	
+	// default:
+	// return null;
+	// }
+	// }
+	//
 
 	private void initializeCardCreators() {
-        cardCreators = new HashMap<>();
-        cardCreators.put(CardName.ATTACK_BASIC, BasicAttackCard::new);
-        cardCreators.put(CardName.ATTACK_ADVANCED, AdvancedAttackCard::new);
-        cardCreators.put(CardName.DEFEND_BASIC, BasicDefendCard::new);
-        cardCreators.put(CardName.DEFEND_ADVANCED, AdvancedDefendCard::new);
-        cardCreators.put(CardName.SKILL_BASIC_HEAL, BasicHealCard::new);
-        cardCreators.put(CardName.SKILL_ADVANCED_HEAL, AdvancedHealCard::new);
-//        cardCreators.put(CardName.SKILL_BASIC_POISON, BasicPoisonCard::new);
-//        cardCreators.put(CardName.SKILL_ADVANCED_POISON, AdvancedPoisonCard::new);
-    }
+		cardCreators = new HashMap<>();
+		cardCreators.put(CardName.ATTACK_BASIC, BasicAttackCard::new);
+		cardCreators.put(CardName.ATTACK_ADVANCED, AdvancedAttackCard::new);
+		cardCreators.put(CardName.DEFEND_BASIC, BasicDefendCard::new);
+		cardCreators.put(CardName.DEFEND_ADVANCED, AdvancedDefendCard::new);
+		cardCreators.put(CardName.SKILL_BASIC_HEAL, BasicHealCard::new);
+		cardCreators.put(CardName.SKILL_ADVANCED_HEAL, AdvancedHealCard::new);
+		cardCreators.put(CardName.SKILL_BASIC_POISON, BasicPoisonCard::new);
+		cardCreators.put(CardName.SKILL_ADVANCED_POISON, AdvancedPoisonCard::new);
+		cardCreators.put(CardName.SKILL_BASIC_DRAW, BasicDrawCard::new);
+	}
 
-    public ICard createCard(CardName cardName) {
-        Supplier<ICard> creator = cardCreators.get(cardName);
-        if (creator != null) {
-            return creator.get();
-        } else {
-            throw new IllegalArgumentException("Unknown card name: " + cardName);
-        }
-    }
-    
-//	public List<ICard> createPlayerDeck() {
-//		List<ICard> playerDeck = new ArrayList<>();
-//		playerDeck.addAll(initialiseBasicCard());
-//		return playerDeck;
-//	}
+	public ICard createCard(CardName cardName) {
+		Supplier<ICard> creator = cardCreators.get(cardName);
+		if (creator != null) {
+			return creator.get();
+		} else {
+			throw new IllegalArgumentException("Unknown card name: " + cardName);
+		}
+	}
 
-//	private ArrayList<ICard> initialiseBasicCard() {
-//		ArrayList<ICard> basicCardDeck = new ArrayList<>();
-//
-//		for (int i = 0; i < 4; i++) {
-//			ICard attackCard = new AttackCard(5);
-//			ICard defenseCard = new DefendCard(5);
-//			basicCardDeck.add(attackCard);
-//			basicCardDeck.add(defenseCard);
-//		}
-//		return basicCardDeck;
-//	}
+	// public List<ICard> createPlayerDeck() {
+	// List<ICard> playerDeck = new ArrayList<>();
+	// playerDeck.addAll(initialiseBasicCard());
+	// return playerDeck;
+	// }
+
+	// private ArrayList<ICard> initialiseBasicCard() {
+	// ArrayList<ICard> basicCardDeck = new ArrayList<>();
+	//
+	// for (int i = 0; i < 4; i++) {
+	// ICard attackCard = new AttackCard(5);
+	// ICard defenseCard = new DefendCard(5);
+	// basicCardDeck.add(attackCard);
+	// basicCardDeck.add(defenseCard);
+	// }
+	// return basicCardDeck;
+	// }
 }

@@ -3,6 +3,7 @@ package battle;
 import java.util.ArrayList;
 import java.util.List;
 
+import card.CardManager;
 import card.ICard;
 import card.attack.*;
 import card.defend.*;
@@ -17,12 +18,10 @@ public class Calculator {
     private Entity player;
     private Entity foe;
     private GameIO gameIO;
-
     private int playerMaxDemage;
     private int playerMaxDefense;
-
-    private int playerHeal;
-    private int foeHeal;
+    private int totalPlayerHeal;
+    private int totalFoeHeal;
 
     private int playerBasicDefense;
     private int playerBasicStrength;
@@ -60,14 +59,13 @@ public class Calculator {
         this.foeBasicStrength = foe.getDefense();
         this.playerMaxDemage = 0;
         this.playerMaxDefense = 0;
-        this.playerHeal = 0;
-        this.foeHeal = 0;
         this.playerAttackDamage = 0;
         this.playerTotalAttackDamage = 0;
         this.foeAttackDamage = 0;
         this.playerAttackBuff = 1;
         this.foeAttackBuff = 1;
-
+        this.totalPlayerHeal = 0;
+        this.totalFoeHeal = 0;
         this.playerDefense = 0;
         this.playerTotalDefense = 0;
         this.foeDefense = 0;
@@ -109,6 +107,14 @@ public class Calculator {
         }
     }
 
+    public void addHeal(Entity target, int healAmount) {
+        if (target instanceof Player) {
+            totalPlayerHeal += healAmount;
+        } else {
+            totalFoeHeal += healAmount;
+        }
+    }
+
     public void setDefenseBuff(Entity target, double defensebuff) {
         if (target instanceof Player) {
             playerDefenseBuff = defensebuff;
@@ -139,6 +145,7 @@ public class Calculator {
         gameIO.displayMessage("player choose: " + card.getName());
         if (card instanceof AttackCard) {
             playerAttackDamage = (int) ((((AttackCard) card).getDamage() + playerBasicStrength) * playerAttackBuff);
+            playerTotalAttackDamage += playerAttackDamage;
             if (playerAttackDamage < foeDefense) {
                 foeDefense -= playerAttackDamage;
                 gameIO.displayMessage("Player Damage To " + foe.getName() + ": 0");
@@ -150,14 +157,18 @@ public class Calculator {
                 foeDefense = 0;
                 gameIO.displayMessage(foe.getName() + " Status: Health: " + foe.getHealth() + ", Attack: "
                         + foeAttackDamage + ", Remain Block: " + foeDefense);
+
             }
+            
         }
         if (card instanceof DefendCard) {
             playerDefense += (((DefendCard) card).getBlock() + playerBasicDefense) * playerDefenseBuff;
+            playerTotalDefense += playerDefense;
         }
         if (card instanceof SkillCard) {
             ((SkillCard) card).play(player, this);
-        }
+        } 
+        gameIO.displayMessage("============================");
     }
 
     public void calculateRound() { // return record
@@ -178,6 +189,8 @@ public class Calculator {
             playerMaxDefense = playerDefense;
         }
     }
+
+
     // public void calculateRound(List<ICard> pCards, List<ICard> eCards) {
     // eCards.forEach((card) -> {
     // gameIO.displayMessage("foe choose");
@@ -253,11 +266,9 @@ public class Calculator {
         foeAttackDamage = 0;
         playerDefense = 0;
         foeDefense = 0;
-        playerAttackBuff = 0;
-        playerDefenseBuff = 0;
-        foeAttackBuff = 0;
-        foeDefenseBuff = 0;
-        playerHeal = 0;
-        foeHeal = 0;
+        playerAttackBuff = 1;
+        playerDefenseBuff = 1;
+        foeAttackBuff = 1;
+        foeDefenseBuff = 1;
     }
 }

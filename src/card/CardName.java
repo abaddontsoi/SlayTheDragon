@@ -8,8 +8,8 @@ public enum CardName {
     SKILL_BASIC_HEAL(Level.BASIC),
     SKILL_ADVANCED_HEAL(Level.ADVANCED),
     SKILL_BASIC_POISON(Level.BASIC),
-    SKILL_ADVANCED_POISON(Level.ADVANCED);
-
+    SKILL_ADVANCED_POISON(Level.ADVANCED),
+    SKILL_BASIC_DRAW(Level.BASIC);
     private final Level level;
 
     CardName(Level level) {

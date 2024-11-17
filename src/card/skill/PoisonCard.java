@@ -15,13 +15,4 @@ public abstract class PoisonCard extends SkillCard{
 		cal.setPoisonDamage(target, poisonDamage);
 	}
 
-    @Override
-	public String getName() {
-		return "Poison Card";
-	}
-
-	@Override
-	public String getDescription() {
-		return "Poison " + this.poisonDamage + " damage.";
-	}
 }

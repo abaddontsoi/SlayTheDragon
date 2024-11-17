@@ -13,6 +13,7 @@ public abstract class HealCard extends SkillCard {
 	@Override
 	public void play(Entity target, Calculator cal) {
 		target.heal(healAmount);
+		cal.addHeal(target, healAmount);
 	}
 
 	@Override
