@@ -2,6 +2,7 @@ package record;
 
 import entity.Entity;
 import record.turnDataType.TurnDataType;
+import card.ICard;
 
 public class RecordData {
 
@@ -11,6 +12,9 @@ public class RecordData {
 	
 //	From and to, can change to other types (such as entity status)
 	private Entity from, to;
+	// to is the target of the effect
+	
+	private ICard card; // optional
 	
 	
 	public RecordData(TurnDataType type, double value, Entity from, Entity to) {
@@ -43,6 +47,13 @@ public class RecordData {
 	
 	public Entity getTo() {
 		return this.to;
+	}
+	
+	public void setCard(ICard c) {
+		this.card = c;
+	}
+	public ICard getCard() {
+		return this.card;
 	}
 	
 	@Override

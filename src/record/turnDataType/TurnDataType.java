@@ -6,7 +6,8 @@ public enum TurnDataType {
 	HealType, // Entity heals
 	DefendType, // Entity add defense 
 	ReceiveDamageType, // Entity receive damage to health
-	BlockDamageType; // Entity blocks damage successfully
+	BlockDamageType, // Entity blocks damage successfully
+	StartRoundType;
 	
 	@Override
 	public String toString() {
@@ -32,6 +33,10 @@ public enum TurnDataType {
 		
 		if (this == BlockDamageType) {
 			return "Block Damage";
+		}
+		
+		if (this == StartRoundType) {
+			return "Start Round";
 		}
 		return "";
 	}
