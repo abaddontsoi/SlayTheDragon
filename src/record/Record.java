@@ -11,6 +11,7 @@ public abstract class Record {
 
 	private static List<Record> records = new ArrayList<Record>();
 	private static List<ICard> deck = new ArrayList<ICard>();
+	private static List<Entity> foesFaced = new ArrayList<Entity>();
 	
 	private Entity player;
 	private EntityStatus playerInitialStatus;
@@ -26,6 +27,8 @@ public abstract class Record {
 		this.playerInitialStatus = p.getEntityStatus();
 		this.foeInitialStatus = f.getEntityStatus();
 		
+		addFacedFoe(this.foe);
+		
 		records.add(this);
 	}
 	
@@ -33,19 +36,18 @@ public abstract class Record {
 		return recordData;
 	}
 	
-	
 	public EntityStatus getPlayerStatus() {
-		return this.player.getEntityStatus().getStatusCopy();
+		return this.playerInitialStatus.getStatusCopy();
 	}
 	
 	public EntityStatus getFoeStatus() {
-		return this.foe.getEntityStatus().getStatusCopy();
+		return this.foeInitialStatus.getStatusCopy();
 	}
 	
+//	Call the following 2 methods in battle control
 	public void createTurnData(TurnDataType type, double value, Entity from, Entity to) {
 		this.recordData.add(new RecordData(type, value, from, to));
 	}
-
 	public void createTurnData(TurnDataType type, double value, Entity to) {
 		this.recordData.add(new RecordData(type, value, to));
 	}
@@ -122,13 +124,19 @@ public abstract class Record {
 
 //	7. Total Rounds
 	public int getTotalRounds () {
-		return 0;
+		int rounds = 0;
+		for (RecordData data: this.recordData) {
+			if (data.getType() == TurnDataType.StartRoundType && data.getTo() == this.player) {
+				rounds += 1;
+			}
+		}
+		return rounds;
 	}
 
 	
 	// static methods
 
-	public static void createRecord(Record r) {
+	public static void addRecord(Record r) {
 		records.add(r);
 	}
 	
@@ -145,9 +153,6 @@ public abstract class Record {
 	public static ICard getMostFrequentlyPlayedCard() {
 //		should have calculation
 		return null;
-	}
-	public static void setMostFrequentlyPlayedCard() {
-		
 	}
 	
 //	3.	Total damage received
@@ -243,8 +248,11 @@ public abstract class Record {
 	}
 	
 //	10.	All foes faced
-	public static List<Foe> getAllFacedFoes() {
-		return null;
+	public static void addFacedFoe(Entity f) {
+		foesFaced.add(f);
+	}
+	public static List<Entity> getAllFacedFoes() {
+		return foesFaced;
 	}
 
 }
