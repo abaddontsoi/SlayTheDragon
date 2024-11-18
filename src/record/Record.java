@@ -5,86 +5,121 @@ import java.util.List;
 
 import card.ICard;
 import entity.*;
+import record.turnDataType.TurnDataType;
 
 public abstract class Record {
 
 	private static List<Record> records = new ArrayList<Record>();
 	private static List<ICard> deck = new ArrayList<ICard>();
 	
-	private EntityStatus playerStatus;
-	private EntityStatus foeStatus;
+	private Entity player;
+	private EntityStatus playerInitialStatus;
+	private Entity foe;
+	private EntityStatus foeInitialStatus;
 	
-	private List<TurnData> turnData = new ArrayList<TurnData>();
+	private List<RecordData> recordData = new ArrayList<RecordData>();
 	
-	public Record(EntityStatus p, EntityStatus f) {
-		this.playerStatus = p;
-		this.foeStatus = f;
+	public Record(Entity p, Entity f) {
+		this.player = p;
+		this.foe = f;
+		
+		this.playerInitialStatus = p.getEntityStatus();
+		this.foeInitialStatus = f.getEntityStatus();
 		
 		records.add(this);
 	}
 	
-	public List<TurnData> getDataItems() {
-		return turnData;
+	public List<RecordData> getDataItems() {
+		return recordData;
 	}
 	
 	
 	public EntityStatus getPlayerStatus() {
-		return this.playerStatus.getStatusCopy();
+		return this.player.getEntityStatus().getStatusCopy();
 	}
 	
 	public EntityStatus getFoeStatus() {
-		return this.foeStatus.getStatusCopy();
+		return this.foe.getEntityStatus().getStatusCopy();
 	}
 	
+	public void createTurnData(TurnDataType type, double value, Entity from, Entity to) {
+		this.recordData.add(new RecordData(type, value, from, to));
+	}
 
+	public void createTurnData(TurnDataType type, double value, Entity to) {
+		this.recordData.add(new RecordData(type, value, to));
+	}
+	
 //	Data required from battle: (remove code smell)
 //	1.	# of cards played
 	public int getNumOfPlayedCards() {
-		return 0;
-	}
-	public void setNumOfPlayedCards() {
-		
+		int count = 0;
+		for (RecordData data: recordData) {
+			if (data.getType() == TurnDataType.PlayCardType) {
+				count += data.getValue();
+			}
+		}
+		return count;
 	}
 
 //	2.	Max damage dealt in 1 round (in current battle)
 	public double getMaxDamageDealt() {
-		return 0;
-	}
-	public void setMaxDamageDealt() {
-		
+		double max = 0;
+		for (RecordData data: this.recordData) {
+			if (data.getType() == TurnDataType.AttackType && data.getFrom() == this.player) {
+				max = RecordData.findMax(data, max);
+			}
+		}
+		return max;
 	}
 	
 //	3.	Max damage blocked in 1 round (in current battle)
 	public double getMaxDamageBlocked() {
-		return 0;
-	}
-	public void setMaxDamageBlocked() {
-		
+		double max = 0;
+		for (RecordData data: this.recordData) {
+			if (data.getType() == TurnDataType.DefendType && data.getFrom() == this.player) {
+				max = RecordData.findMax(data, max);
+			}
+		}
+		return max;
 	}
 	
 //	4.	Total Blocked damage
 	public double getTotalBlockedDamage() {
-		return 0;
+		double total = 0;
+		for (RecordData data: this.recordData) {
+			if (data.getType() == TurnDataType.DefendType
+					&& data.getTo() == this.player) {
+				total += data.getValue();
+			}
+		}
+		return total;
 	}
-	public void setTotalBlockedDamage() {
-
-	}
+	
 	
 //	5.	Total Received damage (from card and effect)
 	public double getTotalReceivedDamage() {
-		return 0;
+		double total = 0;
+		for (RecordData data: this.recordData) {
+			if (data.getType() == TurnDataType.ReceiveDamageType && data.getTo() == this.player) {
+				total += data.getValue();
+			}
+		}
+		return total;
 	}
-	public void setTotalReceivedDamage() {
-		
-	}
+
 	
 //	6.	Total Healing
 	public double getTotalHealing() {
-		return 0;
+		double total = 0;
+		for (RecordData data: this.recordData) {
+			if (data.getType() == TurnDataType.HealType && data.getTo() == this.player) {
+				total += data.getValue();
+			}
+		}
+		return total;
 	}
-	public void setTotalHealing() {
-		
-	}
+
 //	7. Total Rounds
 	public int getTotalRounds () {
 		return 0;
@@ -92,10 +127,6 @@ public abstract class Record {
 
 	
 	// static methods
-	public static void printBattle() {
-		for (Record r: records) {
-		}
-	}
 
 	public static void createRecord(Record r) {
 		records.add(r);
@@ -166,6 +197,7 @@ public abstract class Record {
 		int max = 0;
 		for (Record r : records) {
 //			if r.roundNumbers > max, then max = r.roundNumbers
+			max = Math.max(max, r.getTotalRounds());
 		}
 		return max;
 	}
@@ -176,6 +208,7 @@ public abstract class Record {
 		}
 		for (int i = 1; i < records.size(); i++) {
 //			if r.roundNumbers < min, then min = r.roundNumbers
+			min = Math.min(min, records.get(i).getTotalRounds());
 		}
 		return min;
 	}
@@ -205,6 +238,9 @@ public abstract class Record {
 	}
 	
 //	9.	All collected rewards
+	public static List<ICard> getAllRewards(){
+		return null;
+	}
 	
 //	10.	All foes faced
 	public static List<Foe> getAllFacedFoes() {
