@@ -29,7 +29,7 @@ public class Battle {
         // Player goes first
         this.isPlayerTurn = true;
         this.gameIO = GameIO.getInstance();
-        this.battleRecord = new BattleRecord(player.getEntityStatus(), enemy.getEntityStatus());
+        this.battleRecord = new BattleRecord(player, enemy);
         this.calculator = new Calculator(player, enemy);
         this.playerCardManager = new CardManager(player.getDeck(), player);
         this.foeCardManager = new CardManager(enemy.getDeck(), enemy);
