@@ -62,6 +62,10 @@ public class Game {
 		}
 		deck.add(cardFactory.createCard(CardName.SKILL_BASIC_HEAL));
 		deck.add(cardFactory.createCard(CardName.SKILL_BASIC_HEAL));
+		deck.add(cardFactory.createCard(CardName.SKILL_BASIC_POISON));
+		deck.add(cardFactory.createCard(CardName.SKILL_BASIC_DRAW));
+		deck.add(cardFactory.createCard(CardName.SKILL_BASIC_DRAW));
+		deck.add(cardFactory.createCard(CardName.SKILL_BASIC_DRAW));
 		return deck;
 	}
 

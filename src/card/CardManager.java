@@ -4,6 +4,7 @@ package card;
 import java.util.*;
 
 import battle.Calculator;
+import card.skill.DrawCard;
 import entity.Entity;
 import entity.Foe;
 import entity.Hand;
@@ -11,7 +12,7 @@ import entity.Player;
 import gameIO.GameIO;
 
 public class CardManager {
-    private Entity entity; 
+    private Entity entity;
     private Deque<ICard> deck;
     private List<ICard> discardPile;
     private Random random;
@@ -19,13 +20,12 @@ public class CardManager {
     private Hand hand;
     private GameIO gameIO;
 
-
     public CardManager(List<ICard> initialDeck, Entity entity) {
         this.random = new Random();
         this.entity = entity;
         Collections.shuffle(initialDeck, random);
         // for (ICard iCard : initialDeck) {
-        //     System.err.println(iCard.getName() + "---" + iCard.getDescription());
+        // System.err.println(iCard.getName() + "---" + iCard.getDescription());
         // }
         this.deck = new ArrayDeque<>(initialDeck);
         this.discardPile = new ArrayList<>();
@@ -34,9 +34,9 @@ public class CardManager {
     }
 
     // public void drawCards(Entity entity) {
-    //     while (entity.getHandCards().size() < INITIAL_HAND_SIZE) {
-    //         entity.addCardToHand(drawCard());
-    //     }
+    // while (entity.getHandCards().size() < INITIAL_HAND_SIZE) {
+    // entity.addCardToHand(drawCard());
+    // }
     // }
 
     public void drawCards() {
@@ -77,7 +77,7 @@ public class CardManager {
             drawCards();
         }
 
-        if(entity instanceof Player){
+        if (entity instanceof Player) {
             // Prompt the player to choose CHOSEN_CARDS_SIZE cards
             for (int i = 0; i < Entity.CHOSEN_CARDS_SIZE; i++) {
                 ICard chosenCard = gameIO.promptCardSelection(hand.getCards());
@@ -86,17 +86,19 @@ public class CardManager {
                 // remove the chosen card from the hand
                 // and put it in the discard pile
 
-                
-                // if(card instanceof draw){
-                //     i --;
-                // }else{
+                if (chosenCard instanceof DrawCard) {
+                    i--;
+                    for (int j = 0; j < ((DrawCard) chosenCard).getNoDrawCard(); j++) {
+                        hand.addCardToHand(drawCard());
+                    }
+                } else {
                     cal.calculatePlayerAction(chosenCard);
-                // }
+                }
 
                 hand.removeCardFromHand(chosenCard);
                 discardCard(chosenCard);
 
-                if(i == Entity.CHOSEN_CARDS_SIZE - 1){
+                if (i == Entity.CHOSEN_CARDS_SIZE - 1) {
                     cal.calculateRound();
                 }
             }
@@ -110,14 +112,14 @@ public class CardManager {
             hand.clear();
 
             return chosenCards;
-            
+
         }
-        
-        if (entity instanceof Foe){
+
+        if (entity instanceof Foe) {
             if (chosenCards.isEmpty()) {
                 drawCards();
             }
-    
+
             // Choose the first CHOSEN_CARDS_SIZE cards
             // put them in the chosen cards and discard them
             for (int i = 0; i < Entity.CHOSEN_CARDS_SIZE; i++) {
@@ -126,15 +128,15 @@ public class CardManager {
                 hand.removeCardFromHand(chosenCard);
                 discardCard(chosenCard);
             }
-    
+
             // Put rest of the hand back to the discarded cards
             for (ICard card : hand.getCards()) {
                 discardCard(card);
             }
-    
+
             // Clear the hand
             hand.clear();
-    
+
             return chosenCards;
         }
         return null;

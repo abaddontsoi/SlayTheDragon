@@ -145,7 +145,7 @@ public class Battle {
         if (player.isAlive()) {
             gameIO.displayMessage("Player wins!");
             rewardPlayer();
-
+            
         } else {
             gameIO.displayMessage("Enemy wins!");
             // Handle game over logic
