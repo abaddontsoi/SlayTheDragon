@@ -1,4 +1,4 @@
-package unitTests;
+package unitTests.record.turnDataType;
 
 import static org.junit.jupiter.api.Assertions.*;
 
