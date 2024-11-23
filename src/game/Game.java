@@ -1,12 +1,11 @@
 package game;
 
-import java.util.*;
-
 import battle.Battle;
+import card.*;
 import effect.*;
 import entity.*;
 import gameIO.GameIO;
-import card.*;
+import java.util.*;
 
 public class Game {
 	private static Game instance = null;
@@ -66,6 +65,8 @@ public class Game {
 		deck.add(cardFactory.createCard(CardName.SKILL_BASIC_DRAW));
 		deck.add(cardFactory.createCard(CardName.SKILL_BASIC_DRAW));
 		deck.add(cardFactory.createCard(CardName.SKILL_BASIC_DRAW));
+		deck.add(cardFactory.createCard(CardName.SKILL_BASIC_ATTACK_BUFF));
+		deck.add(cardFactory.createCard(CardName.SKILL_BASIC_DEFENSE_BUFF));
 		return deck;
 	}
 
@@ -83,16 +84,16 @@ public class Game {
 		}
 		List<ICard> BossDeck = new ArrayList<>();
 		this.foes = new ArrayList<>();
-		this.foes.add(new Foe("Orc", "Normal", 100, 5, 5, normalFoeDeck));
-		this.foes.add(new Foe("Goblin", "Normal", 200, 10, 10, normalFoeDeck));
-		this.foes.add(new Foe("idk1", "Elite", 300, 15, 15, EliteFoeDeck));
-		this.foes.add(new Foe("idk2", "Normal", 400, 20, 20, normalFoeDeck));
-		this.foes.add(new Foe("idk3", "Normal", 500, 25, 25, normalFoeDeck));
-		this.foes.add(new Foe("Death Knight", "Elite", 600, 30, 30, EliteFoeDeck));
-		this.foes.add(new Foe("Lich", "Normal", 700, 35, 35, normalFoeDeck));
-		this.foes.add(new Foe("Beholder", "Normal", 800, 40, 40, normalFoeDeck));
-		this.foes.add(new Foe("Mind Flayer", "Elite", 900, 45, 45, EliteFoeDeck));
-		this.foes.add(new Foe("Ancient Red Dragon", "Boss", 1000, 50, 50, BossDeck));
+		this.foes.add(new Foe("Orc", "Normal", 100, 1, 1, normalFoeDeck));
+		this.foes.add(new Foe("Goblin", "Normal", 200, 1, 1, normalFoeDeck));
+		this.foes.add(new Foe("idk1", "Elite", 300, 3, 3, EliteFoeDeck));
+		this.foes.add(new Foe("idk2", "Normal", 400, 1, 1, normalFoeDeck));
+		this.foes.add(new Foe("idk3", "Normal", 500, 1, 1, normalFoeDeck));
+		this.foes.add(new Foe("Death Knight", "Elite", 600, 3, 3, EliteFoeDeck));
+		this.foes.add(new Foe("Lich", "Normal", 700, 1, 1, normalFoeDeck));
+		this.foes.add(new Foe("Beholder", "Normal", 800, 1, 1, normalFoeDeck));
+		this.foes.add(new Foe("Mind Flayer", "Elite", 900, 3, 3, EliteFoeDeck));
+		this.foes.add(new Foe("Ancient Red Dragon", "Boss", 1000, 5, 5, BossDeck));
 	}
 
 	public void startGame() {

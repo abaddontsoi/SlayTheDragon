@@ -1,12 +1,11 @@
 package card;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.function.Supplier;
-
 import card.attack.*;
 import card.defend.*;
 import card.skill.*;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.function.Supplier;
 
 public class CardFactory {
 	private static CardFactory instance;
@@ -83,6 +82,10 @@ public class CardFactory {
 		cardCreators.put(CardName.SKILL_BASIC_POISON, BasicPoisonCard::new);
 		cardCreators.put(CardName.SKILL_ADVANCED_POISON, AdvancedPoisonCard::new);
 		cardCreators.put(CardName.SKILL_BASIC_DRAW, BasicDrawCard::new);
+		cardCreators.put(CardName.SKILL_BASIC_ATTACK_BUFF, BasicAttackBuff::new);
+		cardCreators.put(CardName.SKILL_ADVANCED_ATTACK_BUFF, AdvancedAttackBuff::new);
+		cardCreators.put(CardName.SKILL_BASIC_DEFENSE_BUFF, BasicDefenseBuff::new);
+		cardCreators.put(CardName.SKILL_ADVANCED_DEFENSE_BUFF, AdvancedDefenseBuff::new);
 	}
 
 	public ICard createCard(CardName cardName) {
