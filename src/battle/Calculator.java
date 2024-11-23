@@ -13,6 +13,8 @@ import entity.Entity;
 import entity.Foe;
 import entity.Player;
 import gameIO.GameIO;
+import battle.record.*;
+import battle.record.Record;
 
 public class Calculator {
 	private GameIO gameIO;
@@ -27,6 +29,14 @@ public class Calculator {
     	this.foeData = new FoeData(foe);
     }
 
+	public void finishFoeRound() {
+		foeData.doneRound();
+	}
+	
+	public void finishPlayerRound() {
+		playerData.doneRound();
+	}
+	
     public void setPoisonDamage(Entity target, int poisonDamage) {
         if (target instanceof Player) {
             this.foeData.addPoison(poisonDamage);
@@ -95,6 +105,7 @@ public class Calculator {
                 ((SkillCard) card).play(foeData.getEntity(), this);
             }
         });
+        this.finishFoeRound();
         gameIO.displayMessage("Damage To Player: " + foeData.getAttackDamage() + " ,Block: " + foeData.getDefense());
     }
 
@@ -156,6 +167,23 @@ public class Calculator {
         playerData.updateMaxDefense(playerData.getDefense());
     }
 
+    public void reset() {
+//      playerData.playerAttackDamage = 0;
+//      foeData.foeAttackDamage = 0;
+//      playerData.playerDefense = 0;
+//      foeData.foeDefense = 0;
+//      playerData.playerAttackBuff = 1;
+//      playerData.playerDefenseBuff = 1;
+//      foeData.foeAttackBuff = 1;
+//      foeData.foeDefenseBuff = 1;
+  	
+    	playerData.reset();
+    	foeData.reset();
+    }
+    
+    public void genBattleRecord() {
+    	BattleRecord.createRecord(playerData, foeData);
+    }
 
     // public void calculateRound(List<ICard> pCards, List<ICard> eCards) {
     // eCards.forEach((card) -> {
@@ -227,17 +255,4 @@ public class Calculator {
     // }
     // }
 
-    public void reset() {
-//        playerData.playerAttackDamage = 0;
-//        foeData.foeAttackDamage = 0;
-//        playerData.playerDefense = 0;
-//        foeData.foeDefense = 0;
-//        playerData.playerAttackBuff = 1;
-//        playerData.playerDefenseBuff = 1;
-//        foeData.foeAttackBuff = 1;
-//        foeData.foeDefenseBuff = 1;
-    	
-    	playerData.reset();
-    	foeData.reset();
-    }
 }

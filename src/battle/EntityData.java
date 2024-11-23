@@ -13,10 +13,11 @@ public abstract class EntityData {
 	private int BasicDefense;
 	private int BasicStrength;
 	private int attackDamage;
-	private double AttackBuff;
+	private double attackBuff;
 	private int defense;
 	private double defenseBuff;
 	private int poisonToEntity;
+	private int numberOfRounds;
 	private List<ICard> effectsList;
 
 	public EntityData(Entity entity) {
@@ -24,11 +25,12 @@ public abstract class EntityData {
         this.BasicDefense = 0;
         this.BasicStrength = 0;
         this.attackDamage = 0;
-        this.AttackBuff = 1;
+        this.attackBuff = 1;
         this.totalHeal = 0;
         this.defense = 0;
         this.defenseBuff = 1;
         this.poisonToEntity = 0;
+        this.numberOfRounds = 0;
         this.effectsList = new ArrayList<>();
 	}
 	
@@ -55,11 +57,15 @@ public abstract class EntityData {
 	}
 	
 	public void setAttackBuff(double value) {
-		this.AttackBuff = value;
+		this.attackBuff = value;
 	}
 	
 	public void addTotalHeal(int value) {
 		this.totalHeal += value;
+	}
+	
+	public int getTotalHeal() {
+		return this.totalHeal;
 	}
 	
 	public void setDefenseBuff(double value) {
@@ -75,7 +81,7 @@ public abstract class EntityData {
 	}
 	
 	public double getAttackBuff() {
-		return this.AttackBuff;
+		return this.attackBuff;
 	}
 	
 	public void addDefense(double value) {
@@ -122,14 +128,23 @@ public abstract class EntityData {
 		this.attackDamage += value;
 	}
 	
+	public int getRounds() {
+		return this.numberOfRounds;
+	}
+	
+	public void doneRound() {
+		this.numberOfRounds++;
+	}
+	
 	public void reset() {
         this.BasicDefense = 0;
         this.BasicStrength = 0;
         this.attackDamage = 0;
-        this.AttackBuff = 1;
+        this.attackBuff = 1;
         this.totalHeal = 0;
         this.defense = 0;
         this.defenseBuff = 1;
         this.poisonToEntity = 0;
+        this.numberOfRounds = 0;
 	}
 }
