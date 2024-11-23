@@ -2,7 +2,7 @@ package card.skill;
 
 public class BasicPoisonCard extends PoisonCard{
     public BasicPoisonCard() {
-		super(10);
+		super(5);
 	}
 	
 	@Override
