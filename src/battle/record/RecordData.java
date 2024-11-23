@@ -1,4 +1,4 @@
-package record;
+package battle.record;
 
 import entity.Entity;
 import record.turnDataType.TurnDataType;

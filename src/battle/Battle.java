@@ -1,14 +1,13 @@
 package battle;
 
 import entity.*;
-import record.BattleRecord;
-import record.Record;
 import gameIO.GameIO;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import battle.record.BattleRecord;
 import card.*;
 
 public class Battle {
@@ -16,7 +15,6 @@ public class Battle {
     private Foe enemy;
     private boolean isPlayerTurn;
     private GameIO gameIO;
-    private BattleRecord battleRecord;
     private Calculator calculator;
     private CardManager playerCardManager;
     private CardManager foeCardManager;
@@ -29,7 +27,6 @@ public class Battle {
         // Player goes first
         this.isPlayerTurn = true;
         this.gameIO = GameIO.getInstance();
-        this.battleRecord = new BattleRecord(player, enemy);
         this.calculator = new Calculator(player, enemy);
         this.playerCardManager = new CardManager(player.getDeck(), player);
         this.foeCardManager = new CardManager(enemy.getDeck(), enemy);
@@ -53,7 +50,6 @@ public class Battle {
             // }
             // isPlayerTurn = !isPlayerTurn;
         }
-
         endBattle();
     }
 
@@ -83,6 +79,7 @@ public class Battle {
             pCards = playerCardManager.chooseCards(calculator);
 
             gameIO.displayMessage("=========================== End Round " + round + " ===========================");
+            calculator.finishPlayerRound();
             round++;
         }
 
@@ -142,13 +139,17 @@ public class Battle {
 
     private void endBattle() {
         // BattleRecord battleRecord = new BattleRecord()
+    	
+        // Generate BattleRecord
+    	calculator.genBattleRecord();
+
         if (player.isAlive()) {
             gameIO.displayMessage("Player wins!");
-            rewardPlayer();
-            
+            rewardPlayer();            
         } else {
             gameIO.displayMessage("Enemy wins!");
             // Handle game over logic
         }
+        
     }
 }
