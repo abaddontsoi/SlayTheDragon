@@ -100,7 +100,7 @@ public class ComputeCenter {
 
     public void calculatePlayerAction(ICard card) {
         gameIO.displayMessage("player choose: " + card.getName());
-        playerData.getTotalCardsPlayed();
+        playerData.addTotalCardsPlayed();
         
         if (card instanceof AttackCard) {
         	playerData.setAttackDamage((int) ((((AttackCard) card).getDamage() + playerData.getBasicStrength()) * playerData.getAttackBuff()));
