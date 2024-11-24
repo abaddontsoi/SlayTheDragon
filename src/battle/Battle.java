@@ -135,6 +135,7 @@ public class Battle {
         CardPool cardPool = CardPool.getInstance();
         ICard card = cardPool.getRandomCard();
         player.addCardToDeck(card);
+        calculator.addPlayerReward(card);
     }
 
     private void endBattle() {

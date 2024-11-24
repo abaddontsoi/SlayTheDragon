@@ -36,29 +36,17 @@ public abstract class Record {
 		Record.deck = d;
 	}
 	
-//	2.	Most frequently played card
-	public static ICard getMostFrequentlyPlayedCard() {
-//		should have calculation
-		return null;
-	}
-	
-//	3.	Total damage received
+//	2.	Total damage received
 	public static int getTotalDamageReceived() {
 		int sum = 0;
-		
+		for (Record r : Record.records) {
+			sum += r.playerData.getReceivedDamage();
+		}
 		return sum;
 	}
 	
-//	4.	Total damage blocked
-	public static double getTotalDamageBlocked() {
-		double sum = 0;
-//		for (Record r : Record.records) {
-//			sum += r.getTotalBlockedDamage();
-//		}
-		return sum;
-	}
 	
-//	5.	Total healing in game
+//	3.	Total healing in game
 	public static double getTotalHealingInGame() {
 		double sum = 0;
 		for (Record r : Record.records) {
@@ -67,26 +55,10 @@ public abstract class Record {
 		return sum;
 	}
 	
-//	6.	Lowest health after battle
-	public static double getLowestHealthAfterBattle() {
-		double lowestHealth = 0;
-//		if (records.size() > 0) {
-//			lowestHealth = records.get(0).getPlayerStatus().getHealth();
-//		}
-//		for (int i = 1; i < records.size(); i++) {
-//			double currentHealth = records.get(0).getPlayerStatus().getHealth();
-//			if (currentHealth < lowestHealth) {
-//				lowestHealth = currentHealth;
-//			}
-//		}
-		return lowestHealth;
-	}
-	
-//	7.	Max and min # of rounds in 1 battle
+//	4.	Max and min # of rounds in 1 battle
 	public static int getMaxRoundsInBattle() {
 		int max = 0;
 		for (Record r : records) {
-//			if r.roundNumbers > max, then max = r.roundNumbers
 			max = Math.max(max, r.playerData.getRounds());
 		}
 		return max;
@@ -94,16 +66,15 @@ public abstract class Record {
 	public static int getMinRoundsInBattle() {
 		int min = 0;
 		if (records.size() > 0) {
-//			min = records.get(0).getTotalRounds();
+			min = records.get(0).playerData.getRounds();
 		}
 		for (int i = 1; i < records.size(); i++) {
-//			if r.roundNumbers < min, then min = r.roundNumbers
-//			min = Math.min(min, records.get(i).getTotalRounds());
+			min = Math.min(min, records.get(i).playerData.getRounds());
 		}
 		return min;
 	}
 	
-//	8.	Max and min # of cards played in 1 battle
+//	5.	Max and min # of cards played in 1 battle
 	public static int getMaxCardsPlayedInBattle() {
 		int max = 0;
 		for (Record r : records) {
@@ -127,12 +98,16 @@ public abstract class Record {
 		return min;
 	}
 	
-//	9.	All collected rewards
+//	6.	All collected rewards
 	public static List<ICard> getAllRewards(){
-		return null;
+		List<ICard> rewards = new ArrayList<>();
+		for (Record r : Record.records) {
+			rewards.addAll(r.playerData.getRewards());
+		}
+		return rewards;
 	}
 	
-//	10.	All foes faced
+//	7.	All foes faced
 	public static List<Entity> getAllFacedFoes() {
 		for (Record r : Record.records) {
 			Record.foesFaced.add(r.foeData.getEntity());

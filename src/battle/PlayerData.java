@@ -14,6 +14,8 @@ public class PlayerData extends EntityData {
 	private int playerMaxDamage;
 	private int playerMaxDefense;
 
+	private List<ICard> rewards;
+	
 	public PlayerData(Entity player) {
 		super(player);
 		
@@ -21,6 +23,15 @@ public class PlayerData extends EntityData {
         this.playerMaxDamage = 0;
         this.playerTotalDefense = 0;
         this.playerTotalAttackDamage = 0;
+        this.rewards = new ArrayList<>();
+	}
+	
+	public void addReward(ICard card) {
+		this.rewards.add(card);
+	}
+	
+	public List<ICard> getRewards() {
+		return this.rewards;
 	}
 	
 	public void addTotalAttackDamage(int value) {
