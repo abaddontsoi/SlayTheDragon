@@ -111,6 +111,8 @@ public class Calculator {
 
     public void calculatePlayerAction(ICard card) {
         gameIO.displayMessage("player choose: " + card.getName());
+        playerData.getTotalCardsPlayed();
+        
         if (card instanceof AttackCard) {
 //            playerData.playerAttackDamage = (int) ((((AttackCard) card).getDamage() + playerData.playerBasicStrength) * playerData.playerAttackBuff);
         	playerData.setAttackDamage((int) ((((AttackCard) card).getDamage() + playerData.getBasicStrength()) * playerData.getAttackBuff()));
@@ -167,6 +169,10 @@ public class Calculator {
         playerData.updateMaxDefense(playerData.getDefense());
     }
 
+	public void addPlayerReward(ICard card) {
+		playerData.addReward(card);
+	}
+    
     public void reset() {
 //      playerData.playerAttackDamage = 0;
 //      foeData.foeAttackDamage = 0;

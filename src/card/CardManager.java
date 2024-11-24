@@ -101,6 +101,7 @@ public class CardManager {
                 if (i == Entity.CHOSEN_CARDS_SIZE - 1) {
                     cal.calculateRound();
                 }
+                
             }
 
             // Put rest of the hand back to the discarded cards

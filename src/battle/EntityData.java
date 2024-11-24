@@ -18,6 +18,8 @@ public abstract class EntityData {
 	private double defenseBuff;
 	private int poisonToEntity;
 	private int numberOfRounds;
+	private int receivedDamage;
+	private int totalCardsPlayed;
 	private List<ICard> effectsList;
 
 	public EntityData(Entity entity) {
@@ -31,6 +33,8 @@ public abstract class EntityData {
         this.defenseBuff = 1;
         this.poisonToEntity = 0;
         this.numberOfRounds = 0;
+        this.receivedDamage = 0;
+        this.totalCardsPlayed = 0;
         this.effectsList = new ArrayList<>();
 	}
 	
@@ -44,11 +48,33 @@ public abstract class EntityData {
 		return entity.getName();
 	}
 	
+	public int getReceivedDamage() {
+		return this.receivedDamage;
+	}
+	
+	public void addReceivedDamage(int value) {
+		this.receivedDamage += value;
+	}
+	
+	public void addTotalCardsPlayed() {
+		this.totalCardsPlayed++;
+	}
+	
+	public void addTotalCardsPlayed(int value) {
+		this.totalCardsPlayed += value;
+	}
+	
+	public int getTotalCardsPlayed() {
+		return this.totalCardsPlayed;
+	}
+	
 //	Method overload for take damage
 	public void takeDamage(double value) {
+		this.addReceivedDamage((int) value);
 		this.entity.takeDamage(value);
 	}
 	public void takeDamage(int value) {
+		this.addReceivedDamage(value);
 		this.entity.takeDamage(value);
 	}
 	
