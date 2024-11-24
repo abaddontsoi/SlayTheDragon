@@ -76,24 +76,21 @@ public abstract class Record {
 	
 //	5.	Max and min # of cards played in 1 battle
 	public static int getMaxCardsPlayedInBattle() {
-		int max = 0;
+		int max = -1;
 		for (Record r : records) {
-//			if (r.getNumOfPlayedCards() > max) {
-//				max = r.getNumOfPlayedCards();
-//			}
+			max = Math.max(max, r.playerData.getTotalCardsPlayed());
 		}
 		return max;
 	}
 	public static int getMinCardsPlayedInBattle() {
-		int min = 0;
+		int min = -1;
 		if (records.size() > 0) {
-//			min = records.get(0).getNumOfPlayedCards();
+			min = records.get(0).playerData.getTotalCardsPlayed();
 		}
 		for (int i = 1; i < records.size(); i++) {
 //			if r.roundNumbers < min, then min = r.roundNumbers
-//			if (records.get(i).getNumOfPlayedCards() < min) {
-//				min = records.get(i).getNumOfPlayedCards();
-//			}
+			int currentPlayed = records.get(i).playerData.getTotalCardsPlayed();
+			min = Math.min(min, currentPlayed);
 		}
 		return min;
 	}
