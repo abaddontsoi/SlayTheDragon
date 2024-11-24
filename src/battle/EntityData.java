@@ -9,18 +9,20 @@ import entity.Entity;
 public abstract class EntityData {
 //	Basic info
 	private Entity entity;
-	private int totalHeal;
 	private int BasicDefense;
-	private int BasicStrength;
+	private int BasicStrength;	
 	private int attackDamage;
 	private double attackBuff;
 	private int defense;
 	private double defenseBuff;
 	private int poisonToEntity;
-	private int numberOfRounds;
+	private List<ICard> effectsList;
+
+	// accumulated data in battle
 	private int receivedDamage;
 	private int totalCardsPlayed;
-	private List<ICard> effectsList;
+	private int totalHeal;
+	private int numberOfRounds;
 
 	public EntityData(Entity entity) {
     	this.entity = entity;
