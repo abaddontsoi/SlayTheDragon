@@ -85,47 +85,6 @@ public class Battle {
 
     }
 
-    // private void playerTurn() {
-    // applyEffects(player);
-    // // Display player's turn message
-    // gameIO.displayPlayerTurn();
-    // gameIO.displayEntityStats(player);
-    // gameIO.displayEntityStats(enemy);
-    // gameIO.displayEntityEffects(player);
-    // gameIO.displayEntityEffects(enemy);
-
-    // // Initialise the player's turn
-    // player.initializeTurn();
-
-    // // Display player's available cards and prompt the player to choose 3 cards
-    // List<ICard> chosenCards = player.chooseCards();
-    // // After choosing and execute card, create a new turn data and push to battle
-    // record;
-
-    // gameIO.displayMessage("=====================================================");
-    // }
-
-    // private void enemyTurn() {
-    // applyEffects(enemy);
-    // // Display enemy's turn message
-    // gameIO.displayEnemyTurn();
-    // gameIO.displayEntityStats(player);
-    // gameIO.displayEntityStats(enemy);
-    // gameIO.displayEntityEffects(player);
-    // gameIO.displayEntityEffects(enemy);
-
-    // // Initialise the enemy's turn
-    // enemy.initializeTurn();
-
-    // // Enemy AI logic to choose cards
-    // List<ICard> chosenCards = enemy.chooseCards();
-
-    // // After choosing and execute card, create a new turn data and push to battle
-    // record;
-
-    // gameIO.displayMessage("=====================================================");
-    // }
-
     private void applyEffects(Entity entity) {
         entity.applyEffects();
     }

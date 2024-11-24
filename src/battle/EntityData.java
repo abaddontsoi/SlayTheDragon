@@ -20,6 +20,7 @@ public abstract class EntityData {
 	private int numberOfRounds;
 	private int receivedDamage;
 	private int totalCardsPlayed;
+	private int totalDamageBlocked;
 	private List<ICard> effectsList;
 
 	public EntityData(Entity entity) {
@@ -35,6 +36,7 @@ public abstract class EntityData {
         this.numberOfRounds = 0;
         this.receivedDamage = 0;
         this.totalCardsPlayed = 0;
+        this.totalDamageBlocked = 0;
         this.effectsList = new ArrayList<>();
 	}
 	
@@ -54,6 +56,14 @@ public abstract class EntityData {
 	
 	public void addReceivedDamage(int value) {
 		this.receivedDamage += value;
+	}
+	
+	public int getTotalDamageBlocked() {
+		return this.totalDamageBlocked;
+	}
+	
+	public void addTotalDamageBlocked(int value) {
+		this.totalDamageBlocked += value;
 	}
 	
 	public void addTotalCardsPlayed() {

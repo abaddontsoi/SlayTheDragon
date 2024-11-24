@@ -52,11 +52,6 @@ public class Calculator {
             foeData.takeDamage(foeData.getPoison());
             foeData.reducePoison();
         }
-//        if (playerData.poisonToPlayer > 0) {
-//            gameIO.displayMessage("Poison damage (" + playerData.poisonToPlayer + ")to Player");
-//            playerData.player.takeDamage(playerData.poisonToPlayer);
-//            playerData.poisonToPlayer--;
-//        }
         if (playerData.getPoison() > 0) {
             gameIO.displayMessage("Poison damage (" + playerData.getPoison() + ")to Plater");
             playerData.takeDamage(playerData.getPoison());
@@ -111,20 +106,27 @@ public class Calculator {
 
     public void calculatePlayerAction(ICard card) {
         gameIO.displayMessage("player choose: " + card.getName());
-        playerData.getTotalCardsPlayed();
+        playerData.addTotalCardsPlayed();
         
         if (card instanceof AttackCard) {
 //            playerData.playerAttackDamage = (int) ((((AttackCard) card).getDamage() + playerData.playerBasicStrength) * playerData.playerAttackBuff);
         	playerData.setAttackDamage((int) ((((AttackCard) card).getDamage() + playerData.getBasicStrength()) * playerData.getAttackBuff()));
         	playerData.addTotalAttackDamage(playerData.getAttackDamage());
             if (playerData.getAttackDamage() < foeData.getDefense()) {
+            	// foe blocks damage
                 foeData.addDefense(-playerData.getAttackDamage());
+                foeData.addTotalDamageBlocked(playerData.getAttackDamage());
+                
                 gameIO.displayMessage("Player Damage To " + foeData.getEntityName() + ": 0");
                 gameIO.displayMessage(foeData.getEntityName() + " Status: Health: " + foeData.getEntity().getHealth() + ", Attack: "
                         + foeData.getAttackDamage() + ", Remain Block: " + foeData.getDefense());
             } else {
                 gameIO.displayMessage("Player Damage To " + foeData.getEntityName() + ": " + (playerData.getAttackDamage() - foeData.getDefense()));
                 foeData.takeDamage(playerData.getAttackDamage() - foeData.getDefense());
+                
+                // Foe use all its defense to block damage
+                foeData.addTotalDamageBlocked(foeData.getDefense());
+                
                 foeData.setDefense(0);
                 gameIO.displayMessage(foeData.getEntityName() + " Status: Health: " + foeData.getHealth() + ", Attack: "
                         + foeData.getAttackDamage() + ", Remain Block: " + foeData.getDefense());
@@ -133,9 +135,7 @@ public class Calculator {
             
         }
         if (card instanceof DefendCard) {
-//            playerData.playerDefense += (((DefendCard) card).getBlock() + playerData.playerBasicDefense) * playerData.playerDefenseBuff;
         	playerData.addDefense((((DefendCard) card).getBlock() + playerData.getBasicDefense()) * playerData.getDefenseBuff());
-//        	playerData.playerTotalDefense += playerData.playerDefense;
         	playerData.addTotalDefense(playerData.getDefense()); 
         }
         if (card instanceof SkillCard) {
@@ -145,13 +145,17 @@ public class Calculator {
     }
 
     public void calculateRound() { // return record
-        foeData.addAttackDamage(-playerData.getDefense());
-        if(foeData.getAttackDamage() < 0){
-//            playerData.playerDefense -= foeData.foeAttackDamage;
-//            foeData.foeAttackDamage = 0;
-        	playerData.addDefense(foeData.getAttackDamage());
-        	foeData.setAttackDamage(0);
-        }
+		if (foeData.getAttackDamage() >= playerData.getDefense()) {
+			int damage = foeData.getAttackDamage() - playerData.getDefense();
+			playerData.takeDamage(damage);
+			playerData.addTotalDamageBlocked(playerData.getDefense());
+		} else {
+			// damage on defense
+			int damage = foeData.getAttackDamage();
+			playerData.addDefense(-damage);
+			playerData.addTotalDamageBlocked(damage);
+		}
+        
         gameIO.displayMessage(foeData.getEntityName() +" Demage To Player: " + foeData.getAttackDamage());
 //        playerData.player.takeDamage(foeData.getAttackDamage());
         playerData.takeDamage(foeData.getAttackDamage());

@@ -55,7 +55,16 @@ public abstract class Record {
 		return sum;
 	}
 	
-//	4.	Max and min # of rounds in 1 battle
+//	4. Total damage blocked
+	public static int getTotalDamageBlocked() {
+		int sum = 0;
+		for (Record r : Record.records) {
+			sum += r.playerData.getTotalDamageBlocked();
+		}
+		return sum;
+	}
+	
+//	5.	Max and min # of rounds in 1 battle
 	public static int getMaxRoundsInBattle() {
 		int max = 0;
 		for (Record r : records) {
@@ -64,7 +73,7 @@ public abstract class Record {
 		return max;
 	}
 	public static int getMinRoundsInBattle() {
-		int min = 0;
+		int min = -1;
 		if (records.size() > 0) {
 			min = records.get(0).playerData.getRounds();
 		}
@@ -74,31 +83,32 @@ public abstract class Record {
 		return min;
 	}
 	
-//	5.	Max and min # of cards played in 1 battle
+//	6.	Max and min # of cards played in 1 battle
 	public static int getMaxCardsPlayedInBattle() {
 		int max = 0;
 		for (Record r : records) {
-//			if (r.getNumOfPlayedCards() > max) {
-//				max = r.getNumOfPlayedCards();
-//			}
+			if (r.playerData.getTotalCardsPlayed() > max) {
+				max = r.playerData.getTotalCardsPlayed();
+			}
 		}
 		return max;
 	}
 	public static int getMinCardsPlayedInBattle() {
-		int min = 0;
+		int min = -1;
 		if (records.size() > 0) {
-//			min = records.get(0).getNumOfPlayedCards();
+			min = records.get(0).playerData.getTotalCardsPlayed();
 		}
 		for (int i = 1; i < records.size(); i++) {
 //			if r.roundNumbers < min, then min = r.roundNumbers
-//			if (records.get(i).getNumOfPlayedCards() < min) {
-//				min = records.get(i).getNumOfPlayedCards();
-//			}
+			if (records.get(i).playerData.getTotalCardsPlayed() < min) {
+//				min = records.get(i).getTotalCardsPlayed();
+				min = Math.min(min, records.get(i).playerData.getTotalCardsPlayed());
+			}
 		}
 		return min;
 	}
 	
-//	6.	All collected rewards
+//	7.	All collected rewards
 	public static List<ICard> getAllRewards(){
 		List<ICard> rewards = new ArrayList<>();
 		for (Record r : Record.records) {
@@ -107,7 +117,7 @@ public abstract class Record {
 		return rewards;
 	}
 	
-//	7.	All foes faced
+//	8.	All foes faced
 	public static List<Entity> getAllFacedFoes() {
 		for (Record r : Record.records) {
 			Record.foesFaced.add(r.foeData.getEntity());
