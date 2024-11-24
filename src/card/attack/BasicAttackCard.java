@@ -3,7 +3,7 @@ package card.attack;
 public class BasicAttackCard extends AttackCard {
 
 	public BasicAttackCard() {
-		super(5);
+		super(1000000);
 	}
 	
 	@Override

@@ -59,13 +59,11 @@ public class Game {
 		for (int i = 0; i < 3; i++) {
 			deck.add(cardFactory.createCard(CardName.ATTACK_BASIC));
 			deck.add(cardFactory.createCard(CardName.DEFEND_BASIC));
+			deck.add(cardFactory.createCard(CardName.SKILL_BASIC_DRAW));
 		}
 		deck.add(cardFactory.createCard(CardName.SKILL_BASIC_HEAL));
 		deck.add(cardFactory.createCard(CardName.SKILL_BASIC_HEAL));
 		deck.add(cardFactory.createCard(CardName.SKILL_BASIC_POISON));
-		deck.add(cardFactory.createCard(CardName.SKILL_BASIC_DRAW));
-		deck.add(cardFactory.createCard(CardName.SKILL_BASIC_DRAW));
-		deck.add(cardFactory.createCard(CardName.SKILL_BASIC_DRAW));
 		deck.add(cardFactory.createCard(CardName.SKILL_BASIC_ATTACK_BUFF));
 		deck.add(cardFactory.createCard(CardName.SKILL_BASIC_DEFENSE_BUFF));
 		return deck;
@@ -88,13 +86,13 @@ public class Game {
 		this.foes.add(new Foe("Orc", "Normal", 100, 1, 1, normalFoeDeck));
 		this.foes.add(new Foe("Goblin", "Normal", 200, 1, 1, normalFoeDeck));
 		this.foes.add(new Foe("idk1", "Elite", 300, 3, 3, EliteFoeDeck));
-		this.foes.add(new Foe("idk2", "Normal", 400, 1, 1, normalFoeDeck));
-		this.foes.add(new Foe("idk3", "Normal", 500, 1, 1, normalFoeDeck));
+		this.foes.add(new Foe("slime", "Normal", 400, 1, 1, normalFoeDeck));
+		this.foes.add(new Foe("skeleton", "Normal", 500, 1, 1, normalFoeDeck));
 		this.foes.add(new Foe("Death Knight", "Elite", 600, 3, 3, EliteFoeDeck));
 		this.foes.add(new Foe("Lich", "Normal", 700, 1, 1, normalFoeDeck));
 		this.foes.add(new Foe("Beholder", "Normal", 800, 1, 1, normalFoeDeck));
 		this.foes.add(new Foe("Mind Flayer", "Elite", 900, 3, 3, EliteFoeDeck));
-		this.foes.add(new Foe("Ancient Red Dragon", "Boss", 1000, 5, 5, BossDeck));
+		this.foes.add(new Foe("Ancient Red Dragon", "Boss", 1000, 5, 5, EliteFoeDeck));
 	}
 
 	public void startGame() {

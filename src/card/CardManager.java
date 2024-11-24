@@ -76,7 +76,7 @@ public class CardManager {
         if (this.hand.isEmpty()) {
             drawCards();
         }
-
+        boolean isFoeAlive = true;
         if (entity instanceof Player) {
             // Prompt the player to choose CHOSEN_CARDS_SIZE cards
             for (int i = 0; i < Entity.CHOSEN_CARDS_SIZE; i++) {
@@ -92,13 +92,17 @@ public class CardManager {
                         hand.addCardToHand(drawCard());
                     }
                 } else {
-                    cal.calculatePlayerAction(chosenCard);
+                    isFoeAlive = cal.calculatePlayerAction(chosenCard);
                 }
-
+                if (!isFoeAlive){
+                    break;
+                }
                 hand.removeCardFromHand(chosenCard);
-                discardCard(chosenCard);             
+                discardCard(chosenCard);
+                if(i == Entity.CHOSEN_CARDS_SIZE - 1){
+                    cal.calculateRound();  
+                }      
             }
-            cal.calculateRound();
 
             // Put rest of the hand back to the discarded cards
             for (ICard card : hand.getCards()) {
