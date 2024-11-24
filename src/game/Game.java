@@ -6,6 +6,7 @@ import effect.*;
 import entity.*;
 import gameIO.GameIO;
 import java.util.*;
+import battle.record.Record;
 
 public class Game {
 	private static Game instance = null;
@@ -116,5 +117,7 @@ public class Game {
 		} else {
 			gameIO.displayMessage("Game over! You have been defeated!");
 		}
+		
+		gameIO.displayMessage(Record.getReportString());
 	}
 }

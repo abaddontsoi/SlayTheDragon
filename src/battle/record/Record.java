@@ -111,5 +111,30 @@ public abstract class Record {
 		}
 		return foesFaced;
 	}
+	public static String getAllFacedFoesString() {
+		String s = "Faced foes: \n";
+		
+		for (Entity e: getAllFacedFoes()) {
+			s += e.getName() + "\n";
+		}
+		
+		return s;
+	}
 
+//	get final reporting string
+	public static String getReportString() {
+		String reportString = "Your statistics\n\n";
+		// Total damage dealt
+		reportString += "Total damage received: " + getTotalDamageReceived() + "\n";
+		reportString += "Total healing: " + getTotalHealingInGame() + "\n";
+		
+		reportString += "Maximum rounds in a battle: " + getMaxRoundsInBattle() + "\n";
+		reportString += "Minimum rounds in a battle: " + getMinRoundsInBattle() + "\n";
+		
+		reportString += "Maximum cards played in a battle: " + getMaxCardsPlayedInBattle() + "\n";
+		reportString += "Minimum cards played in a battle: " + getMinCardsPlayedInBattle() + "\n";
+		
+		reportString += getAllFacedFoesString() + "\n";
+		return reportString;
+	}
 }
