@@ -131,14 +131,22 @@ public class ComputeCenter {
     }
 
     public void calculateRound() { // return record
-        foeData.addAttackDamage(-playerData.getDefense());
-        if(foeData.getAttackDamage() < 0){
-        	playerData.addDefense(foeData.getAttackDamage());
-        	foeData.setAttackDamage(0);
-        }
-        gameIO.displayMessage(foeData.getEntityName() +" Demage To Player: " + foeData.getAttackDamage());
-        playerData.takeDamage(foeData.getAttackDamage());
-        gameIO.displayMessage(playerData.getEntityName() + " Status: Health: " + playerData.getHealth());
+    	gameIO.displayMessage(foeData.getEntityName() +" Demage To Player: " + foeData.getAttackDamage());
+    	
+    	if (foeData.getAttackDamage() <= playerData.getDefense()) {
+    		// Foe attack player
+    		playerData.addDefense(-foeData.getAttackDamage());
+    	} else {
+    		// Foe's attack > player defense
+    		// Player have to take damage
+    		int playerReceivedDamage = foeData.getAttackDamage() - playerData.getDefense();
+    		playerData.setDefense(0);
+    		playerData.takeDamage(playerReceivedDamage);
+    	}
+    	// Attack done, reset its value
+		foeData.setAttackDamage(0);
+        
+		gameIO.displayMessage(playerData.getEntityName() + " Status: Health: " + playerData.getHealth());
 
         playerData.updateMaxDamage(playerData.getAttackDamage());
         playerData.updateMaxDefense(playerData.getDefense());
