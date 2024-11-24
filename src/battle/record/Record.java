@@ -101,14 +101,22 @@ public abstract class Record {
 		for (int i = 1; i < records.size(); i++) {
 //			if r.roundNumbers < min, then min = r.roundNumbers
 			if (records.get(i).playerData.getTotalCardsPlayed() < min) {
-//				min = records.get(i).getTotalCardsPlayed();
 				min = Math.min(min, records.get(i).playerData.getTotalCardsPlayed());
 			}
 		}
 		return min;
 	}
 	
-//	7.	All collected rewards
+//	7. Received poison damage
+	public static int getReceivedPoisonDamage() {
+		int sum = 0;
+		for (Record r : records) {
+			sum += r.playerData.getReceivedPoisonDamage();
+		}
+		return sum;
+	}
+	
+//	8.	All collected rewards
 	public static List<ICard> getAllRewards(){
 		List<ICard> rewards = new ArrayList<>();
 		for (Record r : Record.records) {
@@ -117,7 +125,7 @@ public abstract class Record {
 		return rewards;
 	}
 	
-//	8.	All foes faced
+//	9.	All foes faced
 	public static List<Entity> getAllFacedFoes() {
 		for (Record r : Record.records) {
 			Record.foesFaced.add(r.foeData.getEntity());
@@ -125,4 +133,9 @@ public abstract class Record {
 		return foesFaced;
 	}
 
+	public static void printAllFacedFoes() {
+		for (Entity e : Record.foesFaced) {
+			System.out.println(e.getName());
+		}
+	}
 }

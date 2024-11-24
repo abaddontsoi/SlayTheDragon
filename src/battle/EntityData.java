@@ -16,7 +16,10 @@ public abstract class EntityData {
 	private double attackBuff;
 	private int defense;
 	private double defenseBuff;
+	
 	private int poisonToEntity;
+	private int receivedPoisonDamage;
+	
 	private int numberOfRounds;
 	private int receivedDamage;
 	private int totalCardsPlayed;
@@ -32,7 +35,10 @@ public abstract class EntityData {
         this.totalHeal = 0;
         this.defense = 0;
         this.defenseBuff = 1;
+        
         this.poisonToEntity = 0;
+        this.receivedPoisonDamage = 0;
+        
         this.numberOfRounds = 0;
         this.receivedDamage = 0;
         this.totalCardsPlayed = 0;
@@ -46,6 +52,15 @@ public abstract class EntityData {
 	public int getPoison() {
 		return this.poisonToEntity;
 	}
+
+	public void addReceivedPoisonDamage(int value) {
+		this.receivedPoisonDamage += value;
+	}
+	
+	public int getReceivedPoisonDamage() {
+		return this.receivedPoisonDamage;
+	}
+	
 	public String getEntityName() {
 		return entity.getName();
 	}

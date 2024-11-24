@@ -98,11 +98,7 @@ public class Battle {
     }
 
     private void endBattle() {
-        // BattleRecord battleRecord = new BattleRecord()
-    	
-        // Generate BattleRecord
     	calculator.genBattleRecord();
-
         if (player.isAlive()) {
             gameIO.displayMessage("Player wins!");
             rewardPlayer();            
@@ -110,6 +106,5 @@ public class Battle {
             gameIO.displayMessage("Enemy wins!");
             // Handle game over logic
         }
-        
     }
 }
