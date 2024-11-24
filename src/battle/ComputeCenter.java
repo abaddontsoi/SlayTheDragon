@@ -103,17 +103,23 @@ public class ComputeCenter {
         playerData.addTotalCardsPlayed();
         
         if (card instanceof AttackCard) {
-        	playerData.setAttackDamage((int) ((((AttackCard) card).getDamage() + playerData.getBasicStrength()) * playerData.getAttackBuff()));
+        	
+        	int playerDamage = (int) ((((AttackCard) card).getDamage() + playerData.getBasicStrength()) * playerData.getAttackBuff());
+        	playerData.setAttackDamage(playerDamage);
         	playerData.addTotalAttackDamage(playerData.getAttackDamage());
+        	
             if (playerData.getAttackDamage() < foeData.getDefense()) {
                 foeData.addDefense(-playerData.getAttackDamage());
+                
                 gameIO.displayMessage("Player Damage To " + foeData.getEntityName() + ": 0");
                 gameIO.displayMessage(foeData.getEntityName() + " Status: Health: " + foeData.getEntity().getHealth() + ", Attack: "
                         + foeData.getAttackDamage() + ", Remain Block: " + foeData.getDefense());
             } else {
                 gameIO.displayMessage("Player Damage To " + foeData.getEntityName() + ": " + (playerData.getAttackDamage() - foeData.getDefense()));
+                
                 foeData.takeDamage(playerData.getAttackDamage() - foeData.getDefense());
                 foeData.setDefense(0);
+                
                 gameIO.displayMessage(foeData.getEntityName() + " Status: Health: " + foeData.getHealth() + ", Attack: "
                         + foeData.getAttackDamage() + ", Remain Block: " + foeData.getDefense());
 
