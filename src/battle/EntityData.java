@@ -7,7 +7,7 @@ import card.ICard;
 import entity.Entity;
 
 public abstract class EntityData {
-//	Basic info
+	//	Basic info
 	private Entity entity;
 	private int BasicDefense;
 	private int BasicStrength;	
@@ -18,7 +18,8 @@ public abstract class EntityData {
 	private int poisonToEntity;
 	private List<ICard> effectsList;
 
-	// accumulated data in battle
+	// Accumulated data in battle
+	private int receivedPoison;
 	private int receivedDamage;
 	private int totalCardsPlayed;
 	private int totalHeal;
@@ -30,26 +31,46 @@ public abstract class EntityData {
         this.BasicStrength = 0;
         this.attackDamage = 0;
         this.attackBuff = 1;
-        this.totalHeal = 0;
         this.defense = 0;
         this.defenseBuff = 1;
         this.poisonToEntity = 0;
-        this.numberOfRounds = 0;
-        this.receivedDamage = 0;
-        this.totalCardsPlayed = 0;
         this.effectsList = new ArrayList<>();
+
+        this.receivedPoison = 0; // # of poison stacks received in the battle 
+        this.receivedDamage = 0;
+        this.totalHeal = 0;
+        this.totalCardsPlayed = 0;
+        this.numberOfRounds = 0;
 	}
 	
+	// Poison
 	public void addPoison(int value) {
 		this.poisonToEntity += value;
+		this.receivedPoison += value;
 	}
+	
 	public int getPoison() {
 		return this.poisonToEntity;
 	}
+	
+	public void reducePoison() {
+		this.poisonToEntity -= 1;
+	}
+	
+	public int getReceivedPoison() {
+		return this.receivedPoison;
+	}
+
+	// Entity info
 	public String getEntityName() {
 		return entity.getName();
 	}
 	
+	public Entity getEntity() {
+		return this.entity;
+	}
+	
+	// Received damage
 	public int getReceivedDamage() {
 		return this.receivedDamage;
 	}
@@ -57,20 +78,8 @@ public abstract class EntityData {
 	public void addReceivedDamage(int value) {
 		this.receivedDamage += value;
 	}
-	
-	public void addTotalCardsPlayed() {
-		this.totalCardsPlayed++;
-	}
-	
-	public void addTotalCardsPlayed(int value) {
-		this.totalCardsPlayed += value;
-	}
-	
-	public int getTotalCardsPlayed() {
-		return this.totalCardsPlayed;
-	}
-	
-//	Method overload for take damage
+
+	//	Method overload for take damage
 	public void takeDamage(double value) {
 		this.addReceivedDamage((int) value);
 		this.entity.takeDamage(value);
@@ -80,14 +89,16 @@ public abstract class EntityData {
 		this.entity.takeDamage(value);
 	}
 	
-	public void reducePoison() {
-		this.poisonToEntity -= 1;
+	// # of played cards
+	public void addTotalCardsPlayed() {
+		this.totalCardsPlayed++;
 	}
 	
-	public void setAttackBuff(double value) {
-		this.attackBuff = value;
+	public int getTotalCardsPlayed() {
+		return this.totalCardsPlayed;
 	}
-	
+
+	// Healing
 	public void addTotalHeal(int value) {
 		this.totalHeal += value;
 	}
@@ -100,20 +111,43 @@ public abstract class EntityData {
 		this.defenseBuff = value;
 	}
 	
+	// Attack
 	public void addAttackDamage(double value) {
 		this.attackDamage += value;
 	}
+
+	public int getAttackDamage() {
+		return this.attackDamage;
+	}
+
+	public void setAttackDamage(int value) {
+		this.attackDamage = value;
+	}
 	
-	public int getBasicStrength() {
-		return this.BasicStrength;
+	public void addAttackDamage(int value) {
+		this.attackDamage += value;
+	}
+
+	public void setAttackBuff(double value) {
+		this.attackBuff = value;
 	}
 	
 	public double getAttackBuff() {
 		return this.attackBuff;
 	}
+
+	// Strength
+	public int getBasicStrength() {
+		return this.BasicStrength;
+	}
 	
+	// Defense
 	public void addDefense(double value) {
 		this.defense += value;
+	}
+
+	public int getDefense() {
+		return this.defense;
 	}
 	
 	public int getBasicDefense() {
@@ -123,39 +157,21 @@ public abstract class EntityData {
 	public double getDefenseBuff() {
 		return this.defenseBuff;
 	}
-	
-	public Entity getEntity() {
-		return this.entity;
-	}
-	
-	public int getAttackDamage() {
-		return this.attackDamage;
-	}
-	
-	public int getDefense() {
-		return this.defense;
-	}
-	
-	public void setAttackDamage(int value) {
-		this.attackDamage = value;
-	}
-	
+
 	public void addDefense(int value) {
 		this.defense += value;
 	}
-	
-	public int getHealth() {
-		return (int) this.entity.getHealth();
-	}
-	
+
 	public void setDefense(int value) {
 		this.defense = value;
 	}
 	
-	public void addAttackDamage(int value) {
-		this.attackDamage += value;
+	// Health
+	public int getHealth() {
+		return (int) this.entity.getHealth();
 	}
 	
+	// Rounds
 	public int getRounds() {
 		return this.numberOfRounds;
 	}
@@ -169,10 +185,15 @@ public abstract class EntityData {
         this.BasicStrength = 0;
         this.attackDamage = 0;
         this.attackBuff = 1;
-        this.totalHeal = 0;
         this.defense = 0;
         this.defenseBuff = 1;
         this.poisonToEntity = 0;
+        this.effectsList = new ArrayList<>();
+
+        this.receivedPoison = 0; // # of poison stacks received in the battle 
+        this.receivedDamage = 0;
+        this.totalHeal = 0;
+        this.totalCardsPlayed = 0;
         this.numberOfRounds = 0;
 	}
 }
