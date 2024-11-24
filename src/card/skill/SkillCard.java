@@ -1,6 +1,6 @@
 package card.skill;
 
-import battle.ComputeCenter;
+import battle.Calculator;
 import card.ICard;
 import entity.Entity;
 
@@ -9,7 +9,7 @@ public abstract class SkillCard implements ICard {
 	public SkillCard() {
 	}
 	
-	public abstract void play(Entity target, ComputeCenter cal);
+	public abstract void play(Entity target, Calculator cal);
 	
 	@Override
 	public SkillCard clone() {

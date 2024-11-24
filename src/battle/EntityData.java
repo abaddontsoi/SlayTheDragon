@@ -16,14 +16,10 @@ public abstract class EntityData {
 	private double attackBuff;
 	private int defense;
 	private double defenseBuff;
-	
 	private int poisonToEntity;
-	private int receivedPoisonDamage;
-	
 	private int numberOfRounds;
 	private int receivedDamage;
 	private int totalCardsPlayed;
-	private int totalDamageBlocked;
 	private List<ICard> effectsList;
 
 	public EntityData(Entity entity) {
@@ -35,14 +31,10 @@ public abstract class EntityData {
         this.totalHeal = 0;
         this.defense = 0;
         this.defenseBuff = 1;
-        
         this.poisonToEntity = 0;
-        this.receivedPoisonDamage = 0;
-        
         this.numberOfRounds = 0;
         this.receivedDamage = 0;
         this.totalCardsPlayed = 0;
-        this.totalDamageBlocked = 0;
         this.effectsList = new ArrayList<>();
 	}
 	
@@ -52,15 +44,6 @@ public abstract class EntityData {
 	public int getPoison() {
 		return this.poisonToEntity;
 	}
-
-	public void addReceivedPoisonDamage(int value) {
-		this.receivedPoisonDamage += value;
-	}
-	
-	public int getReceivedPoisonDamage() {
-		return this.receivedPoisonDamage;
-	}
-	
 	public String getEntityName() {
 		return entity.getName();
 	}
@@ -71,14 +54,6 @@ public abstract class EntityData {
 	
 	public void addReceivedDamage(int value) {
 		this.receivedDamage += value;
-	}
-	
-	public int getTotalDamageBlocked() {
-		return this.totalDamageBlocked;
-	}
-	
-	public void addTotalDamageBlocked(int value) {
-		this.totalDamageBlocked += value;
 	}
 	
 	public void addTotalCardsPlayed() {

@@ -15,10 +15,11 @@ public class Battle {
     private Foe enemy;
     private boolean isPlayerTurn;
     private GameIO gameIO;
-    private ComputeCenter calculator;
+    private Calculator calculator;
     private CardManager playerCardManager;
     private CardManager foeCardManager;
     private int round;
+    // private List<RoundRecord> roundRecords;
 
     public Battle(Player player, Foe enemy) {
         this.player = player;
@@ -26,7 +27,7 @@ public class Battle {
         // Player goes first
         this.isPlayerTurn = true;
         this.gameIO = GameIO.getInstance();
-        this.calculator = new ComputeCenter(player, enemy);
+        this.calculator = new Calculator(player, enemy);
         this.playerCardManager = new CardManager(player.getDeck(), player);
         this.foeCardManager = new CardManager(enemy.getDeck(), enemy);
         this.round = 1;
@@ -39,6 +40,15 @@ public class Battle {
         gameIO.displayBattleStart(player, enemy);
         while (player.isAlive() && enemy.isAlive()) {
             round();
+            // RoundRecord roundRecord = round();
+            // roundRecords.add(RoundRecord);
+
+            // if (isPlayerTurn) {
+            // playerTurn();
+            // } else {
+            // enemyTurn();
+            // }
+            // isPlayerTurn = !isPlayerTurn;
         }
         endBattle();
     }
@@ -75,6 +85,47 @@ public class Battle {
 
     }
 
+    // private void playerTurn() {
+    // applyEffects(player);
+    // // Display player's turn message
+    // gameIO.displayPlayerTurn();
+    // gameIO.displayEntityStats(player);
+    // gameIO.displayEntityStats(enemy);
+    // gameIO.displayEntityEffects(player);
+    // gameIO.displayEntityEffects(enemy);
+
+    // // Initialise the player's turn
+    // player.initializeTurn();
+
+    // // Display player's available cards and prompt the player to choose 3 cards
+    // List<ICard> chosenCards = player.chooseCards();
+    // // After choosing and execute card, create a new turn data and push to battle
+    // record;
+
+    // gameIO.displayMessage("=====================================================");
+    // }
+
+    // private void enemyTurn() {
+    // applyEffects(enemy);
+    // // Display enemy's turn message
+    // gameIO.displayEnemyTurn();
+    // gameIO.displayEntityStats(player);
+    // gameIO.displayEntityStats(enemy);
+    // gameIO.displayEntityEffects(player);
+    // gameIO.displayEntityEffects(enemy);
+
+    // // Initialise the enemy's turn
+    // enemy.initializeTurn();
+
+    // // Enemy AI logic to choose cards
+    // List<ICard> chosenCards = enemy.chooseCards();
+
+    // // After choosing and execute card, create a new turn data and push to battle
+    // record;
+
+    // gameIO.displayMessage("=====================================================");
+    // }
+
     private void applyEffects(Entity entity) {
         entity.applyEffects();
     }
@@ -88,7 +139,11 @@ public class Battle {
     }
 
     private void endBattle() {
+        // BattleRecord battleRecord = new BattleRecord()
+    	
+        // Generate BattleRecord
     	calculator.genBattleRecord();
+
         if (player.isAlive()) {
             gameIO.displayMessage("Player wins!");
             rewardPlayer();            
@@ -96,5 +151,6 @@ public class Battle {
             gameIO.displayMessage("Enemy wins!");
             // Handle game over logic
         }
+        
     }
 }

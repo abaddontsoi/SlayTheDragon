@@ -1,6 +1,6 @@
 package card.skill;
 
-import battle.ComputeCenter;
+import battle.Calculator;
 import entity.Entity;
 
 public abstract class HealCard extends SkillCard {
@@ -11,7 +11,7 @@ public abstract class HealCard extends SkillCard {
 	}
 
 	@Override
-	public void play(Entity target, ComputeCenter cal) {
+	public void play(Entity target, Calculator cal) {
 		target.heal(healAmount);
 		cal.addHeal(target, healAmount);
 	}

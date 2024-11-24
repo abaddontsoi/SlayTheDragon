@@ -8,5 +8,6 @@ public class Main {
 		// Start the game
 		Game game = Game.getInstance();
 		game.startGame();
+		
 	}
 }

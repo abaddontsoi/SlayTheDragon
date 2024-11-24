@@ -13,7 +13,7 @@ public class DrawCard extends SkillCard{
 	}
 
 	@Override
-	public void play(Entity target, ComputeCenter cal) {
+	public void play(Entity target, Calculator cal) {
 
 	}
 
