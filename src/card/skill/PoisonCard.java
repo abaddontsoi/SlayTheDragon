@@ -11,7 +11,7 @@ public abstract class PoisonCard extends SkillCard{
 	}
 
     @Override
-	public void play(Entity target, Calculator cal) {
+	public void play(Entity target, ComputeCenter cal) {
 		cal.setPoisonDamage(target, poisonDamage);
 	}
 

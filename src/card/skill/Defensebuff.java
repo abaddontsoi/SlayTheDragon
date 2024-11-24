@@ -1,6 +1,6 @@
 package card.skill;
 
-import battle.Calculator;
+import battle.ComputeCenter;
 import entity.Entity;
 
 abstract public class Defensebuff extends SkillCard {
@@ -11,7 +11,7 @@ abstract public class Defensebuff extends SkillCard {
 	}
 
 	@Override
-	public void play(Entity target, Calculator cal) {
+	public void play(Entity target, ComputeCenter cal) {
 		cal.setDefenseBuff(target, mag_defense);
 	}
 
