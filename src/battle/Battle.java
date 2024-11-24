@@ -66,10 +66,11 @@ public class Battle {
             gameIO.displayEntityEffects(player);
             playerCardManager.initializeTurn();
             pCards = playerCardManager.chooseCards(calculator);
-
-            gameIO.displayMessage("=========================== End Round " + round + " ===========================");
-            calculator.finishPlayerRound();
-            round++;
+            if (enemy.isAlive()){
+                gameIO.displayMessage("=========================== End Round " + round + " ===========================");
+                calculator.finishPlayerRound();
+                round++;
+            }
         }
 
     }

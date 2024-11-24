@@ -98,7 +98,7 @@ public class ComputeCenter {
         gameIO.displayMessage("Damage To Player: " + foeData.getAttackDamage() + " ,Block: " + foeData.getDefense());
     }
 
-    public void calculatePlayerAction(ICard card) {
+    public boolean calculatePlayerAction(ICard card) {
         gameIO.displayMessage("player choose: " + card.getName());
         playerData.addTotalCardsPlayed();
         
@@ -122,7 +122,9 @@ public class ComputeCenter {
                 
                 gameIO.displayMessage(foeData.getEntityName() + " Status: Health: " + foeData.getHealth() + ", Attack: "
                         + foeData.getAttackDamage() + ", Remain Block: " + foeData.getDefense());
-
+                if (foeData.getHealth()<=0){
+                    return false;
+                }
             }
             
         }
@@ -134,6 +136,7 @@ public class ComputeCenter {
             ((SkillCard) card).play(playerData.getEntity(), this);
         } 
         gameIO.displayMessage("============================");
+        return true;
     }
 
     public void calculateRound() { // return record
