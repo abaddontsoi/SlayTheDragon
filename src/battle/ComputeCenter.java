@@ -122,11 +122,7 @@ public class ComputeCenter {
                 
                 gameIO.displayMessage(foeData.getEntityName() + " Status: Health: " + foeData.getHealth() + ", Attack: "
                         + foeData.getAttackDamage() + ", Remain Block: " + foeData.getDefense());
-                if (foeData.getHealth()<=0){
-                    return false;
-                }
             }
-            
         }
         if (card instanceof DefendCard) {
         	playerData.addDefense((((DefendCard) card).getBlock() + playerData.getBasicDefense()) * playerData.getDefenseBuff());
@@ -136,6 +132,9 @@ public class ComputeCenter {
             ((SkillCard) card).play(playerData.getEntity(), this);
         } 
         gameIO.displayMessage("============================");
+        if (foeData.getHealth()<=0){
+        	return false;
+        }
         return true;
     }
 

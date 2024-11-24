@@ -68,9 +68,9 @@ public class Battle {
             pCards = playerCardManager.chooseCards(calculator);
             if (enemy.isAlive()){
                 gameIO.displayMessage("=========================== End Round " + round + " ===========================");
-                calculator.finishPlayerRound();
                 round++;
             }
+            calculator.finishPlayerRound();
         }
 
     }
