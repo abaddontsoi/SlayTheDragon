@@ -3,7 +3,7 @@ package card;
 
 import java.util.*;
 
-import battle.Calculator;
+import battle.ComputeCenter;
 import card.skill.DrawCard;
 import entity.Entity;
 import entity.Foe;
@@ -70,7 +70,7 @@ public class CardManager {
         drawCards();
     }
 
-    public List<ICard> chooseCards(Calculator cal) {
+    public List<ICard> chooseCards(ComputeCenter cal) {
         List<ICard> chosenCards = new ArrayList<>();
         // Check if the hand is empty
         if (this.hand.isEmpty()) {

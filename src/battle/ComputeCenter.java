@@ -16,14 +16,14 @@ import gameIO.GameIO;
 import battle.record.*;
 import battle.record.Record;
 
-public class Calculator {
+public class ComputeCenter {
 	private GameIO gameIO;
 
 	private PlayerData playerData;
 	private FoeData foeData;
 
 
-	public Calculator(Entity player, Entity foe) {
+	public ComputeCenter(Entity player, Entity foe) {
     	this.gameIO = GameIO.getInstance();
     	this.playerData = new PlayerData(player);
     	this.foeData = new FoeData(foe);
@@ -160,11 +160,6 @@ public class Calculator {
 	public void addPlayerReward(ICard card) {
 		playerData.addReward(card);
 	}
-    
-    public void reset() {
-    	playerData.reset();
-    	foeData.reset();
-    }
     
     public void genBattleRecord() {
     	BattleRecord.createRecord(playerData, foeData);

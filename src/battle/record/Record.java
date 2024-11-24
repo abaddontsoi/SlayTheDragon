@@ -13,7 +13,6 @@ public abstract class Record {
 
 	private static List<Record> records = new ArrayList<Record>();
 	private static List<ICard> deck = new ArrayList<ICard>();
-	private static List<Entity> foesFaced = new ArrayList<Entity>();
 	
 	private PlayerData playerData;
 	private FoeData foeData;
@@ -127,14 +126,15 @@ public abstract class Record {
 	
 //	9.	All foes faced
 	public static List<Entity> getAllFacedFoes() {
+		List<Entity> foesFaced = new ArrayList<>();
 		for (Record r : Record.records) {
-			Record.foesFaced.add(r.foeData.getEntity());
+			foesFaced.add(r.foeData.getEntity());
 		}
 		return foesFaced;
 	}
 
 	public static void printAllFacedFoes() {
-		for (Entity e : Record.foesFaced) {
+		for (Entity e : getAllFacedFoes()) {
 			System.out.println(e.getName());
 		}
 	}

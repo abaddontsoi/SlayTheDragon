@@ -15,11 +15,10 @@ public class Battle {
     private Foe enemy;
     private boolean isPlayerTurn;
     private GameIO gameIO;
-    private Calculator calculator;
+    private ComputeCenter calculator;
     private CardManager playerCardManager;
     private CardManager foeCardManager;
     private int round;
-    // private List<RoundRecord> roundRecords;
 
     public Battle(Player player, Foe enemy) {
         this.player = player;
@@ -27,7 +26,7 @@ public class Battle {
         // Player goes first
         this.isPlayerTurn = true;
         this.gameIO = GameIO.getInstance();
-        this.calculator = new Calculator(player, enemy);
+        this.calculator = new ComputeCenter(player, enemy);
         this.playerCardManager = new CardManager(player.getDeck(), player);
         this.foeCardManager = new CardManager(enemy.getDeck(), enemy);
         this.round = 1;
@@ -40,15 +39,6 @@ public class Battle {
         gameIO.displayBattleStart(player, enemy);
         while (player.isAlive() && enemy.isAlive()) {
             round();
-            // RoundRecord roundRecord = round();
-            // roundRecords.add(RoundRecord);
-
-            // if (isPlayerTurn) {
-            // playerTurn();
-            // } else {
-            // enemyTurn();
-            // }
-            // isPlayerTurn = !isPlayerTurn;
         }
         endBattle();
     }
