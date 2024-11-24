@@ -1,7 +1,7 @@
 package game;
 
 import battle.Battle;
-import card.*;
+import battle.record.BattleRecord;
 import effect.*;
 import entity.*;
 import gameIO.GameIO;
@@ -115,6 +115,7 @@ public class Game {
 			gameIO.displayMessage("Congratulations! You have defeated all foes!");
 		} else {
 			gameIO.displayMessage("Game over! You have been defeated!");
+			BattleRecord.printAllFacedFoes();
 		}
 	}
 }
