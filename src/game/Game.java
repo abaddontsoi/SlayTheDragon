@@ -66,6 +66,7 @@ public class Game {
 		deck.add(cardFactory.createCard(CardName.SKILL_BASIC_POISON));
 		deck.add(cardFactory.createCard(CardName.SKILL_BASIC_ATTACK_BUFF));
 		deck.add(cardFactory.createCard(CardName.SKILL_BASIC_DEFENSE_BUFF));
+		deck.add(cardFactory.createCard(CardName.SKILL_ADVANCED_DRAW));
 		return deck;
 	}
 
@@ -85,7 +86,7 @@ public class Game {
 		this.foes = new ArrayList<>();
 		this.foes.add(new Foe("Orc", "Normal", 100, 1, 1, normalFoeDeck));
 		this.foes.add(new Foe("Goblin", "Normal", 200, 1, 1, normalFoeDeck));
-		this.foes.add(new Foe("idk1", "Elite", 300, 3, 3, EliteFoeDeck));
+		this.foes.add(new Foe("Berserker", "Elite", 300, 3, 3, EliteFoeDeck));
 		this.foes.add(new Foe("slime", "Normal", 400, 1, 1, normalFoeDeck));
 		this.foes.add(new Foe("skeleton", "Normal", 500, 1, 1, normalFoeDeck));
 		this.foes.add(new Foe("Death Knight", "Elite", 600, 3, 3, EliteFoeDeck));
