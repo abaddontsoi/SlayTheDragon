@@ -82,6 +82,7 @@ public class CardFactory {
 		cardCreators.put(CardName.SKILL_BASIC_POISON, BasicPoisonCard::new);
 		cardCreators.put(CardName.SKILL_ADVANCED_POISON, AdvancedPoisonCard::new);
 		cardCreators.put(CardName.SKILL_BASIC_DRAW, BasicDrawCard::new);
+		cardCreators.put(CardName.SKILL_ADVANCED_DRAW, AdvancedDrawCard::new);
 		cardCreators.put(CardName.SKILL_BASIC_ATTACK_BUFF, BasicAttackBuff::new);
 		cardCreators.put(CardName.SKILL_ADVANCED_ATTACK_BUFF, AdvancedAttackBuff::new);
 		cardCreators.put(CardName.SKILL_BASIC_DEFENSE_BUFF, BasicDefenseBuff::new);
