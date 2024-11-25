@@ -15,14 +15,4 @@ public abstract class HealCard extends SkillCard {
 		target.heal(healAmount);
 		cal.addHeal(target, healAmount);
 	}
-
-	@Override
-	public String getName() {
-		return "Heal Card";
-	}
-
-	@Override
-	public String getDescription() {
-		return "Heal " + this.healAmount + " HP.";
-	}
 }
