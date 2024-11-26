@@ -99,7 +99,7 @@ public class Game {
 	public void startGame() {
 		while (player.isAlive() && currentLevel <= 10) {
 			Foe currentFoe = foes.get(currentLevel - 1);
-			Battle battle = new Battle(player, currentFoe);
+			Battle battle = new Battle(player, currentFoe, currentLevel);
 			battle.startBattle();
 
 			if (player.isAlive()) {

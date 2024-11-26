@@ -18,9 +18,10 @@ public class Battle {
     private ComputeCenter calculator;
     private CardManager playerCardManager;
     private CardManager foeCardManager;
+    private int level;
     private int round;
     
-    public Battle(Player player, Foe enemy) {
+    public Battle(Player player, Foe enemy, int level) {
         this.player = player;
         this.enemy = enemy;
         // Player goes first
@@ -29,13 +30,14 @@ public class Battle {
         this.calculator = new ComputeCenter(player, enemy);
         this.playerCardManager = new CardManager(player.getDeck(), player);
         this.foeCardManager = new CardManager(enemy.getDeck(), enemy);
+        this.level = level;
         this.round = 1;
     }
 
     public void startBattle() {
         // Display battle start message
         CardFactory cardFactory = CardFactory.getInstance();
-        gameIO.displayBattleStart(player, enemy);
+        gameIO.displayBattleStart(player, enemy, level);
         while (player.isAlive() && enemy.isAlive()) {
             round();
         }

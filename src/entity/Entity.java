@@ -20,7 +20,7 @@ public abstract class Entity {
 	protected GameIO gameIO;
 	public static final int CHOSEN_CARDS_SIZE = 3;
 	
-	public Entity(double maxHealth, double defense, double strength, List<ICard> deck) {
+	public Entity(double maxHealth, int defense, int strength, List<ICard> deck) {
 //		this.maxHealth = maxHealth;
 //		this.health = maxHealth;
 //		this.defense = defense;

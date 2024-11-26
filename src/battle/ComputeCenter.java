@@ -17,31 +17,30 @@ import battle.record.*;
 import battle.record.Record;
 
 public class ComputeCenter {
-	private GameIO gameIO;
+    private GameIO gameIO;
 
-	private PlayerData playerData;
-	private FoeData foeData;
+    private PlayerData playerData;
+    private FoeData foeData;
 
-
-	public ComputeCenter(Entity player, Entity foe) {
-    	this.gameIO = GameIO.getInstance();
-    	this.playerData = new PlayerData(player);
-    	this.foeData = new FoeData(foe);
+    public ComputeCenter(Entity player, Entity foe) {
+        this.gameIO = GameIO.getInstance();
+        this.playerData = new PlayerData(player);
+        this.foeData = new FoeData(foe);
     }
 
-	public void finishFoeRound() {
-		foeData.doneRound();
-	}
-	
-	public void finishPlayerRound() {
-		playerData.doneRound();
-	}
-	
+    public void finishFoeRound() {
+        foeData.doneRound();
+    }
+
+    public void finishPlayerRound() {
+        playerData.doneRound();
+    }
+
     public void setPoisonDamage(Entity target, int poisonDamage) {
         if (target instanceof Player) {
             this.foeData.addPoison(poisonDamage);
         } else {
-        	this.playerData.addPoison(poisonDamage);
+            this.playerData.addPoison(poisonDamage);
         }
     }
 
@@ -60,7 +59,7 @@ public class ComputeCenter {
 
     public void setAttackBuff(Entity target, double attackbuff) {
         if (target instanceof Player) {
-        	playerData.setAttackBuff(attackbuff);
+            playerData.setAttackBuff(attackbuff);
         } else {
             foeData.setAttackBuff(attackbuff);
         }
@@ -68,7 +67,7 @@ public class ComputeCenter {
 
     public void addHeal(Entity target, int healAmount) {
         if (target instanceof Player) {
-        	playerData.addTotalHeal(healAmount);
+            playerData.addTotalHeal(healAmount);
         } else {
             foeData.addTotalHeal(healAmount);
         }
@@ -76,7 +75,7 @@ public class ComputeCenter {
 
     public void setDefenseBuff(Entity target, double defensebuff) {
         if (target instanceof Player) {
-        	playerData.setDefenseBuff(defensebuff);
+            playerData.setDefenseBuff(defensebuff);
         } else {
             foeData.setDefenseBuff(defensebuff);
         }
@@ -85,10 +84,13 @@ public class ComputeCenter {
     public void calculateFoeRound(List<ICard> eCards) {
         eCards.forEach((card) -> {
             if (card instanceof AttackCard) {
-            	foeData.addAttackDamage((((AttackCard) card).getDamage() + foeData.getBasicStrength()) * foeData.getAttackBuff());
+                foeData.addAttackDamage(
+                        (((AttackCard) card).getDamage() + foeData.getBasicStrength()) * foeData.getAttackBuff());
             }
             if (card instanceof DefendCard) {
-            	foeData.addDefense((((DefendCard) card).getBlock() + foeData.getBasicDefense()) * foeData.getDefenseBuff());
+                foeData.addDefense(
+                        (((DefendCard) card).getBlock() + foeData.getBasicDefense()) * foeData.getDefenseBuff());
+
             }
             if (card instanceof SkillCard) {
                 ((SkillCard) card).play(foeData.getEntity(), this);
@@ -101,75 +103,84 @@ public class ComputeCenter {
     public boolean calculatePlayerAction(ICard card) {
         gameIO.displayMessage("player choose: " + card.getName());
         playerData.addTotalCardsPlayed();
-        
+
         if (card instanceof AttackCard) {
-        	
-        	int playerDamage = (int) ((((AttackCard) card).getDamage() + playerData.getBasicStrength()) * playerData.getAttackBuff());
-        	playerData.setAttackDamage(playerDamage);
-        	playerData.addTotalAttackDamage(playerData.getAttackDamage());
-        	
+
+            int playerDamage = (int) ((((AttackCard) card).getDamage() + playerData.getBasicStrength())
+                    * playerData.getAttackBuff());
+            playerData.setAttackDamage(playerDamage);
+            playerData.addTotalAttackDamage(playerData.getAttackDamage());
+
             if (playerData.getAttackDamage() < foeData.getDefense()) {
                 foeData.addDefense(-playerData.getAttackDamage());
-                
+
                 gameIO.displayMessage("Player Damage To " + foeData.getEntityName() + ": 0");
+                gameIO.displayMessage(foeData.getEntityName() + " is defeated");
                 gameIO.displayMessage(foeData.getEntityName() + " Status: Health: " + foeData.getEntity().getHealth() + ", Attack: "
-                        + foeData.getAttackDamage() + ", Remain Block: " + foeData.getDefense());
+                                + foeData.getAttackDamage() + ", Remain Block: " + foeData.getDefense());
+
             } else {
-                gameIO.displayMessage("Player Damage To " + foeData.getEntityName() + ": " + (playerData.getAttackDamage() - foeData.getDefense()));
-                
+                gameIO.displayMessage("Player Damage To " + foeData.getEntityName() + ": "
+                        + (playerData.getAttackDamage() - foeData.getDefense()));
+
                 foeData.takeDamage(playerData.getAttackDamage() - foeData.getDefense());
                 foeData.setDefense(0);
-                
-                gameIO.displayMessage(foeData.getEntityName() + " Status: Health: " + foeData.getHealth() + ", Attack: "
-                        + foeData.getAttackDamage() + ", Remain Block: " + foeData.getDefense());
+                if (foeData.getHealth() <= 0) {
+                    gameIO.displayMessage(foeData.getEntityName() + " is defeated");
+                } else {
+                    gameIO.displayMessage(
+                            foeData.getEntityName() + " Status: Health: " + foeData.getHealth() + ", Attack: "
+                                    + foeData.getAttackDamage() + ", Remain Block: " + foeData.getDefense());
+                }
             }
         }
         if (card instanceof DefendCard) {
-        	playerData.addDefense((((DefendCard) card).getBlock() + playerData.getBasicDefense()) * playerData.getDefenseBuff());
-        	playerData.addTotalDefense(playerData.getDefense()); 
+            playerData.addDefense(
+                    (((DefendCard) card).getBlock() + playerData.getBasicDefense()) * playerData.getDefenseBuff());
+            playerData.addTotalDefense(playerData.getDefense());
         }
         if (card instanceof SkillCard) {
             ((SkillCard) card).play(playerData.getEntity(), this);
-        } 
+        }
         gameIO.displayMessage("============================");
-        if (foeData.getHealth()<=0){
-        	return false;
+        if (foeData.getHealth() <= 0) {
+            return false;
         }
         return true;
     }
 
     public void calculateRound() { // return record
-    	gameIO.displayMessage(foeData.getEntityName() +" Demage To Player: " + foeData.getAttackDamage());
-    	
-    	if (foeData.getAttackDamage() <= playerData.getDefense()) {
-    		// Foe attack player
-    		playerData.addDefense(-foeData.getAttackDamage());
-    	} else {
-    		// Foe's attack > player defense
-    		// Player have to take damage
-    		int playerReceivedDamage = foeData.getAttackDamage() - playerData.getDefense();
-    		playerData.setDefense(0);
-    		playerData.takeDamage(playerReceivedDamage);
-    	}
-    	// Attack done, reset its value
-		foeData.setAttackDamage(0);
-        
-		gameIO.displayMessage(playerData.getEntityName() + " Status: Health: " + playerData.getHealth());
+        gameIO.displayMessage(foeData.getEntityName() + " Demage To Player: " + foeData.getAttackDamage());
+
+        if (foeData.getAttackDamage() <= playerData.getDefense()) {
+            // Foe attack player
+            playerData.addDefense(-foeData.getAttackDamage());
+        } else {
+            // Foe's attack > player defense
+            // Player have to take damage
+            int playerReceivedDamage = foeData.getAttackDamage() - playerData.getDefense();
+            playerData.setDefense(0);
+            playerData.takeDamage(playerReceivedDamage);
+        }
+        // Attack done, reset its value
+        foeData.setAttackDamage(0);
+
+        gameIO.displayMessage(playerData.getEntityName() + " Status: Health: " + playerData.getHealth());
 
         playerData.updateMaxDamage(playerData.getAttackDamage());
         playerData.updateMaxDefense(playerData.getDefense());
     }
 
-	public void addPlayerReward(ICard card) {
-		playerData.addReward(card);
-	}
-    
-    public void reset() { 	
-    	playerData.reset();
-    	foeData.reset();
+    public void addPlayerReward(ICard card) {
+        playerData.addReward(card);
     }
-    
+
+    public void reset() {
+        playerData.reset();
+        foeData.reset();
+    }
+
     public void genBattleRecord() {
-    	BattleRecord.createRecord(playerData, foeData);
+        BattleRecord.createRecord(playerData, foeData);
     }
 }

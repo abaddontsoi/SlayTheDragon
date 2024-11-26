@@ -9,7 +9,7 @@ public class Foe extends Entity {
 	private String name;
 	private String type;
 
-	public Foe(String name, String type, double maxHealth, double defense, double strength, List<ICard> deck) {
+	public Foe(String name, String type, double maxHealth, int defense, int strength, List<ICard> deck) {
 		super(maxHealth, defense, strength, deck);
 		this.type = type;
 		this.name = name;

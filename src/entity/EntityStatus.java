@@ -10,15 +10,15 @@ import gameIO.GameIO;
 public class EntityStatus implements IEntityStatus {
 	private double maxHealth;
 	private double health;
-	private double defense;
-	private double strength;
+	private int defense;
+	private int strength;
 	private double attack_multiple;
 	private double defense_multiple;
 	private int poisonDamage;
 	private List<EffectInTurns> effectsInRounds;
 	private List<EffectInTurns> permanentEffectsInRounds;
 
-	public EntityStatus(double maxHealth, double defense, double strength) {
+	public EntityStatus(double maxHealth, int defense, int strength) {
 		this.maxHealth = maxHealth;
 		this.health = maxHealth;
 		this.defense = defense;
@@ -40,13 +40,13 @@ public class EntityStatus implements IEntityStatus {
 	}
 
 	@Override
-	public double getDefense() {
+	public int getDefense() {
 		// TODO Auto-generated method stub
 		return this.defense;
 	}
 
 	@Override
-	public double getStrength() {
+	public int getStrength() {
 		// TODO Auto-generated method stub
 		return this.strength;
 	}
@@ -76,13 +76,13 @@ public class EntityStatus implements IEntityStatus {
 	}
 
 	@Override
-	public void setDefense(double value) {
+	public void setDefense(int value) {
 		// TODO Auto-generated method stub
 		this.defense = value;
 	}
 
 	@Override
-	public void setStrength(double value) {
+	public void setStrength(int value) {
 		// TODO Auto-generated method stub
 		this.strength = value;
 	}

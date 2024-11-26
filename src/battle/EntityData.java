@@ -27,8 +27,8 @@ public abstract class EntityData {
 
 	public EntityData(Entity entity) {
     	this.entity = entity;
-        this.BasicDefense = 0;
-        this.BasicStrength = 0;
+        this.BasicDefense = (int)entity.getDefense();
+        this.BasicStrength = (int)entity.getStrength();
         this.attackDamage = 0;
         this.attackBuff = 1;
         this.defense = 0;
@@ -168,7 +168,7 @@ public abstract class EntityData {
 	
 	// Health
 	public int getHealth() {
-		return (int) this.entity.getHealth();
+		return (int) this.entity.getHealth() <= 0 ? 0 : (int) this.entity.getHealth();
 	}
 	
 	// Rounds
