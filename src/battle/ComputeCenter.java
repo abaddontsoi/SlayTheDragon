@@ -1,20 +1,14 @@
 package battle;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import card.CardManager;
+import battle.record.*;
 import card.ICard;
 import card.attack.*;
 import card.defend.*;
 import card.skill.*;
-import effect.IEffect;
 import entity.Entity;
-import entity.Foe;
 import entity.Player;
 import gameIO.GameIO;
-import battle.record.*;
-import battle.record.Record;
+import java.util.List;
 
 public class ComputeCenter {
 	private GameIO gameIO;
@@ -139,7 +133,7 @@ public class ComputeCenter {
     }
 
     public void calculateRound() { // return record
-    	gameIO.displayMessage(foeData.getEntityName() +" Demage To Player: " + foeData.getAttackDamage());
+    	gameIO.displayMessage(foeData.getEntityName() +" Damage To Player: " + foeData.getAttackDamage());
     	
     	if (foeData.getAttackDamage() <= playerData.getDefense()) {
     		// Foe attack player
