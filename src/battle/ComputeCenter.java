@@ -28,6 +28,7 @@ public class ComputeCenter {
 
     public void finishPlayerRound() {
         playerData.doneRound();
+        resetRoundData();
     }
 
     public void setPoisonDamage(Entity target, int poisonDamage) {
@@ -187,6 +188,11 @@ public class ComputeCenter {
     public void reset() {
         playerData.reset();
         foeData.reset();
+    }
+
+    private void resetRoundData(){
+        playerData.resetRoundData();
+        foeData.resetRoundData();
     }
 
     public void genBattleRecord() {

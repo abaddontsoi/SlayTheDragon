@@ -63,27 +63,48 @@ public class Game {
             deck.add(cardFactory.createCard(CardName.SKILL_BASIC_DRAW));
         }
         deck.add(cardFactory.createCard(CardName.SKILL_BASIC_HEAL));
-        deck.add(cardFactory.createCard(CardName.SKILL_BASIC_HEAL));
+        deck.add(cardFactory.createCard(CardName.SKILL_ADVANCED_HEAL));
         deck.add(cardFactory.createCard(CardName.SKILL_BASIC_POISON));
+		deck.add(cardFactory.createCard(CardName.SKILL_ADVANCED_POISON));
         deck.add(cardFactory.createCard(CardName.SKILL_BASIC_ATTACK_BUFF));
         deck.add(cardFactory.createCard(CardName.SKILL_BASIC_DEFENSE_BUFF));
+		deck.add(cardFactory.createCard(CardName.SKILL_ADVANCED_ATTACK_BUFF));
+        deck.add(cardFactory.createCard(CardName.SKILL_ADVANCED_DEFENSE_BUFF));
         deck.add(cardFactory.createCard(CardName.SKILL_ADVANCED_DRAW));
+		deck.add(cardFactory.createCard(CardName.SKILL_BASIC_DRAW));
         return deck;
     }
 
     private void initializeFoes() {
         CardFactory cardFactory = CardFactory.getInstance();
         List<ICard> normalFoeDeck = new ArrayList<>();
-        for (int i = 0; i < 3; i++) {
-            normalFoeDeck.add(cardFactory.createCard(CardName.ATTACK_BASIC));
-            normalFoeDeck.add(cardFactory.createCard(CardName.DEFEND_BASIC));
-        }
+        for(int i = 0; i<4 ; i++){
+			normalFoeDeck.add(cardFactory.createCard(CardName.ATTACK_BASIC));
+        	normalFoeDeck.add(cardFactory.createCard(CardName.DEFEND_BASIC));
+			normalFoeDeck.add(cardFactory.createCard(CardName.SKILL_BASIC_HEAL));
+		}
+    
         List<ICard> EliteFoeDeck = new ArrayList<>();
-        for (int i = 0; i < 3; i++) {
-            EliteFoeDeck.add(cardFactory.createCard(CardName.ATTACK_ADVANCED));
-            EliteFoeDeck.add(cardFactory.createCard(CardName.DEFEND_ADVANCED));
-        }
+        for(int i = 0; i<3 ; i++){
+			EliteFoeDeck.add(cardFactory.createCard(CardName.ATTACK_BASIC));
+        	EliteFoeDeck.add(cardFactory.createCard(CardName.DEFEND_BASIC));
+		}
+		EliteFoeDeck.add(cardFactory.createCard(CardName.ATTACK_ADVANCED));
+        EliteFoeDeck.add(cardFactory.createCard(CardName.DEFEND_ADVANCED));
+		EliteFoeDeck.add(cardFactory.createCard(CardName.SKILL_BASIC_HEAL));
+        
+		
         List<ICard> BossDeck = new ArrayList<>();
+		for(int i = 0; i<2 ; i++){
+			BossDeck.add(cardFactory.createCard(CardName.ATTACK_ADVANCED));
+        	BossDeck.add(cardFactory.createCard(CardName.DEFEND_ADVANCED));
+		}
+		BossDeck.add(cardFactory.createCard(CardName.SKILL_ADVANCED_HEAL));
+		BossDeck.add(cardFactory.createCard(CardName.SKILL_BASIC_POISON));
+		BossDeck.add(cardFactory.createCard(CardName.SKILL_ADVANCED_POISON));
+		BossDeck.add(cardFactory.createCard(CardName.ATTACK_BASIC));
+        BossDeck.add(cardFactory.createCard(CardName.DEFEND_BASIC));
+
         this.foes = new ArrayList<>();
         // this.foes.add(new Foe("Orc", "Normal", 30, 1, 1, normalFoeDeck));
         // this.foes.add(new Foe("Goblin", "Normal", 40, 0, 1, normalFoeDeck));
@@ -104,8 +125,7 @@ public class Game {
         this.foes.add(new Foe("Lich", "Normal", 70, 1, 3, normalFoeDeck));
         this.foes.add(new Foe("Beholder", "Normal", 100, 1, 3, normalFoeDeck));
         this.foes.add(new Foe("Mind Flayer", "Elite", 120, 3, 2, EliteFoeDeck));
-        this.foes.add(new Foe("Ancient Red Dragon", "Boss", 200, 5, 5, EliteFoeDeck));
-
+        this.foes.add(new Foe("Ancient Red Dragon", "Boss", 200, 5, 5, BossDeck));
 	}
 
 	public void startGame() {
