@@ -6,7 +6,7 @@ import card.ICard;
 
 public class Player extends Entity {
 
-	public Player(double maxHealth, double defense, double strength, List<ICard> deck) {
+	public Player(double maxHealth, int defense, int strength, List<ICard> deck) {
 		super(maxHealth, defense, strength, deck);
 	}
 	

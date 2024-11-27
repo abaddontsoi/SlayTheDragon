@@ -8,13 +8,13 @@ import gameIO.GameIO;
 public interface IEntityStatus {
 	double getMaxHealth();
 	double getHealth();
-	double getDefense();
-	double getStrength();
+	int getDefense();
+	int getStrength();
 	
 	void setMaxHealth(double value);
 	void setHealth(double value);
-	void setDefense(double value);
-	void setStrength(double value);
+	void setDefense(int value);
+	void setStrength(int value);
 	
 	List<EffectInTurns> getEffectsInRounds();
 	List<EffectInTurns> getPermanentEffectsInRounds();

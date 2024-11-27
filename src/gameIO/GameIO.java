@@ -24,8 +24,8 @@ public class GameIO {
 		return instance;
 	}
     
-    public void displayBattleStart(Player player, Foe foe) {
-        ioHandler.displayMessage("\n======== " +foe.getType() + " Battle begins between player and " + foe.getName()+ " ========");
+    public void displayBattleStart(Player player, Foe foe, int level) {
+        ioHandler.displayMessage("\n======== Level " + level + " : " + foe.getType() + " Battle begins between player and " + foe.getName()+ " ========");
     }
 
     public void displayPlayerTurn() {
