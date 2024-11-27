@@ -16,7 +16,6 @@ public abstract class EntityData {
 	private int defense;
 	private double defenseBuff;
 	private int poisonToEntity;
-	private List<ICard> effectsList;
 
 	// Accumulated data in battle
 	private int receivedPoison;
@@ -34,8 +33,6 @@ public abstract class EntityData {
         this.defense = 0;
         this.defenseBuff = 1;
         this.poisonToEntity = 0;
-        this.effectsList = new ArrayList<>();
-
         this.receivedPoison = 0; // # of poison stacks received in the battle 
         this.receivedDamage = 0;
         this.totalHeal = 0;
@@ -188,12 +185,18 @@ public abstract class EntityData {
         this.defense = 0;
         this.defenseBuff = 1;
         this.poisonToEntity = 0;
-        this.effectsList = new ArrayList<>();
 
         this.receivedPoison = 0; // # of poison stacks received in the battle 
         this.receivedDamage = 0;
         this.totalHeal = 0;
         this.totalCardsPlayed = 0;
         this.numberOfRounds = 0;
+	}
+
+	public void resetRoundData() {
+        this.attackDamage = 0;
+        this.attackBuff = 1;
+        this.defense = 0;
+        this.defenseBuff = 1;
 	}
 }

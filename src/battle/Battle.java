@@ -53,7 +53,7 @@ public class Battle {
             applyEffects(enemy);
             applyEffects(player);
             gameIO.displayEntityStats(enemy);
-            gameIO.displayEntityEffects(enemy);
+            // gameIO.displayEntityEffects(enemy);
             foeCardManager.initializeTurn();
             eCards = foeCardManager.chooseCards(calculator);
             gameIO.displayMessage(enemy.getName() + " played cards:");
@@ -65,7 +65,7 @@ public class Battle {
 
             gameIO.displayMessage("\n=========================== Your Action: ===========================");
             gameIO.displayEntityStats(player);
-            gameIO.displayEntityEffects(player);
+            // gameIO.displayEntityEffects(player);
             playerCardManager.initializeTurn();
             pCards = playerCardManager.chooseCards(calculator);
             if (enemy.isAlive()){

@@ -16,7 +16,7 @@ public class AdvancedAttackBuff extends Attackbuff {
 
 	@Override
 	public String getDescription() {
-		return "Attack buffed" + getatkbuff() + " times.";
+		return "Attack buffed " + getatkbuff() + " times.";
 	}
 
 }
