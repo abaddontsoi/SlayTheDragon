@@ -2,6 +2,7 @@ package battle;
 
 import entity.*;
 import gameIO.GameIO;
+import gameIO.IIOHandler;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -20,6 +21,7 @@ public class Battle {
     private CardManager foeCardManager;
     private int level;
     private int round;
+
     
     public Battle(Player player, Foe enemy, int level) {
         this.player = player;
@@ -84,7 +86,7 @@ public class Battle {
     private void rewardPlayer() {
         // Reward player, add a card from to pool to the player's deck
         CardPool cardPool = CardPool.getInstance();
-        ICard card = cardPool.getRandomCard();
+        ICard card = cardPool.getRwardCard(gameIO);
         player.addCardToDeck(card);
         calculator.addPlayerReward(card);
     }

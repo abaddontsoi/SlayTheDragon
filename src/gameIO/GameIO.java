@@ -17,6 +17,10 @@ public class GameIO {
 		ioHandler = new ConsoleIOHandler();
 	}
 	
+	public String getInput(){
+		return ioHandler.getInput();
+	}
+
 	public static GameIO getInstance() {
 		if (instance == null) {
 			instance = new GameIO();

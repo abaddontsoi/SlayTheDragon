@@ -6,6 +6,8 @@ import card.*;
 import effect.*;
 import entity.*;
 import gameIO.GameIO;
+import gameIO.IIOHandler;
+
 import java.util.*;
 
 public class Game {
@@ -16,6 +18,7 @@ public class Game {
     private int currentLevel;
     private ConcretePermanentEffectFactory permanentEffectFactory;
     private GameIO gameIO;
+
 
     private Game() {
         this.currentLevel = 1;
@@ -63,15 +66,9 @@ public class Game {
             deck.add(cardFactory.createCard(CardName.SKILL_BASIC_DRAW));
         }
         deck.add(cardFactory.createCard(CardName.SKILL_BASIC_HEAL));
-        deck.add(cardFactory.createCard(CardName.SKILL_ADVANCED_HEAL));
         deck.add(cardFactory.createCard(CardName.SKILL_BASIC_POISON));
-		deck.add(cardFactory.createCard(CardName.SKILL_ADVANCED_POISON));
         deck.add(cardFactory.createCard(CardName.SKILL_BASIC_ATTACK_BUFF));
         deck.add(cardFactory.createCard(CardName.SKILL_BASIC_DEFENSE_BUFF));
-		deck.add(cardFactory.createCard(CardName.SKILL_ADVANCED_ATTACK_BUFF));
-        deck.add(cardFactory.createCard(CardName.SKILL_ADVANCED_DEFENSE_BUFF));
-        deck.add(cardFactory.createCard(CardName.SKILL_ADVANCED_DRAW));
-		deck.add(cardFactory.createCard(CardName.SKILL_BASIC_DRAW));
         return deck;
     }
 
@@ -116,7 +113,7 @@ public class Game {
         // this.foes.add(new Foe("Beholder", "Normal", 800, 1, 1, normalFoeDeck));
         // this.foes.add(new Foe("Mind Flayer", "Elite", 900, 3, 3, EliteFoeDeck));
         // this.foes.add(new Foe("Ancient Red Dragon", "Boss", 1000, 5, 5, EliteFoeDeck));
-        this.foes.add(new Foe("Orc", "Normal", 30, 1, 2, normalFoeDeck));
+        this.foes.add(new Foe("Orc", "Normal", 1, 1, 2, normalFoeDeck));
         this.foes.add(new Foe("Goblin", "Normal", 40, 1, 3, normalFoeDeck));
         this.foes.add(new Foe("Berserker", "Elite", 45, 2, 3, EliteFoeDeck));
         this.foes.add(new Foe("Slime", "Normal", 50, 1, 2, normalFoeDeck));
