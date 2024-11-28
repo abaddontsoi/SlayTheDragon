@@ -46,7 +46,7 @@ public class ComputeCenter {
             foeData.reducePoison();
         }
         if (playerData.getPoison() > 0) {
-            gameIO.displayMessage("Poison damage (" + playerData.getPoison() + ")to Plater");
+            gameIO.displayMessage("Poison damage (" + playerData.getPoison() + ")to Player");
             playerData.takeDamage(playerData.getPoison());
             playerData.reducePoison();
         }
