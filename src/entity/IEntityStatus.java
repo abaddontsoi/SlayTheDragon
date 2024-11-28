@@ -26,6 +26,7 @@ public interface IEntityStatus {
 	void takeDamage(double damage);
 	void heal(double healAmount);
 	void increaseDefense(double defenseAmount);
+	void increaseStrength(double strength);
 	void increaseMaxHealth(double healthAmount);
 	boolean isAlive();
 	void addEffect(EffectInTurns effect);

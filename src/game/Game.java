@@ -113,7 +113,7 @@ public class Game {
         // this.foes.add(new Foe("Beholder", "Normal", 800, 1, 1, normalFoeDeck));
         // this.foes.add(new Foe("Mind Flayer", "Elite", 900, 3, 3, EliteFoeDeck));
         // this.foes.add(new Foe("Ancient Red Dragon", "Boss", 1000, 5, 5, EliteFoeDeck));
-        this.foes.add(new Foe("Orc", "Normal", 1, 1, 2, normalFoeDeck));
+        this.foes.add(new Foe("Orc", "Normal", 30, 1, 2, normalFoeDeck));
         this.foes.add(new Foe("Goblin", "Normal", 40, 1, 3, normalFoeDeck));
         this.foes.add(new Foe("Berserker", "Elite", 45, 2, 3, EliteFoeDeck));
         this.foes.add(new Foe("Slime", "Normal", 50, 1, 2, normalFoeDeck));
