@@ -6,6 +6,8 @@ import card.*;
 import effect.*;
 import entity.*;
 import gameIO.GameIO;
+import gameIO.IIOHandler;
+
 import java.util.*;
 
 public class Game {
@@ -16,6 +18,7 @@ public class Game {
     private int currentLevel;
     private ConcretePermanentEffectFactory permanentEffectFactory;
     private GameIO gameIO;
+
 
     private Game() {
         this.currentLevel = 1;
@@ -63,15 +66,9 @@ public class Game {
             deck.add(cardFactory.createCard(CardName.SKILL_BASIC_DRAW));
         }
         deck.add(cardFactory.createCard(CardName.SKILL_BASIC_HEAL));
-        deck.add(cardFactory.createCard(CardName.SKILL_ADVANCED_HEAL));
         deck.add(cardFactory.createCard(CardName.SKILL_BASIC_POISON));
-		deck.add(cardFactory.createCard(CardName.SKILL_ADVANCED_POISON));
         deck.add(cardFactory.createCard(CardName.SKILL_BASIC_ATTACK_BUFF));
         deck.add(cardFactory.createCard(CardName.SKILL_BASIC_DEFENSE_BUFF));
-		deck.add(cardFactory.createCard(CardName.SKILL_ADVANCED_ATTACK_BUFF));
-        deck.add(cardFactory.createCard(CardName.SKILL_ADVANCED_DEFENSE_BUFF));
-        deck.add(cardFactory.createCard(CardName.SKILL_ADVANCED_DRAW));
-		deck.add(cardFactory.createCard(CardName.SKILL_BASIC_DRAW));
         return deck;
     }
 

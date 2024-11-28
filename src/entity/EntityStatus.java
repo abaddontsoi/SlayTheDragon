@@ -126,6 +126,11 @@ public class EntityStatus implements IEntityStatus {
 	}
 	
 	@Override
+	public void increaseStrength(double strength) {
+		this.strength += strength;
+	}
+
+	@Override
 	public void increaseMaxHealth(double healthAmount) {
 		// not necessary to increase the current health
 		

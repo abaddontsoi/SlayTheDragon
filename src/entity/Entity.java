@@ -49,6 +49,13 @@ public abstract class Entity {
 		this.status.takeDamage(damage);
 	}
 	
+	public void restoreFullHP(){
+		this.status.setHealth(this.status.getMaxHealth());
+	}
+	public void increaseStrength(double strength){
+		this.status.increaseStrength(strength);
+	}
+
 	public void heal(double healAmount) {
 //		this.health += healAmount;
 		this.status.heal(healAmount);

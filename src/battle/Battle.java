@@ -2,6 +2,7 @@ package battle;
 
 import entity.*;
 import gameIO.GameIO;
+import gameIO.IIOHandler;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -20,7 +21,7 @@ public class Battle {
     private CardManager foeCardManager;
     private int level;
     private int round;
-    
+
     public Battle(Player player, Foe enemy, int level) {
         this.player = player;
         this.enemy = enemy;
@@ -68,8 +69,9 @@ public class Battle {
             // gameIO.displayEntityEffects(player);
             playerCardManager.initializeTurn();
             pCards = playerCardManager.chooseCards(calculator);
-            if (enemy.isAlive()){
-                gameIO.displayMessage("=========================== End Round " + round + " ===========================");
+            if (enemy.isAlive()) {
+                gameIO.displayMessage(
+                        "=========================== End Round " + round + " ===========================");
                 round++;
             }
             calculator.finishPlayerRound();
@@ -81,25 +83,75 @@ public class Battle {
         entity.applyEffects();
     }
 
+    private void applyFullHpRestore() {
+        // Assuming you have a method to restore HP
+        player.restoreFullHP();
+        gameIO.displayMessage("Your HP has been fully restored.");
+    }
+
+    private void applyStatBoosts() {
+        // Assuming you have methods to increase strength and defense
+        player.increaseStrength(3);
+        player.increaseDefense(3);
+        gameIO.displayMessage("Your Strength and Defense have been increased by 3.");
+    }
+
+    private void getRewardEffect() {
+        int index = -1;
+        ArrayList<String> outputMsg = new ArrayList<String>();
+        outputMsg.add("Restore to full HP");
+        outputMsg.add("Strenth + 3, Defense + 3");
+        if (enemy.getType().equals("Elite")) {
+            gameIO.displayMessage("================================================");
+            gameIO.displayMessage("You defeat a elite enemy please choose a effect!");
+            for (int i = 1; i <= outputMsg.size(); i++) {
+                gameIO.displayMessage(i + ". " +outputMsg.get(i-1));
+            }
+            while (index < 1 || index > 2) {
+                gameIO.displayMessage("Enter the number of your choice:");
+                try {
+                    index = Integer.parseInt(gameIO.getInput());
+                } catch (NumberFormatException e) {
+                    gameIO.displayMessage("Invalid input. Please enter a number.");
+                }
+            }
+        }
+
+        switch (index) {
+            case 1:
+                gameIO.displayMessage("You chose: " + outputMsg.get(0));
+                applyFullHpRestore();
+                break;
+            case 2:
+                gameIO.displayMessage("You chose: " + outputMsg.get(1));
+                applyStatBoosts();
+                break;
+            default:
+                gameIO.displayMessage("Invalid choice"); // Handle unexpected case
+                break;
+        }
+    }
+
     private void rewardPlayer() {
         // Reward player, add a card from to pool to the player's deck
         CardPool cardPool = CardPool.getInstance();
-        ICard card = cardPool.getRandomCard();
+        ICard card = cardPool.getRwardCard(gameIO);
+        getRewardEffect();
         player.addCardToDeck(card);
         calculator.addPlayerReward(card);
     }
 
-    private void endBattle() {    	
+    private void endBattle() {
         // Generate BattleRecord
-    	calculator.genBattleRecord();
+        calculator.genBattleRecord();
 
         if (player.isAlive()) {
             gameIO.displayMessage("Player wins!");
-            rewardPlayer();            
+            rewardPlayer();
         } else {
             gameIO.displayMessage("Enemy wins!");
             // Handle game over logic
         }
-        
+
     }
 }
