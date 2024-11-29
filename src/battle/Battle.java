@@ -126,9 +126,6 @@ public class Battle {
                 gameIO.displayMessage("You chose: " + outputMsg.get(1));
                 applyStatBoosts();
                 break;
-            default:
-                gameIO.displayMessage("Invalid choice"); // Handle unexpected case
-                break;
         }
     }
 
@@ -147,7 +144,9 @@ public class Battle {
 
         if (player.isAlive()) {
             gameIO.displayMessage("Player wins!");
-            rewardPlayer();
+            if(!enemy.getType().equals("Boss")){
+                rewardPlayer();
+            }
         } else {
             gameIO.displayMessage("Enemy wins!");
             // Handle game over logic
