@@ -120,12 +120,39 @@ public abstract class Record {
 		
 		return s;
 	}
+	
+//	8. Total damage dealt
+	public static int getPlayerTotalDamage() {
+		int sum = 0;
+		for (Record r: records) {
+			sum += r.playerData.getTotalAttackDamage();
+		}
+		return sum;
+	}
+	
+//	9. Total block
+	public static int getPlayerTotalDefense() {
+		int sum = 0;
+		for (Record r: records) {
+			sum += r.playerData.getTotalDefense();
+		}
+		return sum;
+	}
+	
 
 //	get final reporting string
 	public static String getReportString() {
 		String reportString = "Your statistics\n\n";
+		// Total blocks
+		reportString += "Total defense obtained: " + getPlayerTotalDefense() + "\n";
+		
 		// Total damage dealt
+		reportString += "Total damage dealt: " + getPlayerTotalDamage() + "\n";
+		
+		// Total damage received
 		reportString += "Total damage received: " + getTotalDamageReceived() + "\n";
+		
+		// Total healing
 		reportString += "Total healing: " + getTotalHealingInGame() + "\n";
 		
 		reportString += "Maximum rounds in a battle: " + getMaxRoundsInBattle() + "\n";
