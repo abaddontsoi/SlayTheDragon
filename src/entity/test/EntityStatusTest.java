@@ -1,4 +1,4 @@
-package entity;
+package entity.test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -8,6 +8,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import effect.EffectInTurns;
+import entity.EntityStatus;
 
 class EntityStatusTest {
 	EntityStatus status;
