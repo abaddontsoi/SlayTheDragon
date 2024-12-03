@@ -66,13 +66,16 @@ public class EntityStatus implements IEntityStatus {
 	@Override
 	public void setMaxHealth(double value) {
 		// TODO Auto-generated method stub
-		
+		this.maxHealth = value;
 	}
 
 	@Override
 	public void setHealth(double value) {
 		// TODO Auto-generated method stub
 		this.health = value;
+		if (this.health > this.maxHealth) {
+			this.health = this.maxHealth;
+		}
 	}
 
 	@Override
@@ -137,19 +140,27 @@ public class EntityStatus implements IEntityStatus {
 		this.maxHealth += healthAmount;
 		
 		// always check health <= max health
-		if (this.health > this.maxHealth) {
-			this.maxHealth = this.health;
-		}
+//		if (this.health > this.maxHealth) {
+//			this.maxHealth = this.health;
+//		}
 	}
 	
 	public void attackbuff(double attack_multiple){
 		this.attack_multiple = attack_multiple;
 	}
 	
+	public double getAttackBuff() {
+		return this.attack_multiple;
+	}
+	
 	public void defensebuff(double defense_multiple){
 		this.defense_multiple = defense_multiple;
 	}
 
+	public double getDefenseBuff() {
+		return this.defense_multiple;
+	}
+	
 	@Override 
 	public boolean isAlive() {
 		return this.health > 0;

@@ -38,8 +38,16 @@ public class PlayerData extends EntityData {
 		this.playerTotalAttackDamage += value;
 	}
 	
+	public int getTotalAttackDamage() {
+		return this.playerTotalAttackDamage;
+	}
+	
 	public void addTotalDefense(int value) {
 		this.playerTotalDefense += value;
+	}
+	
+	public int getTotalDefense() {
+		return this.playerTotalDefense;
 	}
 	
 	public int getMaxDamage() {
