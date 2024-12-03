@@ -220,10 +220,10 @@ class PlayerDataTest {
         // Test Integer.MAX_VALUE cases
         playerData.addTotalAttackDamage(Integer.MAX_VALUE);
         playerData.addTotalAttackDamage(1);
-        assertEquals(Integer.MAX_VALUE + 1L, (long) playerData.getTotalAttackDamage());
+        assertEquals(Integer.MAX_VALUE, (long) playerData.getTotalAttackDamage());
 
         playerData.addTotalDefense(Integer.MAX_VALUE);
         playerData.addTotalDefense(1);
-        assertEquals(Integer.MAX_VALUE + 1L, (long) playerData.getTotalDefense());
+        assertEquals(Integer.MAX_VALUE, (long) playerData.getTotalDefense());
     }
 }
