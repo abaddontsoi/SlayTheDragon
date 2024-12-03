@@ -1,4 +1,4 @@
-package effect.test;
+package testings.effect;
 
 import static org.junit.jupiter.api.Assertions.*;
 

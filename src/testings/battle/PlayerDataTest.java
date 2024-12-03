@@ -1,4 +1,4 @@
-package battle.test;
+package testings.battle;
 
 import static org.junit.jupiter.api.Assertions.*;
 
