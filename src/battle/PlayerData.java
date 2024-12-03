@@ -35,7 +35,11 @@ public class PlayerData extends EntityData {
 	}
 	
 	public void addTotalAttackDamage(int value) {
-		this.playerTotalAttackDamage += value;
+		if (Integer.MAX_VALUE - this.playerTotalAttackDamage < value) {
+			this.playerTotalAttackDamage = Integer.MAX_VALUE;
+		} else {			
+			this.playerTotalAttackDamage += value;
+		}
 	}
 	
 	public int getTotalAttackDamage() {
@@ -43,7 +47,11 @@ public class PlayerData extends EntityData {
 	}
 	
 	public void addTotalDefense(int value) {
-		this.playerTotalDefense += value;
+		if (Integer.MAX_VALUE - this.playerTotalDefense < value) {
+			this.playerTotalDefense = Integer.MAX_VALUE;
+		} else {			
+			this.playerTotalDefense += value;
+		}
 	}
 	
 	public int getTotalDefense() {
