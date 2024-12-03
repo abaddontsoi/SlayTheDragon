@@ -141,6 +141,44 @@ class EntityStatusTestV2 {
 				return null;
 			}
         }
+        
+        class AnotherTestEffect extends EffectInTurns {
+            private int applyCalls = 0;
+            private int removeCalls = 0;
+
+            public AnotherTestEffect(int duration) {
+                super("", duration);
+            }
+
+            @Override
+            public void apply(Entity entity) {
+                applyCalls++;
+            }
+
+            @Override
+            public void remove(Entity entity) {
+                removeCalls++;
+            }
+
+            @Override
+            public void stack(EffectInTurns other) {
+                // Implementation for testing
+            }
+
+            public int getApplyCalls() {
+                return applyCalls;
+            }
+
+            public int getRemoveCalls() {
+                return removeCalls;
+            }
+
+			@Override
+			public String getFormattedEffectInfo() {
+				// TODO Auto-generated method stub
+				return null;
+			}
+        }
 
         @BeforeEach
         void setUpEffect() {
@@ -159,6 +197,14 @@ class EntityStatusTestV2 {
             entityStatus.addEffect(testEffect);
             entityStatus.addEffect(anotherEffect);
             assertEquals(1, entityStatus.getEffectsInRounds().size());
+        }
+        
+        @Test
+        void shouldNotStackSameTypeEffects() {
+        	AnotherTestEffect anotherEffect = new AnotherTestEffect(2);
+            entityStatus.addEffect(testEffect);
+            entityStatus.addEffect(anotherEffect);
+            assertEquals(2, entityStatus.getEffectsInRounds().size());
         }
 
         @Test
@@ -203,6 +249,8 @@ class EntityStatusTestV2 {
             double multiplier = 1.5;
             entityStatus.attackbuff(multiplier);
             // Add assertions based on how attack buff affects the entity
+            double result = entityStatus.getAttackBuff();
+            assertEquals(multiplier, result);
         }
 
         @Test
@@ -210,6 +258,8 @@ class EntityStatusTestV2 {
             double multiplier = 1.5;
             entityStatus.defensebuff(multiplier);
             // Add assertions based on how defense buff affects the entity
+            double result = entityStatus.getDefenseBuff();
+            assertEquals(multiplier, result);
         }
     }
 }
