@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 import effect.EffectInTurns;
 import entity.Entity;
 import entity.EntityStatus;
+import gameIO.GameIO;
 
 import org.junit.jupiter.api.Nested;
 
@@ -64,6 +65,31 @@ class EntityStatusTestV2 {
             entityStatus.increaseMaxHealth(increase);
             assertEquals(INITIAL_MAX_HEALTH + increase, entityStatus.getMaxHealth(), DELTA);
         }
+        
+        @Test 
+        void shouldSetMaxHealthCorrectly() {
+        	double newMaxHealth = 3000;
+        	entityStatus.setMaxHealth(newMaxHealth);
+        	assertEquals(newMaxHealth,entityStatus.getMaxHealth());
+        }
+        
+        @Test
+        void shouldSetHealthCorrectly_belowMaxHealth() {
+        	double maxHealth = 200;
+        	double newHealth = 100;
+        	entityStatus.setMaxHealth(maxHealth);
+        	entityStatus.setHealth(newHealth);
+        	assertEquals(newHealth, entityStatus.getHealth(), DELTA);
+        }
+
+        @Test
+        void shouldSetHealthCorrectly_exceedMaxHealth() {
+        	double maxHealth = 150;
+        	double newHealth = 300;
+        	entityStatus.setMaxHealth(maxHealth);
+        	entityStatus.setHealth(newHealth);
+        	assertEquals(maxHealth, entityStatus.getMaxHealth(), DELTA);
+        }
     }
 
     @Nested
@@ -80,6 +106,21 @@ class EntityStatusTestV2 {
             double strengthIncrease = 5.0;
             entityStatus.increaseStrength(strengthIncrease);
             assertEquals(INITIAL_STRENGTH + strengthIncrease, entityStatus.getStrength(), DELTA);
+        }
+
+        @Test
+        void shouldSetDefenseCorrectly() {
+        	int newDefense = 10;
+        	entityStatus.setDefense(newDefense);
+        	assertEquals(newDefense, entityStatus.getDefense(), DELTA);
+        }
+        
+        @Test
+        void shouldSetStrengthCorrectly() {
+        	int newStrength = 10;
+        	entityStatus.setStrength(newStrength);
+        	assertEquals(newStrength, entityStatus.getStrength(), DELTA);
+
         }
     }
 
@@ -212,11 +253,10 @@ class EntityStatusTestV2 {
             Entity mockEntity = new Entity(0, 0, 0, null) {
                 @Override
                 public void takeDamage(double damage) {}
-                // Implement other required methods
+
 
 				@Override
 				public String getName() {
-					// TODO Auto-generated method stub
 					return null;
 				}
             };
@@ -225,8 +265,67 @@ class EntityStatusTestV2 {
             assertEquals(1, entityStatus.getPermanentEffectsInRounds().size());
             assertEquals(1, testEffect.getApplyCalls());
         }
-    }
+        
+        @Test
+        void shouldAddPermanentEffect_sameClass() {
+            Entity mockEntity = new Entity(0, 0, 0, null) {
+                @Override
+                public void takeDamage(double damage) {}
 
+
+				@Override
+				public String getName() {
+					return null;
+				}
+            };
+
+            TestEffect sameEffect = new TestEffect(100);
+            entityStatus.addPermanentEffectInRounds(testEffect, mockEntity);
+            entityStatus.addPermanentEffectInRounds(sameEffect, mockEntity);
+            assertEquals(1, entityStatus.getPermanentEffectsInRounds().size());
+            assertEquals(1, testEffect.getApplyCalls());
+        }
+        
+        @Test
+        void shouldAddPermanentEffect_diffClass() {
+            Entity mockEntity = new Entity(0, 0, 0, null) {
+                @Override
+                public void takeDamage(double damage) {}
+
+
+				@Override
+				public String getName() {
+					return null;
+				}
+            };
+
+            AnotherTestEffect sameEffect = new AnotherTestEffect(100);
+            entityStatus.addPermanentEffectInRounds(testEffect, mockEntity);
+            entityStatus.addPermanentEffectInRounds(sameEffect, mockEntity);
+            assertEquals(2, entityStatus.getPermanentEffectsInRounds().size());
+            assertEquals(1, testEffect.getApplyCalls());
+        }
+    
+        @Test
+        void shouldApplyEffect() {
+            Entity mockEntity = new Entity(10, 20, 30, null) {
+                @Override
+                public void takeDamage(double damage) {}
+
+
+				@Override
+				public String getName() {
+					return null;
+				}
+            };
+
+            AnotherTestEffect sameEffect = new AnotherTestEffect(0);
+            entityStatus.addEffect(testEffect);
+            entityStatus.addEffect(sameEffect);
+            entityStatus.applyEffects(GameIO.getInstance(), mockEntity);
+        }
+    }
+    
     @Nested
     class CopyTests {
         @Test
