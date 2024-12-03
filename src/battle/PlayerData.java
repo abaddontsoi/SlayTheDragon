@@ -61,4 +61,8 @@ public class PlayerData extends EntityData {
 	public void updateMaxDefense(int value) {
 		this.playerMaxDefense = Math.max(playerMaxDefense, value);
 	}
+	
+	public int getMaxDefense() {
+		return this.playerMaxDefense;
+	}
 }
