@@ -149,10 +149,18 @@ public class EntityStatus implements IEntityStatus {
 		this.attack_multiple = attack_multiple;
 	}
 	
+	public double getAttackBuff() {
+		return this.attack_multiple;
+	}
+	
 	public void defensebuff(double defense_multiple){
 		this.defense_multiple = defense_multiple;
 	}
 
+	public double getDefenseBuff() {
+		return this.defense_multiple;
+	}
+	
 	@Override 
 	public boolean isAlive() {
 		return this.health > 0;
