@@ -16,8 +16,8 @@ class PlayerTest {
 	private static List<ICard> INITIAL_DECK;
 	
 	private static final double INITIAL_MAX_HEALTH = 120;
-	private static final int INITIAL_DEFENSE = 120;
-	private static final int INITIAL_STRENGTH = 120;
+	private static final int INITIAL_DEFENSE = 10;
+	private static final int INITIAL_STRENGTH = 20;
 	private static final double DELTA = 0.0001;
 	
 	@BeforeEach
