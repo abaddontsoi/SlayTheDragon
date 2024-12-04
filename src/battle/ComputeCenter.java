@@ -133,9 +133,12 @@ public class ComputeCenter {
             playerData.addDefense(
                     (((DefendCard) card).getBlock() + playerData.getBasicDefense()) * playerData.getDefenseBuff());
             playerData.addTotalDefense(playerData.getDefense());
+            gameIO.displayMessage(card.getDescription());
+            gameIO.displayMessage("Current block: " +  playerData.getDefense());
         }
         if (card instanceof SkillCard) {
             ((SkillCard) card).play(playerData.getEntity(), this);
+            gameIO.displayMessage(card.getDescription());
         }
         gameIO.displayMessage("============================");
         if (foeData.getHealth() <= 0) {

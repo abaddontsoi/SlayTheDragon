@@ -15,6 +15,6 @@ public class BasicPoisonCard extends PoisonCard{
 	}
 	@Override
 	public String getDescription() {
-		return "Deal " + getDamage() + " damage.";
+		return "Poison " + getDamage() + " damage.";
 	}
 }
