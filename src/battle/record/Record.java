@@ -7,7 +7,6 @@ import battle.FoeData;
 import battle.PlayerData;
 import card.ICard;
 import entity.*;
-import record.turnDataType.TurnDataType;
 
 public abstract class Record {
 
@@ -23,21 +22,14 @@ public abstract class Record {
 		this.foeData = f;
 	}
 	
-	public static void addRecord(Record r) {
+	protected static void addRecord(Record r) {
 		records.add(r);
 	}
 	
 //	Data required from whole game:
-//	1.	Final deck
-	public static List<ICard> getFinalDeck() {
-		return deck;
-	}
-	public static void setFinalDeck(List<ICard> d) {
-		Record.deck = d;
-	}
 	
-//	2.	Total damage received
-	public static int getTotalDamageReceived() {
+//	1.	Total damage received
+	private static int getTotalDamageReceived() {
 		int sum = 0;
 		for (Record r : Record.records) {
 			sum += r.playerData.getReceivedDamage();
@@ -46,8 +38,8 @@ public abstract class Record {
 	}
 	
 	
-//	3.	Total healing in game
-	public static double getTotalHealingInGame() {
+//	2.	Total healing in game
+	private static double getTotalHealingInGame() {
 		double sum = 0;
 		for (Record r : Record.records) {
 			sum += r.playerData.getTotalHeal();
@@ -55,15 +47,15 @@ public abstract class Record {
 		return sum;
 	}
 	
-//	4.	Max and min # of rounds in 1 battle
-	public static int getMaxRoundsInBattle() {
+//	3.	Max and min # of rounds in 1 battle
+	private static int getMaxRoundsInBattle() {
 		int max = 0;
 		for (Record r : records) {
 			max = Math.max(max, r.playerData.getRounds());
 		}
 		return max;
 	}
-	public static int getMinRoundsInBattle() {
+	private static int getMinRoundsInBattle() {
 		int min = 0;
 		if (records.size() > 0) {
 			min = records.get(0).playerData.getRounds();
@@ -74,15 +66,15 @@ public abstract class Record {
 		return min;
 	}
 	
-//	5.	Max and min # of cards played in 1 battle
-	public static int getMaxCardsPlayedInBattle() {
+//	4.	Max and min # of cards played in 1 battle
+	private static int getMaxCardsPlayedInBattle() {
 		int max = -1;
 		for (Record r : records) {
 			max = Math.max(max, r.playerData.getTotalCardsPlayed());
 		}
 		return max;
 	}
-	public static int getMinCardsPlayedInBattle() {
+	private static int getMinCardsPlayedInBattle() {
 		int min = -1;
 		if (records.size() > 0) {
 			min = records.get(0).playerData.getTotalCardsPlayed();
@@ -95,23 +87,30 @@ public abstract class Record {
 		return min;
 	}
 	
-//	6.	All collected rewards
-	public static List<ICard> getAllRewards(){
+//	5.	All collected rewards
+	private static List<ICard> getAllRewards(){
 		List<ICard> rewards = new ArrayList<>();
 		for (Record r : Record.records) {
 			rewards.addAll(r.playerData.getRewards());
 		}
 		return rewards;
 	}
+	private static String allRewardsString() {
+	    List<String> result = new ArrayList<>();
+	    for (ICard card : Record.getAllRewards()) {
+	        result.add(card.getName());
+	    }
+	    return String.join(", ", result);
+	}
 	
-//	7.	All foes faced
-	public static List<Entity> getAllFacedFoes() {
+//	6.	All foes faced
+	private static List<Entity> getAllFacedFoes() {
 		for (Record r : Record.records) {
 			Record.foesFaced.add(r.foeData.getEntity());
 		}
 		return foesFaced;
 	}
-	public static String getAllFacedFoesString() {
+	private static String getAllFacedFoesString() {
 		String s = "Faced foes: \n";
 		
 		for (Entity e: getAllFacedFoes()) {
@@ -121,8 +120,8 @@ public abstract class Record {
 		return s;
 	}
 	
-//	8. Total damage dealt
-	public static int getPlayerTotalDamage() {
+//	7. Total damage dealt
+	private static int getPlayerTotalDamage() {
 		int sum = 0;
 		for (Record r: records) {
 			sum += r.playerData.getTotalAttackDamage();
@@ -130,8 +129,8 @@ public abstract class Record {
 		return sum;
 	}
 	
-//	9. Total block
-	public static int getPlayerTotalDefense() {
+//	8. Total block
+	private static int getPlayerTotalDefense() {
 		int sum = 0;
 		for (Record r: records) {
 			sum += r.playerData.getTotalDefense();
@@ -144,24 +143,26 @@ public abstract class Record {
 	public static String getReportString() {
 		String reportString = "Your statistics\n\n";
 		// Total blocks
-		reportString += "Total defense obtained: " + getPlayerTotalDefense() + "\n";
+		reportString += "Total defense obtained: " + Record.getPlayerTotalDefense() + "\n";
 		
 		// Total damage dealt
-		reportString += "Total damage dealt: " + getPlayerTotalDamage() + "\n";
+		reportString += "Total damage dealt: " + Record.getPlayerTotalDamage() + "\n";
 		
 		// Total damage received
-		reportString += "Total damage received: " + getTotalDamageReceived() + "\n";
+		reportString += "Total damage received: " + Record.getTotalDamageReceived() + "\n";
 		
 		// Total healing
-		reportString += "Total healing: " + getTotalHealingInGame() + "\n";
+		reportString += "Total healing: " + Record.getTotalHealingInGame() + "\n";
 		
-		reportString += "Maximum rounds in a battle: " + getMaxRoundsInBattle() + "\n";
-		reportString += "Minimum rounds in a battle: " + getMinRoundsInBattle() + "\n";
+		reportString += "Maximum rounds in a battle: " + Record.getMaxRoundsInBattle() + "\n";
+		reportString += "Minimum rounds in a battle: " + Record.getMinRoundsInBattle() + "\n";
 		
-		reportString += "Maximum cards played in a battle: " + getMaxCardsPlayedInBattle() + "\n";
-		reportString += "Minimum cards played in a battle: " + getMinCardsPlayedInBattle() + "\n";
+		reportString += "Maximum cards played in a battle: " + Record.getMaxCardsPlayedInBattle() + "\n";
+		reportString += "Minimum cards played in a battle: " + Record.getMinCardsPlayedInBattle() + "\n";
 		
-		reportString += getAllFacedFoesString() + "\n";
+		reportString += Record.getAllFacedFoesString() + "\n";
+		
+		reportString += Record.allRewardsString() + "\n";
 		return reportString;
 	}
 }
