@@ -32,17 +32,6 @@ public class GameIO {
         ioHandler.displayMessage("\n======== Level " + level + " : " + foe.getType() + " Battle begins between player and " + foe.getName()+ " ========");
     }
 
-    public void displayPlayerTurn() {
-        ioHandler.displayMessage("It's your turn. Choose an action:");
-    }
-
-    public void displayEnemyTurn() {
-        ioHandler.displayMessage("Enemy's turn.");
-    }
-
-    public void displayActionResult(String result) {
-        ioHandler.displayMessage(result);
-    }
     
 	public String promptPermanentEffectSelection(List<String> effects) {
 	    ioHandler.displayMessage("Choose an effect:");
@@ -97,35 +86,8 @@ public class GameIO {
 		ioHandler.displayMessage(message);
 	}
 	
-
-	public void displayEntityEffects(Entity entity) {
-	    // Format the effects, showing the name and remaining duration
-	    // of each effect
-		String entityName = entity.getName();
-	    StringBuilder effects = new StringBuilder(entityName + " Effects: ");
-	    List<EffectInTurns> entityEffects = entity.getEffects();
-	
-	    for (int i = 0; i < entityEffects.size(); i++) {
-	        IEffect effect = entityEffects.get(i);
-	        String formattedEffectInfo = effect.getFormattedEffectInfo();
-	
-	        effects.append(formattedEffectInfo);
-	
-	        // Only append the delimiter if this is not the last effect
-	        if (i < entityEffects.size() - 1) {
-	            effects.append(" | ");
-	        }
-	    }
-	
-	    ioHandler.displayMessage(effects.toString());
-	}
-	
 	public void displayExpireEffectMessage(Entity entity, IEffect effect) {
 		ioHandler.displayMessage(entity.getName() + " effect expired: " + effect.getName());
-	}
-	
-	public void displayEffectStackMessage(IEffect effect) {
-		ioHandler.displayMessage("Effect stacked: " + effect.getName());
 	}
 	
 	public void displayEffectApplyMessage(Entity entity, IEffect effect) {

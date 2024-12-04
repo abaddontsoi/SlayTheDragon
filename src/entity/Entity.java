@@ -79,14 +79,7 @@ public abstract class Entity {
 	public void decreaseMaxHealth(double healthAmount) {
 		this.increaseMaxHealth(-healthAmount);
 	}
-	
-	public void attackbuff(double attack_multiple){
-		this.status.attackbuff(attack_multiple);
-	}
 
-	public void defensebuff(double defense_multiple){
-		this.status.defensebuff(defense_multiple);
-	}
 	
 	public boolean isAlive() {
 		return this.status.isAlive();

@@ -31,14 +31,6 @@ public class CardPool {
 		return instance;
 	}
 
-	public ICard getCard(CardName name) {
-		ICard prototype = cardPrototypes.get(name);
-		if (prototype != null) {
-			return prototype.clone();
-		}
-		throw new IllegalArgumentException("Unknown card name: " + name);
-	}
-
 	public ICard getRwardCard(GameIO gameIO) {
 		// int randomIndex = (int) (Math.random() * cardPrototypes.size());
 		int index = -1;

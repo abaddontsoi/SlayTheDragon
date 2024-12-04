@@ -185,11 +185,6 @@ public class ComputeCenter {
         playerData.addReward(card);
     }
 
-    public void reset() {
-        playerData.reset();
-        foeData.reset();
-    }
-
     private void resetRoundData(){
         playerData.resetRoundData();
         foeData.resetRoundData();
