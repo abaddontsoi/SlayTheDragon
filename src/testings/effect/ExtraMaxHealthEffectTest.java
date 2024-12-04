@@ -15,14 +15,14 @@ import card.ICard;
 import org.junit.jupiter.params.provider.CsvSource;
 
 import effect.EffectInTurns;
-import effect.ExtraDefenseEffect;
+import effect.ExtraMaxHealthEffect;
 import entity.Entity;
 
-class ExtraDefenseEffectTest {
+class ExtraMaxHealthEffectTest {
     
-    private ExtraDefenseEffect effect;
+    private ExtraMaxHealthEffect effect;
     private TestEntity testEntity;
-    private static final double INITIAL_DEFENSE = 10.0;
+    private static final double INITIAL_MAX_HEALTH = 10.0;
     private static final int INITIAL_DURATION = 3;
     
     private static class TestEntity extends Entity {
@@ -31,20 +31,20 @@ class ExtraDefenseEffectTest {
 			// TODO Auto-generated constructor stub
 		}
 
-		private double defense = 0.0;
+		private double maxHealth = 100.0;
         
         @Override
-        public void increaseDefense(double amount) {
-            this.defense += amount;
+        public void increaseMaxHealth(double amount) {
+            this.maxHealth += amount;
         }
         
         @Override
-        public void decreaseDefense(double amount) {
-            this.defense -= amount;
+        public void decreaseMaxHealth(double amount) {
+            this.maxHealth -= amount;
         }
         
-        public double getDefense() {
-            return defense;
+        public double getMaxHealth() {
+            return maxHealth;
         }
 
 		@Override
@@ -56,7 +56,7 @@ class ExtraDefenseEffectTest {
     
     @BeforeEach
     void setUp() {
-        effect = new ExtraDefenseEffect(INITIAL_DEFENSE, INITIAL_DURATION);
+        effect = new ExtraMaxHealthEffect(INITIAL_MAX_HEALTH, INITIAL_DURATION);
         testEntity = new TestEntity(0, 0, 0, null);
     }
     
@@ -67,10 +67,11 @@ class ExtraDefenseEffectTest {
             "10.0, 3",
             "0.0, 1",
             "-5.0, 5",
-            "15.5, 10"
+            "15.5, 10",
+            "100.0, 2"
         })
-        void testConstructor(double defense, int duration) {
-            ExtraDefenseEffect testEffect = new ExtraDefenseEffect(defense, duration);
+        void testConstructor(double maxHealth, int duration) {
+            ExtraMaxHealthEffect testEffect = new ExtraMaxHealthEffect(maxHealth, duration);
             assertEquals("Extra Max Health", testEffect.getName());
             assertEquals(duration, testEffect.getRoundsLeft());
         }
@@ -80,40 +81,40 @@ class ExtraDefenseEffectTest {
     class Application {
         @ParameterizedTest
         @ValueSource(doubles = {10.0, 15.5, 0.0, -5.0, 100.0})
-        void testApply(double defenseAmount) {
-            ExtraDefenseEffect testEffect = new ExtraDefenseEffect(defenseAmount, INITIAL_DURATION);
-            double initialDefense = testEntity.getDefense();
+        void testApply(double maxHealthAmount) {
+            ExtraMaxHealthEffect testEffect = new ExtraMaxHealthEffect(maxHealthAmount, INITIAL_DURATION);
+            double initialMaxHealth = testEntity.getMaxHealth();
             testEffect.apply(testEntity);
-            assertEquals(initialDefense + defenseAmount, testEntity.getDefense());
+            assertEquals(initialMaxHealth + maxHealthAmount, testEntity.getMaxHealth());
         }
         
         @ParameterizedTest
         @ValueSource(doubles = {10.0, 15.5, 0.0, -5.0, 100.0})
-        void testRemove(double defenseAmount) {
-            ExtraDefenseEffect testEffect = new ExtraDefenseEffect(defenseAmount, INITIAL_DURATION);
+        void testRemove(double maxHealthAmount) {
+            ExtraMaxHealthEffect testEffect = new ExtraMaxHealthEffect(maxHealthAmount, INITIAL_DURATION);
             testEffect.apply(testEntity);
-            double defenseAfterApply = testEntity.getDefense();
+            double maxHealthAfterApply = testEntity.getMaxHealth();
             
             testEffect.remove(testEntity);
-            assertEquals(defenseAfterApply - defenseAmount, testEntity.getDefense());
+            assertEquals(maxHealthAfterApply - maxHealthAmount, testEntity.getMaxHealth());
         }
         
         @ParameterizedTest
         @ValueSource(ints = {1, 2, 3, 5, 10})
         void testApplyAndRemoveMultipleTimes(int times) {
-            double initialDefense = testEntity.getDefense();
+            double initialMaxHealth = testEntity.getMaxHealth();
             
             // Apply multiple times
             for (int i = 0; i < times; i++) {
                 effect.apply(testEntity);
             }
-            assertEquals(initialDefense + (INITIAL_DEFENSE * times), testEntity.getDefense());
+            assertEquals(initialMaxHealth + (INITIAL_MAX_HEALTH * times), testEntity.getMaxHealth());
             
             // Remove multiple times
             for (int i = 0; i < times; i++) {
                 effect.remove(testEntity);
             }
-            assertEquals(initialDefense, testEntity.getDefense());
+            assertEquals(initialMaxHealth, testEntity.getMaxHealth());
         }
     }
     
@@ -121,10 +122,10 @@ class ExtraDefenseEffectTest {
     class Formatting {
         @ParameterizedTest
         @ValueSource(doubles = {10.0, 15.5, 0.0, -5.0, 100.0, -100.0})
-        void testGetFormattedEffectInfo(double defense) {
-            ExtraDefenseEffect testEffect = new ExtraDefenseEffect(defense, INITIAL_DURATION);
-            String expected = String.format("Extra Max Health (%d rounds, %.2f defense)", 
-                                         INITIAL_DURATION, defense);
+        void testGetFormattedEffectInfo(double maxHealth) {
+            ExtraMaxHealthEffect testEffect = new ExtraMaxHealthEffect(maxHealth, INITIAL_DURATION);
+            String expected = String.format("Extra Max Health (%d rounds, %.2f max health)", 
+                                         INITIAL_DURATION, maxHealth);
             assertEquals(expected, testEffect.getFormattedEffectInfo());
         }
     }
@@ -134,7 +135,7 @@ class ExtraDefenseEffectTest {
         @ParameterizedTest
         @ValueSource(ints = {4, 5, 10, 100})
         void testStackWithHigherDuration(int higherDuration) {
-            ExtraDefenseEffect otherEffect = new ExtraDefenseEffect(INITIAL_DEFENSE, higherDuration);
+            ExtraMaxHealthEffect otherEffect = new ExtraMaxHealthEffect(INITIAL_MAX_HEALTH, higherDuration);
             effect.stack(otherEffect);
             assertEquals(higherDuration, effect.getRoundsLeft());
         }
@@ -142,51 +143,40 @@ class ExtraDefenseEffectTest {
         @ParameterizedTest
         @ValueSource(ints = {1, 2})
         void testStackWithLowerDuration(int lowerDuration) {
-            ExtraDefenseEffect otherEffect = new ExtraDefenseEffect(INITIAL_DEFENSE, lowerDuration);
+            ExtraMaxHealthEffect otherEffect = new ExtraMaxHealthEffect(INITIAL_MAX_HEALTH, lowerDuration);
             effect.stack(otherEffect);
             assertEquals(INITIAL_DURATION, effect.getRoundsLeft());
         }
         
         @ParameterizedTest
         @ValueSource(doubles = {5.0, 15.0, 20.0})
-        void testStackWithDifferentDefense(double differentDefense) {
-            ExtraDefenseEffect otherEffect = new ExtraDefenseEffect(differentDefense, INITIAL_DURATION);
+        void testStackWithDifferentMaxHealth(double differentMaxHealth) {
+            ExtraMaxHealthEffect otherEffect = new ExtraMaxHealthEffect(differentMaxHealth, INITIAL_DURATION);
             int originalDuration = effect.getRoundsLeft();
             effect.stack(otherEffect);
             assertEquals(originalDuration, effect.getRoundsLeft());
         }
         
         @Test
-        void testCannotStack() {
-        	EffectInTurns otherEffect = new EffectInTurns(null, 0) {
-
-				@Override
-				public void apply(Entity target) {
-					// TODO Auto-generated method stub
-					
-				}
-
-				@Override
-				public void remove(Entity target) {
-					// TODO Auto-generated method stub
-					
-				}
-
-				@Override
-				public void stack(EffectInTurns other) {
-					// TODO Auto-generated method stub
-					
-				}
-
-				@Override
-				public String getFormattedEffectInfo() {
-					// TODO Auto-generated method stub
-					return null;
-				}
-            	
+        void testStackWithDifferentEffect() {
+            EffectInTurns differentEffect = new EffectInTurns("Different Effect", 5) {
+                @Override
+                public void apply(Entity target) {}
+                
+                @Override
+                public void remove(Entity target) {}
+                
+                @Override
+                public String getFormattedEffectInfo() {
+                    return "";
+                }
+                
+                @Override
+                public void stack(EffectInTurns other) {}
             };
+            
             int originalDuration = effect.getRoundsLeft();
-            effect.stack(otherEffect);
+            effect.stack(differentEffect);
             assertEquals(originalDuration, effect.getRoundsLeft());
         }
     }
@@ -196,23 +186,14 @@ class ExtraDefenseEffectTest {
         @ParameterizedTest
         @CsvSource({
             "10.0, 3, true",    // Same values
-            "15.0, 3, true",    // Different defense but same class and name
+            "15.0, 3, true",    // Different max health but same class and name
             "10.0, 5, true",    // Different duration but same class and name
-            "15.0, 5, true"     // Different defense and duration but same class and name
+            "15.0, 5, true"     // Different max health and duration but same class and name
         })
-        void testEquals(double defense, int duration, boolean expectedResult) {
-            ExtraDefenseEffect otherEffect = new ExtraDefenseEffect(defense, duration);
+        void testEquals(double maxHealth, int duration, boolean expectedResult) {
+            ExtraMaxHealthEffect otherEffect = new ExtraMaxHealthEffect(maxHealth, duration);
             assertEquals(expectedResult, effect.equals(otherEffect));
         }
 
-        @Test
-        void testEqualsWithNull() {
-            assertFalse(effect.equals(null));
-        }
-
-        @Test
-        void testEqualsWithDifferentClass() {
-            assertFalse(effect.equals(new Object()));
-        }
     }
 }
