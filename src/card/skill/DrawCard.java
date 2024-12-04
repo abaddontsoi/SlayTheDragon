@@ -5,7 +5,7 @@ import card.defend.DefendCard;
 import entity.Entity;
 import entity.Player;
 
-public class DrawCard extends SkillCard{
+public abstract class DrawCard extends SkillCard{
 	protected int noDrawCard;
 	
 	public DrawCard(int noDrawCard) {
@@ -17,10 +17,10 @@ public class DrawCard extends SkillCard{
 
 	}
 
-	@Override
-	public String getName() {
-		return "Draw Card";
-	}
+	// @Override
+	// public String getName() {
+	// 	return "Draw Card";
+	// }
 
 	@Override
 	public String getDescription() {
