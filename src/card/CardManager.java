@@ -87,6 +87,8 @@ public class CardManager {
                 // and put it in the discard pile
 
                 if (chosenCard instanceof DrawCard) {
+                    gameIO.displayMessage("player choose: " + chosenCard.getName());
+                    gameIO.displayMessage("Player apply skill: " + chosenCard.getDescription());
                     i--;
                     for (int j = 0; j < ((DrawCard) chosenCard).getNoDrawCard(); j++) {
                         hand.addCardToHand(drawCard());

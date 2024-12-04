@@ -35,7 +35,7 @@ public class CardPool {
 		// int randomIndex = (int) (Math.random() * cardPrototypes.size());
 		int index = -1;
 		int i = 1;
-
+		gameIO.displayMessage("Normal Reward: (Choose one of the reward below)");
 		for (Map.Entry<CardName, ICard> entry : cardPrototypes.entrySet()) {
 			ICard card = entry.getValue();
 			gameIO.displayMessage(i + ". " + card.getName() + " - " + card.getDescription());
