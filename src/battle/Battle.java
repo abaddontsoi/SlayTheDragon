@@ -98,6 +98,7 @@ public class Battle {
 
     private void getRewardEffect() {
         int index = -1;
+        gameIO.displayMessage("Elite Reward: (Choose one of the reward below)");
         ArrayList<String> outputMsg = new ArrayList<String>();
         outputMsg.add("Restore to full HP");
         outputMsg.add("Strenth + 3, Defense + 3");
