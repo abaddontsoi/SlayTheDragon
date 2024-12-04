@@ -8,7 +8,7 @@ public class BasicAttackBuff extends Attackbuff {
 
 	@Override
 	public String getName() {
-		return "Baic Attack Buff";
+		return "Basic Attack Buff";
 	}
 	public double getatkbuff() {
 		return mag_damage;
