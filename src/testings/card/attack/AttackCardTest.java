@@ -16,8 +16,25 @@ import card.attack.BasicAttackCard;
 
 class AttackCardTest {
 	
+	private final static String INITIAL_TEST_ATTACK_CARD_NAME = "TestAttackCard";
+	private final static String INITIAL_TEST_ATTACK_CARD_INFO = "TestAttackCard info";
+	private final static int INITIAL_TEST_ATTACK_CARD_DAMAGE = 20;
+	
 	@BeforeEach
 	void setUp() throws Exception {
+	}
+	
+	@Test
+	void attackCardCloning() {
+		TestAttackCard card = new TestAttackCard(INITIAL_TEST_ATTACK_CARD_DAMAGE);
+		assertDoesNotThrow(() -> {
+			AttackCard temp = card.clone();
+			assertNotNull(temp);
+			assertEquals(INITIAL_TEST_ATTACK_CARD_NAME, temp.getName());
+			assertEquals(INITIAL_TEST_ATTACK_CARD_INFO, temp.getDescription());
+			assertEquals(INITIAL_TEST_ATTACK_CARD_DAMAGE, temp.getDamage());
+			
+		});
 	}
 
 	@Nested
@@ -53,4 +70,26 @@ class AttackCardTest {
 
         }
 	}
+	
+	private class TestAttackCard extends AttackCard {
+
+		public TestAttackCard(int damage) {
+			super(damage);
+			// TODO Auto-generated constructor stub
+		}
+
+		@Override
+		public String getName() {
+			// TODO Auto-generated method stub
+			return INITIAL_TEST_ATTACK_CARD_NAME;
+		}
+
+		@Override
+		public String getDescription() {
+			// TODO Auto-generated method stub
+			return INITIAL_TEST_ATTACK_CARD_INFO;
+		}
+		
+	}
+
 }
