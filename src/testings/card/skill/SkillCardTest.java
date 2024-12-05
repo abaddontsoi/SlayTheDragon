@@ -56,7 +56,7 @@ class SkillCardTest {
     void testBasicAttackBuff() {
         BasicAttackBuff basicAtkBuff = new BasicAttackBuff();
         assertEquals(1.5, basicAtkBuff.getatkbuff());
-        assertEquals("Baic Attack Buff", basicAtkBuff.getName());
+        assertEquals("Basic Attack Buff", basicAtkBuff.getName());
         assertEquals("Attack buffed 1.5 times.", basicAtkBuff.getDescription());
     }
 
