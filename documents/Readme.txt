@@ -43,8 +43,20 @@ Boss: Dragon
 
 < Type of Cards >
 Attack Card
+(Deal damages can be blocked by blocks)
 Defense Card
+(Gain blocks to block damage)
 Skill Card -- Heal, Poison, Attack Buff, Defense Buff, Draw
+Heal Card
+(Restore health points)
+Poison Card
+(Poison damage can accumulate and pierce through blocks. Once poison damage is inflicted, the accumulated poison damage will reduce by 1 each turn.)
+Attack Buff Card
+(Buff next played attack card)
+Defense Buff Card
+(buff next played defense card)
+Draw Card
+(Players can draw additional cards without counting against their card usage limit for the turn.)
 **Both three types have basic and advanced levels**
 
 <Basic Instruction>
@@ -62,7 +74,19 @@ enemy action will not apply to the player)
 6. Player once the health point becomes 0, the player will die, and game is over, the player must play again from level 1
 
 < Draw Card Mech>
-
+1. At the beginning of every battle, the deck is initialized with a predefined set of cards.
+2. After initialization, the deck is shuffled once before the battle starts.
+3. At the start of every turn, 5 cards are drawn from the deck into the player's or foe's hand.
+4. Cards are drawn in a queue format, popping from the deck to the hand.
+5. During the player's or foe's turn, 3 cards must be used from the hand.
+6. After using the cards, the turn ends.
+7. At the end of the turn, all cards in hand (used or unused) are moved to the discard queue.
+8. If the deck contains fewer than 5 cards at the start of a turn.
+   Recycling Cards:
+   -- All cards in the discard queue are pushed back -> deck.
+   -- The deck is reshuffled once.
+9. This cycle of drawing, using, discarding, and recycling continues until the battle ends.
+   
 < Game Flow >
 _____________________________________________  
 |Choose an effect:                            |  <-- Console
