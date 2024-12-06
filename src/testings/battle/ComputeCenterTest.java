@@ -44,17 +44,6 @@ class StubGameIO implements IIOHandler {
         return "";
     }
 
-    public List<String> getMessages() {
-        return messages;
-    }
-
-    public void addInput(String input) {
-        inputs.add(input);
-    }
-
-    public void clearMessages() {
-        messages.clear();
-    }
 }
 
 public class ComputeCenterTest {
