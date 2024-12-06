@@ -98,6 +98,9 @@ public abstract class Record {
 	public static String allRewardsString() {
 	    List<String> result = new ArrayList<>();
 	    for (ICard card : Record.getAllRewards()) {
+	    	if (card == null) {
+	    		continue;
+	    	}
 	        result.add(card.getName());
 	    }
 	    return String.join(", ", result);
