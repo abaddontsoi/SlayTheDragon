@@ -51,10 +51,12 @@ class RecordTest {
         mockPlayerData2.takeDamage(30);
         mockPlayerData1.addTotalHeal(20);
         mockPlayerData2.addTotalHeal(10);
-       
-        mockPlayerData1.doneRound(); // 5 rounds
-
-        mockPlayerData2.doneRound(); // 3 rounds
+        for (int i = 0; i < 5; i++) {
+            mockPlayerData1.doneRound(); // 5 rounds
+        }
+        for (int i = 0; i < 3; i++) {
+            mockPlayerData2.doneRound(); // 3 rounds
+        }
 
         // Add cards played
         for (int i = 0; i < 10; i++) {
