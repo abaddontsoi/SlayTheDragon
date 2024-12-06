@@ -40,44 +40,44 @@ public class Battle {
         CardFactory cardFactory = CardFactory.getInstance();
         gameIO.displayBattleStart(player, enemy, level);
         while (player.isAlive() && enemy.isAlive()) {
-            round();
+//            round();
         }
         endBattle();
     }
 
-    private void round() {
-        List<ICard> eCards;
-        List<ICard> pCards;
-        gameIO.displayMessage("\n=========================== Round " + round + " ===========================");
-        calculator.applyPoisonEffect();
-        if (player.isAlive() && enemy.isAlive()) {
-            applyEffects(enemy);
-            applyEffects(player);
-            gameIO.displayEntityStats(enemy);
-            // gameIO.displayEntityEffects(enemy);
-            foeCardManager.initializeTurn();
-            eCards = foeCardManager.chooseCards(calculator);
-            gameIO.displayMessage(enemy.getName() + " played cards:");
-
-            eCards.forEach((card) -> {
-                gameIO.displayMessage(card.getName() + " - " + card.getDescription());
-            });
-            calculator.calculateFoeRound(eCards);
-
-            gameIO.displayMessage("\n=========================== Your Action: ===========================");
-            gameIO.displayEntityStats(player);
-            // gameIO.displayEntityEffects(player);
-            playerCardManager.initializeTurn();
-            pCards = playerCardManager.chooseCards(calculator);
-            if (enemy.isAlive()) {
-                gameIO.displayMessage(
-                        "=========================== End Round " + round + " ===========================");
-                round++;
-            }
-            calculator.finishPlayerRound();
-        }
-
-    }
+//    private void round() {
+//        List<ICard> eCards;
+//        List<ICard> pCards;
+//        gameIO.displayMessage("\n=========================== Round " + round + " ===========================");
+//        calculator.applyPoisonEffect();
+//        if (player.isAlive() && enemy.isAlive()) {
+//            applyEffects(enemy);
+//            applyEffects(player);
+//            gameIO.displayEntityStats(enemy);
+//            // gameIO.displayEntityEffects(enemy);
+//            foeCardManager.initializeTurn();
+//            eCards = foeCardManager.chooseCards(calculator);
+//            gameIO.displayMessage(enemy.getName() + " played cards:");
+//
+//            eCards.forEach((card) -> {
+//                gameIO.displayMessage(card.getName() + " - " + card.getDescription());
+//            });
+//            calculator.calculateFoeRound(eCards);
+//
+//            gameIO.displayMessage("\n=========================== Your Action: ===========================");
+//            gameIO.displayEntityStats(player);
+//            // gameIO.displayEntityEffects(player);
+//            playerCardManager.initializeTurn();
+//            pCards = playerCardManager.chooseCards(calculator);
+//            if (enemy.isAlive()) {
+//                gameIO.displayMessage(
+//                        "=========================== End Round " + round + " ===========================");
+//                round++;
+//            }
+//            calculator.finishPlayerRound();
+//        }
+//
+//    }
 
     private void applyEffects(Entity entity) {
         entity.applyEffects();
