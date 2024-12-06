@@ -13,7 +13,7 @@ public class GameIO {
     private IIOHandler ioHandler;
     private static GameIO instance;
 
-	private GameIO() {
+	public GameIO() {
 		ioHandler = new ConsoleIOHandler();
 	}
 	
@@ -31,7 +31,13 @@ public class GameIO {
     public void displayBattleStart(Player player, Foe foe, int level) {
         ioHandler.displayMessage("\n======== Level " + level + " : " + foe.getType() + " Battle begins between player and " + foe.getName()+ " ========");
     }
-
+    
+    public static void setIOHandlerForTesting(IIOHandler handler) {
+        if (instance == null) {
+            instance = new GameIO();
+        }
+        instance.ioHandler = handler; // Replace the ioHandler with a custom handler
+    }
     
 	public String promptPermanentEffectSelection(List<String> effects) {
 	    ioHandler.displayMessage("Choose an effect:");

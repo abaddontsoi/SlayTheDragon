@@ -75,7 +75,13 @@ class SkillCardTest {
         assertEquals("Advance Poison Card", advancedPoison.getName());
         assertEquals("Deal 10 damage.", advancedPoison.getDescription());
     }
-
+    @Test
+    void testBasicPoisonCard() {
+    	BasicPoisonCard advancedPoison = new BasicPoisonCard();
+        assertEquals(5, advancedPoison.getDamage());
+        assertEquals("Basic Poison Card", advancedPoison.getName());
+        assertEquals("Poison 5 damage.", advancedPoison.getDescription());
+    }
     @Test
     void testInheritance() {
         assertTrue(new BasicHealCard() instanceof SkillCard);

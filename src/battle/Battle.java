@@ -139,7 +139,7 @@ public class Battle {
         calculator.addPlayerReward(card);
     }
 
-    private void endBattle() {
+    public void endBattle() {
         // Generate BattleRecord
         calculator.genBattleRecord();
 

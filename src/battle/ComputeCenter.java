@@ -55,8 +55,20 @@ public class ComputeCenter {
     public void setAttackBuff(Entity target, double attackbuff) {
         if (target instanceof Player) {
             playerData.setAttackBuff(attackbuff);
+            target.getEntityStatus().attackbuff(attackbuff); // Update EntityStatus
         } else {
             foeData.setAttackBuff(attackbuff);
+            target.getEntityStatus().attackbuff(attackbuff); // Update EntityStatus
+        }
+    }
+
+    public void setDefenseBuff(Entity target, double defensebuff) {
+        if (target instanceof Player) {
+            playerData.setDefenseBuff(defensebuff);
+            target.getEntityStatus().defensebuff(defensebuff); // Update EntityStatus
+        } else {
+            foeData.setDefenseBuff(defensebuff);
+            target.getEntityStatus().defensebuff(defensebuff); // Update EntityStatus
         }
     }
 
@@ -68,13 +80,6 @@ public class ComputeCenter {
         }
     }
 
-    public void setDefenseBuff(Entity target, double defensebuff) {
-        if (target instanceof Player) {
-            playerData.setDefenseBuff(defensebuff);
-        } else {
-            foeData.setDefenseBuff(defensebuff);
-        }
-    }
 
     public void calculateFoeRound(List<ICard> eCards) {
         eCards.forEach((card) -> {
@@ -106,7 +111,7 @@ public class ComputeCenter {
             playerData.setAttackDamage(playerDamage);
             playerData.addTotalAttackDamage(playerData.getAttackDamage());
 
-            if (playerData.getAttackDamage() < foeData.getDefense()) {
+            if (playerData.getAttackDamage() <= foeData.getDefense()) {
                 foeData.addDefense(-playerData.getAttackDamage());
 
                 gameIO.displayMessage("Player Damage To " + foeData.getEntityName() + ": 0");
@@ -187,7 +192,13 @@ public class ComputeCenter {
         playerData.updateMaxDamage(playerData.getAttackDamage());
         playerData.updateMaxDefense(playerData.getDefense());
     }
+    public PlayerData getPlayerDataForTest() {
+        return playerData;
+    }
 
+    public FoeData getFoeDataForTest() {
+        return foeData;
+    }
     public void addPlayerReward(ICard card) {
         playerData.addReward(card);
     }
