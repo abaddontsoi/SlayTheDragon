@@ -140,6 +140,7 @@ public abstract class Entity {
 		return this.status.getStatusCopy();
 	}
 
+
 	// public void addCardToHand(ICard card) {
 	// 	this.hand.addCardToHand(card);
 	// }
@@ -155,5 +156,5 @@ public abstract class Entity {
 	public void addCardToDeck(ICard card) {
 		deck.add(card);	
 	}
-
+	
 }

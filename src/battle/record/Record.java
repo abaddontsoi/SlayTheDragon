@@ -29,7 +29,7 @@ public abstract class Record {
 //	Data required from whole game:
 	
 //	1.	Total damage received
-	private static int getTotalDamageReceived() {
+	public static int getTotalDamageReceived() {
 		int sum = 0;
 		for (Record r : Record.records) {
 			sum += r.playerData.getReceivedDamage();
@@ -39,7 +39,7 @@ public abstract class Record {
 	
 	
 //	2.	Total healing in game
-	private static double getTotalHealingInGame() {
+	public static double getTotalHealingInGame() {
 		double sum = 0;
 		for (Record r : Record.records) {
 			sum += r.playerData.getTotalHeal();
@@ -48,14 +48,14 @@ public abstract class Record {
 	}
 	
 //	3.	Max and min # of rounds in 1 battle
-	private static int getMaxRoundsInBattle() {
+	public static int getMaxRoundsInBattle() {
 		int max = 0;
 		for (Record r : records) {
 			max = Math.max(max, r.playerData.getRounds());
 		}
 		return max;
 	}
-	private static int getMinRoundsInBattle() {
+	public static int getMinRoundsInBattle() {
 		int min = 0;
 		if (records.size() > 0) {
 			min = records.get(0).playerData.getRounds();
@@ -67,14 +67,14 @@ public abstract class Record {
 	}
 	
 //	4.	Max and min # of cards played in 1 battle
-	private static int getMaxCardsPlayedInBattle() {
+	public static int getMaxCardsPlayedInBattle() {
 		int max = -1;
 		for (Record r : records) {
 			max = Math.max(max, r.playerData.getTotalCardsPlayed());
 		}
 		return max;
 	}
-	private static int getMinCardsPlayedInBattle() {
+	public static int getMinCardsPlayedInBattle() {
 		int min = -1;
 		if (records.size() > 0) {
 			min = records.get(0).playerData.getTotalCardsPlayed();
@@ -88,29 +88,32 @@ public abstract class Record {
 	}
 	
 //	5.	All collected rewards
-	private static List<ICard> getAllRewards(){
+	public static List<ICard> getAllRewards(){
 		List<ICard> rewards = new ArrayList<>();
 		for (Record r : Record.records) {
 			rewards.addAll(r.playerData.getRewards());
 		}
 		return rewards;
 	}
-	private static String allRewardsString() {
+	public static String allRewardsString() {
 	    List<String> result = new ArrayList<>();
 	    for (ICard card : Record.getAllRewards()) {
+	    	if (card == null) {
+	    		continue;
+	    	}
 	        result.add(card.getName());
 	    }
 	    return String.join(", ", result);
 	}
 	
 //	6.	All foes faced
-	private static List<Entity> getAllFacedFoes() {
+	public static List<Entity> getAllFacedFoes() {
 		for (Record r : Record.records) {
 			Record.foesFaced.add(r.foeData.getEntity());
 		}
 		return foesFaced;
 	}
-	private static String getAllFacedFoesString() {
+	public static String getAllFacedFoesString() {
 		String s = "Faced foes: \n";
 		
 		for (Entity e: getAllFacedFoes()) {
@@ -121,7 +124,7 @@ public abstract class Record {
 	}
 	
 //	7. Total damage dealt
-	private static int getPlayerTotalDamage() {
+	public static int getPlayerTotalDamage() {
 		int sum = 0;
 		for (Record r: records) {
 			sum += r.playerData.getTotalAttackDamage();
@@ -130,7 +133,7 @@ public abstract class Record {
 	}
 	
 //	8. Total block
-	private static int getPlayerTotalDefense() {
+	public static int getPlayerTotalDefense() {
 		int sum = 0;
 		for (Record r: records) {
 			sum += r.playerData.getTotalDefense();

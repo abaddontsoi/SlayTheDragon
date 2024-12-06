@@ -173,6 +173,7 @@ class PlayerDataTest {
         // Test updating with negative value
         playerData.updateMaxDamage(-5);
         assertEquals(20, playerData.getMaxDamage());
+        
     }
 
     @Test

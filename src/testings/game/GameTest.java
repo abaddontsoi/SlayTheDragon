@@ -10,7 +10,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import game.Game;
-
+import org.junit.Ignore;
 class GameTest {
     
     private Game game;
