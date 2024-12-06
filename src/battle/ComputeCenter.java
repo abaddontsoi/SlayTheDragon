@@ -138,6 +138,9 @@ public class ComputeCenter {
         if (card instanceof SkillCard) {
             ((SkillCard) card).play(playerData.getEntity(), this);
             gameIO.displayMessage("Player apply skill: " + card.getDescription());
+            if(card instanceof HealCard){
+                gameIO.displayMessage("Player Health Point After Heal: " + playerData.getHealth());
+            }
         }
         gameIO.displayMessage("============================");
         if (foeData.getHealth() <= 0) {
