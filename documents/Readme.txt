@@ -59,7 +59,7 @@ Draw Card
 (Players can draw additional cards without counting against their card usage limit for the turn.)
 **Both three types have basic and advanced levels**
 
-<Basic Instruction>
+< Basic Instruction >
 1. The system will first display the enemy's status and action. 
 (Enemy action will apply after player action ends, which means if the player kills the enemy during player action,
 enemy action will not apply to the player)
@@ -73,7 +73,7 @@ enemy action will not apply to the player)
 5. Player Status will remain until the next battle, like remaining health point
 6. Player once the health point becomes 0, the player will die, and game is over, the player must play again from level 1
 
-< Draw Card Mech>
+< Draw Card Mech >
 1. At the beginning of every battle, the deck is initialized with a predefined set of cards.
 2. After initialization, the deck is shuffled once before the battle starts.
 3. At the start of every turn, 5 cards are drawn from the deck into the player's or foe's hand.
@@ -86,7 +86,8 @@ enemy action will not apply to the player)
    -- All cards in the discard queue are pushed back -> deck.
    -- The deck is reshuffled once.
 9. This cycle of drawing, using, discarding, and recycling continues until the battle ends.
-   
+=====================================================================================================
+
 < Game Flow >
 _____________________________________________  
 |Choose an effect:                            |  <-- Console
